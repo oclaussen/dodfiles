@@ -1,0 +1,78 @@
+set nocompatible
+
+filetype off
+set rtp+=/root/.config/nvim/bundle/vundle
+call vundle#begin("/root/.config/nvim/bundle")
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jnurmine/Zenburn'
+Plugin 'wincent/command-t'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'fatih/vim-go'
+call vundle#end()
+
+filetype indent plugin on
+syntax on
+
+set background=dark
+let g:solarized_termtrans="1"
+colorscheme solarized
+
+set clipboard=unnamed,unnamedplus
+set wildmenu
+set backspace=indent,eol,start
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set startofline
+set errorbells
+set mouse=a
+set ttyfast
+
+set splitbelow
+set splitright
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set autoindent
+
+set showcmd
+set cmdheight=1
+set title
+set ruler
+set number
+set cursorline
+set textwidth=80
+set colorcolumn=+1,+41
+
+set backupdir=/root/.config/nvim/backups
+set directory=/root/.config/nvim/swaps
+set undodir=/root/.config/nvim/undo
+
+let g:mapleader=","
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap - :split<CR>
+nnoremap \| :vsplit<CR>
+nnoremap Q <nop>
+
+autocmd FileType * set formatoptions-=t
+
+autocmd BufNewFile,BufRead *.frb set syntax=ruby
+autocmd BufNewFile,BufRead *.frb set filetype=ruby
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd vimenter * NERDTree | wincmd w
+noremap  <C-n> :NERDTreeToggle<CR>
+
+let g:ctrlp_user_command=[".git","cd %s && git ls-files -co --exclude-standard"]
+let g:ctrlp_map="<C-e>"
