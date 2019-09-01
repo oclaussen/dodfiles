@@ -1,8 +1,8 @@
 backdrops:
   vi:
     image:
-      context: '{{ cwd }}/vi'
-      dockerfile: '{{ cwd }}/vi/Dockerfile'
+      context: '{{ user.HomeDir }}/.dodfiles/vi'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/vi/Dockerfile'
     volumes:
       - '{{ projectRoot }}:/work'
     working_dir: /work
