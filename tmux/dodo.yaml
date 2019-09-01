@@ -1,0 +1,14 @@
+backdrops:
+  tmux:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/tmux'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/tmux/Dockerfile'
+    volumes_from: tmux
+    environment:
+      - TMUX_TMPDIR=/var/lib/tmux
+    script: |
+      if [ $# != 0 ]; then
+        exec tmux "$@"
+      else
+        exec tmux -2 attach -t default
+      fi

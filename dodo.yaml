@@ -1,8 +1,19 @@
 include:
-  - file: '{{ user.HomeDir }}/.dodfiles/vi/dodo.yaml'
   - file: '{{ user.HomeDir }}/.dodfiles/cloudtools/dodo.yaml'
+  - file: '{{ user.HomeDir }}/.dodfiles/tmux/dodo.yaml'
+  - file: '{{ user.HomeDir }}/.dodfiles/vi/dodo.yaml'
 
 backdrops:
+  init:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '{{ user.HomeDir }}/.dodfiles:/compose'
+    working_dir: '/compose'
+    script: exec docker-compose up -d
+
   alpine:
     image: alpine:latest
     interactive: true

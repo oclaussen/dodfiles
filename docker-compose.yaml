@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  tmux:
+    build:
+      context: tmux
+    environment:
+      - TMUX_TMPDIR=/var/lib/tmux
+    volumes:
+      - tmux-socket:/var/lib/tmux
+    entrypoint: /server.sh
+    container_name: tmux
+    restart: always
+
+volumes:
+  tmux-socket:
