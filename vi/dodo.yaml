@@ -1,0 +1,9 @@
+backdrops:
+  vi:
+    image:
+      context: '{{ cwd }}/vi'
+      dockerfile: '{{ cwd }}/vi/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/work'
+    working_dir: /work
+    script: exec nvim "$@"

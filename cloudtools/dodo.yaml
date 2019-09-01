@@ -1,0 +1,89 @@
+backdrops:
+  aws:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+    volumes:
+      - '{{ user.HomeDir }}/.aws:/root/.aws'
+    script: |
+      aws "$@"
+
+  terraform:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+    volumes:
+      - '{{ user.HomeDir }}/.aws:/root/.aws'
+      - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
+      - '{{ projectRoot }}:/build'
+    environment:
+      - AWS_PROFILE
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - TF_LOG=DEBUG
+      - TF_LOG_PATH=/build/terraform.log
+      - TF_VAR_username=ole.claussen
+    working_dir: '/build/{{ projectPath }}'
+    script: |
+      test -f terraform.log && rm -f terraform.log
+      exec terraform "$@"
+    command: apply
+
+  packer:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+    environment:
+      - AWS_PROFILE
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+    volumes:
+      - '{{ user.HomeDir }}/.aws:/root/.aws'
+      - '{{ projectRoot }}:/build'
+    working_dir: "/build/{{ projectPath }}"
+    script: exec packer "$@"
+
+  ansible:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING=False
+    volumes:
+      - '{{ user.HomeDir }}/.aws:/root/.aws'
+      - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: |
+      eval $(ssh-agent)
+      ssh-add
+      ansible-playbook "$@"
+
+  kubectl:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+    volumes:
+      - '{{ user.HomeDir }}/.aws:/root/.aws'
+      - '{{ user.HomeDir }}/.kube:/root/.kube'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: |
+      if [ "$1" = "ctx" ]; then
+        shift
+        exec /bin/kubectx "$@"
+      elif [ "$1" = "ns" ]; then
+        shift
+        exec /bin/kubens "$@"
+      else
+        exec /bin/kubectl "$@"
+      fi
+
+  render:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
+      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec render "$@"

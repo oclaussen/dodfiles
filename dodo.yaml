@@ -1,9 +1,36 @@
+include:
+  - file: '{{ user.HomeDir }}/.dodfiles/vi/dodo.yaml'
+  - file: '{{ user.HomeDir }}/.dodfiles/cloudtools/dodo.yaml'
+
 backdrops:
-  vi:
-    image:
-      context: '{{ cwd }}/vi'
-      dockerfile: '{{ cwd }}/vi/Dockerfile'
+  alpine:
+    image: alpine:latest
+    interactive: true
+
+  k9s:
+    build:
+      steps: |
+        FROM alpine:3.9
+        RUN apk add ca-certificates git bash curl
+        RUN wget -O /bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
+        RUN chmod +x /bin/aws-iam-authenticator
+        RUN wget -O /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/0.7.6/k9s_0.7.6_Linux_x86_64.tar.gz
+        RUN tar -xzf /tmp/k9s.tar.gz -C /bin
     volumes:
-      - '{{ projectRoot }}:/work'
-    working_dir: /work
-    script: exec nvim "$@"
+      - '{{ user.HomeDir }}/.aws:/root/.aws'
+      - '{{ user.HomeDir }}/.kube:/root/.kube'
+    script: exec k9s "$@"
+
+  psql:
+    image:
+      steps: |
+        FROM alpine:3.9
+        RUN apk add --no-cache postgresql-client
+    script: exec psql "$@"
+
+  mysql:
+    image:
+      steps: |
+        FROM alpine:3.9
+        RUN apk add --no-cache mysql-client
+    script: exec mysql "$@"
