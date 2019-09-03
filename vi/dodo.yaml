@@ -4,6 +4,9 @@ backdrops:
       context: '{{ user.HomeDir }}/.dodfiles/vi'
       dockerfile: '{{ user.HomeDir}}/.dodfiles/vi/Dockerfile'
     volumes:
+      - 'vim-data:/data'
       - '{{ projectRoot }}:/work'
     working_dir: /work
-    script: exec nvim "$@"
+    script: |
+      mkdir -p /data/backups /data/swaps /data/undo
+      exec nvim "$@"

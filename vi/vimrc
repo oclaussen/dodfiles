@@ -64,9 +64,9 @@ set cursorline
 set textwidth=80
 set colorcolumn=+1,+41
 
-set backupdir=/root/.config/nvim/backups
-set directory=/root/.config/nvim/swaps
-set undodir=/root/.config/nvim/undo
+set backupdir=/data/backups
+set directory=/data/swaps
+set undodir=/data/undo
 
 let g:mapleader=","
 
