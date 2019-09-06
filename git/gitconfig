@@ -1,0 +1,45 @@
+[user]
+    name = Ole Claussen
+    email = ole.claussen@numberfour.eu
+
+[core]
+    whitespace = trailing-space
+
+[push]
+    default = simple
+
+[fetch]
+    prune = true
+
+[alias]
+    s = status -s
+    fa = fetch --all
+    precommit = diff --cached --diff-algorithm=minimal -w
+    unmerged = diff --name-only --diff-filter=U
+    graph = log --graph -n 20 --branches --remotes --tags --date-order --abbrev-commit --pretty=oneline --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d'
+    standup = log --since yesterday --oneline --author 'ole.claussen'
+    gud = "!git fetch --all --prune && git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs git branch -D && git gc"
+    todo = "!git grep -HEIin --full-name -e \"(#|//|;|--|!|/\\*|\\{-)\\s*todo\" | sed -Ee \"s/([^:]*:[0-9]*):.*[Tt][Oo][Dd][Oo]:?(.*)$/- \\2 [\\1]/\""
+    git = !exec git
+    backup = !git bundle create "/Volumes/FOOBAR/Documents/git/$(basename $(pwd)).bundle" --all && git tag -f backup
+    unstage = reset HEAD --
+    discard = checkout --
+    hotfix = commit --amend --no-edit
+    root = rev-parse --show-toplevel
+    sha = rev-parse HEAD
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
+    stashes = stash list
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[url "git@gist.github.com"]
+    insteadOf = gist
+
+[url "git@github.com"]
+    insteadOf = github

@@ -1,5 +1,6 @@
 include:
   - file: '{{ user.HomeDir }}/.dodfiles/cloudtools/dodo.yaml'
+  - file: '{{ user.HomeDir }}/.dodfiles/git/dodo.yaml'
   - file: '{{ user.HomeDir }}/.dodfiles/tmux/dodo.yaml'
   - file: '{{ user.HomeDir }}/.dodfiles/vi/dodo.yaml'
 

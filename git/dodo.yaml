@@ -1,0 +1,10 @@
+backdrops:
+  git:
+    image:
+      context: '{{ user.HomeDir }}/.dodfiles/git'
+      dockerfile: '{{ user.HomeDir }}/.dodfiles/git/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/project'
+      - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
+    working_dir: '/project/{{ projectPath }}'
+    script: exec git "$@"
