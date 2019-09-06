@@ -27,6 +27,8 @@ RUN apt-get -y update \
         jq \
         less \
         make \
+        ncurses-base \
+        ncurses-bin \
         openssh-client \
         python3 \
         python3-pip \
