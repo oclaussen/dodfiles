@@ -1,8 +1,8 @@
 backdrops:
   git:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/git'
-      dockerfile: '{{ user.HomeDir }}/.dodfiles/git/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ projectRoot }}:/project'
       - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'

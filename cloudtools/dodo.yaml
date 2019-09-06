@@ -1,8 +1,8 @@
 backdrops:
   aws:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ user.HomeDir }}/.aws:/root/.aws'
     script: |
@@ -10,8 +10,8 @@ backdrops:
 
   terraform:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ user.HomeDir }}/.aws:/root/.aws'
       - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
@@ -31,8 +31,8 @@ backdrops:
 
   packer:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     environment:
       - AWS_PROFILE
       - AWS_ACCESS_KEY_ID
@@ -45,8 +45,8 @@ backdrops:
 
   ansible:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     environment:
       - ANSIBLE_HOST_KEY_CHECKING=False
     volumes:
@@ -61,8 +61,8 @@ backdrops:
 
   kubectl:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ user.HomeDir }}/.aws:/root/.aws'
       - '{{ user.HomeDir }}/.kube:/root/.kube'
@@ -81,8 +81,8 @@ backdrops:
 
   render:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'

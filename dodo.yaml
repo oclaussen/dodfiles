@@ -1,14 +1,14 @@
 include:
-  - file: '{{ user.HomeDir }}/.dodfiles/cloudtools/dodo.yaml'
-  - file: '{{ user.HomeDir }}/.dodfiles/git/dodo.yaml'
-  - file: '{{ user.HomeDir }}/.dodfiles/tmux/dodo.yaml'
-  - file: '{{ user.HomeDir }}/.dodfiles/vi/dodo.yaml'
+  - file: '{{ currentDir }}/cloudtools/dodo.yaml'
+  - file: '{{ currentDir }}/git/dodo.yaml'
+  - file: '{{ currentDir }}/tmux/dodo.yaml'
+  - file: '{{ currentDir }}/vi/dodo.yaml'
 
 backdrops:
   init:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/cloudtools'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/cloudtools/Dockerfile'
+      context: '{{ currentDir }}/cloudtools'
+      dockerfile: '{{ currentDir }}/cloudtools/Dockerfile'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '{{ user.HomeDir }}/.dodfiles:/compose'

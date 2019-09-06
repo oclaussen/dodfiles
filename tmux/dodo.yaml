@@ -1,8 +1,8 @@
 backdrops:
   tmux:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/tmux'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/tmux/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes_from: tmux
     environment:
       - TMUX_TMPDIR=/var/lib/tmux

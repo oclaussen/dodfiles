@@ -1,8 +1,8 @@
 backdrops:
   vi:
     image:
-      context: '{{ user.HomeDir }}/.dodfiles/vi'
-      dockerfile: '{{ user.HomeDir}}/.dodfiles/vi/Dockerfile'
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'vim-data:/data'
       - '{{ projectRoot }}:/work'
