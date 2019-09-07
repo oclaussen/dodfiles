@@ -4,17 +4,24 @@ services:
   tmux:
     build:
       context: tmux
-    environment:
-      - TMUX_TMPDIR=/var/lib/tmux
     volumes:
-      - tmux-socket:/var/lib/tmux
-    entrypoint: /server.sh
+      - 'tmux-data:/data/tmux'
+      - 'zsh-data:/data/zsh'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/Users:/Users'
+    environment:
+      - 'TMUX_TMPDIR=/data/tmux'
+    working_dir: '${HOMEDIR}'
+    entrypoint: /session.sh
     container_name: tmux
     restart: always
 
 volumes:
-  tmux-socket:
-    name: tmux-socket
+  tmux-data:
+    name: tmux-data
 
   vim-data:
     name: vim-data
+
+  zsh-data:
+    name: zsh-data

@@ -3,9 +3,9 @@ backdrops:
     image:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
-    volumes_from: tmux
+    volumes: 'tmux-data:/data/tmux'
     environment:
-      - TMUX_TMPDIR=/var/lib/tmux
+      - 'TMUX_TMPDIR=/data/tmux'
     script: |
       if [ $# != 0 ]; then
         exec tmux "$@"

@@ -1,0 +1,63 @@
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+export PS1=$'%{\033[34m%}(%{\033[38m%}%{\033[33m%}%n@%m%{\033[38m%}%{\033[34m%})-%{\033[38m%}%{\033[34m%}(%{\033[38m%}%{\033[33m%}%3~%{\033[38m%}%{\033[34m%})-%{\033[38m%}%{\033[34m%}(%{\033[38m%}%(?.%{\033[32m%}%h%{\033[38m%}.%{\033[31m%}%h%{\033[38m%})%{\033[34m%})-%{\033[38m%}%{\033[34m%}( %{\033[38m%}%{\033[0m%}'
+
+[[ -n "${terminfo[khome]}" ]] && bindkey "${terminfo[khome]}" beginning-of-line
+[[ -n "${terminfo[kend]}"  ]] && bindkey "${terminfo[kend]}"  end-of-line
+[[ -n "${terminfo[kich1]}" ]] && bindkey "${terminfo[kich1]}" overwrite-mode
+[[ -n "${terminfo[kdch1]}" ]] && bindkey "${terminfo[kdch1]}" delete-char
+[[ -n "${terminfo[kcuu1]}" ]] && bindkey "${terminfo[kcuu1]}" up-line-or-history
+[[ -n "${terminfo[kcud1]}" ]] && bindkey "${terminfo[kcud1]}" down-line-or-history
+[[ -n "${terminfo[kcub1]}" ]] && bindkey "${terminfo[kcub1]}" backward-char
+[[ -n "${terminfo[kcuf1]}" ]] && bindkey "${terminfo[kcuf1]}" forward-char
+
+bindkey -v
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+export CDPATH=":..:~"
+
+..() {
+  range=$(eval "echo '{1..$1}'");
+  toPrint="'../%.0s' $range";
+  printfToEval=$(echo "printf $toPrint");
+  toCd=$(eval $printfToEval);
+  eval "cd $toCd";
+  pwd;
+}
+
+alias ':q'="exit"
+alias 'ls'="ls -p"
+alias 'll'="ls -phlA"
+alias 'grep'="grep --color=auto"
+alias 'egrep'="egrep --color=auto"
+alias 'fgrep'="fgrep --color=auto"
+alias 'pgrep'="pgrep -l"
+alias 'rm'="rm -v"
+alias 'cp'="cp -v"
+alias 'mv'="mv -v"
+alias 'df'="df -h"
+alias 'du'="du -h"
+alias 'mkdir'="mkdir -p -v"
+alias 'ping'="ping -c 3"
+
+alias 'yank'="chirp copy --address 192.168.99.1:24709"
+alias 'put'="chirp paste --address 192.168.99.1:24709"
+
+autoload -Uz compinit && compinit
+export KEYTIMEOUT=""
+unsetopt nomatch
+setopt extendedglob
+
+export HISTFILE="/data/zsh/history"
+export HISTSIZE="10000"
+export SAVEHIST="10000"
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_ALL_DUPS
+setopt INC_APPEND_HISTORY
+setopt APPEND_HISTORY
