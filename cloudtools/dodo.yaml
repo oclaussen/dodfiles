@@ -1,73 +1,47 @@
 backdrops:
-  aws:
+  cloudtools: &cloudtools
     image:
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-    volumes:
-      - '{{ user.HomeDir }}/.aws:/root/.aws'
-    script: |
-      aws "$@"
-
-  terraform:
-    image:
+      name: dodo/cloudtools
+      requires: [dodo/base, dodo/languages/golang]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ user.HomeDir }}/.aws:/root/.aws'
       - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
+      - '{{ user.HomeDir }}/.kube:/root/.kube'
       - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+
+  aws:
+    <<: *cloudtools
+    script: exec aws "$@"
+
+  terraform:
+    <<: *cloudtools
     environment:
-      - AWS_PROFILE
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
       - TF_LOG=DEBUG
       - TF_LOG_PATH=/build/terraform.log
       - TF_VAR_username=ole.claussen
-    working_dir: '/build/{{ projectPath }}'
     script: |
       test -f terraform.log && rm -f terraform.log
       exec terraform "$@"
     command: apply
 
   packer:
-    image:
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-    environment:
-      - AWS_PROFILE
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
-    volumes:
-      - '{{ user.HomeDir }}/.aws:/root/.aws'
-      - '{{ projectRoot }}:/build'
-    working_dir: "/build/{{ projectPath }}"
+    <<: *cloudtools
     script: exec packer "$@"
 
   ansible:
-    image:
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+    <<: *cloudtools
     environment:
       - ANSIBLE_HOST_KEY_CHECKING=False
-    volumes:
-      - '{{ user.HomeDir }}/.aws:/root/.aws'
-      - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
-      - '{{ projectRoot }}:/build'
-    working_dir: '/build/{{ projectPath }}'
     script: |
       eval $(ssh-agent)
       ssh-add
       ansible-playbook "$@"
 
   kubectl:
-    image:
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-    volumes:
-      - '{{ user.HomeDir }}/.aws:/root/.aws'
-      - '{{ user.HomeDir }}/.kube:/root/.kube'
-      - '{{ projectRoot }}:/build'
-    working_dir: '/build/{{ projectPath }}'
+    <<: *cloudtools
     script: |
       if [ "$1" = "ctx" ]; then
         shift
@@ -80,10 +54,5 @@ backdrops:
       fi
 
   render:
-    image:
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-    volumes:
-      - '{{ projectRoot }}:/build'
-    working_dir: '/build/{{ projectPath }}'
+    <<: *cloudtools
     script: exec render "$@"

@@ -1,0 +1,12 @@
+backdrops:
+  golang:
+    alias: go
+    image:
+      name: dodo/languages/golang
+      requires: dodo/base
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/work'
+    working_dir: /work
+    script: exec go "$@"

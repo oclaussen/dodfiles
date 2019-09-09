@@ -1,6 +1,8 @@
 backdrops:
   tmux:
     image:
+      name: dodo/tmux
+      requires: dodo/base
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes: 'tmux-data:/data/tmux'

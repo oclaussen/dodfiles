@@ -1,20 +1,20 @@
-FROM golang:1.12.9-stretch AS terraform-bundler
+FROM dodo/languages/golang AS terraform-bundler
 
 RUN apt-get -y update \
  && apt-get install -y git zip
 
 RUN go get -d -v github.com/hashicorp/terraform \
- && cd $GOPATH/src/github.com/hashicorp/terraform \
+ && cd /root/go/src/github.com/hashicorp/terraform \
  && git checkout v0.11.14 \
  && go install ./tools/terraform-bundle
 
 COPY terraform-bundle.hcl .
 
-RUN terraform-bundle package terraform-bundle.hcl \
+RUN /root/go/bin/terraform-bundle package terraform-bundle.hcl \
  && mkdir -p terraform-bundle \
  && unzip -d terraform-bundle terraform_*.zip
 
-FROM bitnami/minideb:stretch
+FROM dodo/base
 
 RUN apt-get -y update \
  && apt-get -y install \
@@ -41,9 +41,9 @@ RUN pip3 install --upgrade \
         awscli \
         boto3
 
-COPY --from=docker:19.03.1         /usr/local/bin/docker  /bin/docker
-COPY --from=hashicorp/packer:1.3.4 /bin/packer            /bin/packer
-COPY --from=terraform-bundler      /go/terraform-bundle/* /bin/
+COPY --from=docker:19.03.1         /usr/local/bin/docker /bin/docker
+COPY --from=hashicorp/packer:1.3.4 /bin/packer           /bin/packer
+COPY --from=terraform-bundler      /terraform-bundle/*   /bin/
 
 RUN curl -L -o session-manager-plugin.deb https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb \
  && dpkg -i session-manager-plugin.deb

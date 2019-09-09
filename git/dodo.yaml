@@ -1,6 +1,7 @@
 backdrops:
   git:
     image:
+      requires: dodo/base
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:

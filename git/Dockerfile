@@ -1,4 +1,4 @@
-FROM bitnami/minideb:buster
+FROM dodo/base
 
 RUN apt-get -y update \
  && apt-get -y install \

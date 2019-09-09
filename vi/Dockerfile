@@ -1,4 +1,4 @@
-FROM bitnami/minideb:buster
+FROM dodo/base
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -9,11 +9,8 @@ RUN apt-get update \
         neovim \
  && rm -rf /var/lib/apt/lists/*
 
-RUN curl -L -o /tmp/go.tgz \
-    https://golang.org/dl/go1.12.9.linux-amd64.tar.gz \
- && tar -C /usr/local -xzf /tmp/go.tgz \
- && rm /tmp/go.tgz
-ENV PATH /usr/local/go/bin:$PATH
+COPY --from=dodo/languages/golang /opt/go /opt/go
+ENV PATH /opt/go/bin:$PATH
 
 RUN curl -L -o /bin/chirp \
     https://github.com/oclaussen/chirp/releases/download/1.0/chirp_linux_amd64 \

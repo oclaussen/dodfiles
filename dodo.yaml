@@ -1,8 +1,10 @@
 include:
+  - file: '{{ currentDir }}/base/dodo.yaml'
   - file: '{{ currentDir }}/cloudtools/dodo.yaml'
   - file: '{{ currentDir }}/git/dodo.yaml'
   - file: '{{ currentDir }}/tmux/dodo.yaml'
   - file: '{{ currentDir }}/vi/dodo.yaml'
+  - file: '{{ currentDir }}/languages/golang/dodo.yaml'
 
 backdrops:
   init:

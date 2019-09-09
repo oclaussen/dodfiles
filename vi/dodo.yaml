@@ -1,6 +1,9 @@
 backdrops:
-  vi:
+  vim:
+    aliases: vi
     image:
+      name: dodo/vim
+      requires: [dodo/base, dodo/languages/golang]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
