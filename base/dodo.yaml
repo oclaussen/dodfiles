@@ -1,0 +1,7 @@
+backdrops:
+  base:
+    image:
+      name: dodo/base
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    interactive: true
