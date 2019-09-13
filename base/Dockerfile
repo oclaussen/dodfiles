@@ -28,6 +28,19 @@ RUN apt-get update \
  && apt-get upgrade -y -o Dpkg::Options::="--force-confdef" \
  && apt-get clean
 
+# Users and groups
+RUN addgroup \
+      --gid 1000 \
+      dodo \
+ && adduser \
+      --uid 1000 \
+      --gid 1000 \
+      --gecos '' \
+      --home /home/dodo \
+      --shell /bin/bash \
+      --disabled-password \
+      dodo
+
 # Cleanup
 RUN rm -r /usr/share/info/* \
  && rm -r /usr/share/locale/* \
