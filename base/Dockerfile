@@ -39,7 +39,8 @@ RUN addgroup \
       --home /home/dodo \
       --shell /bin/bash \
       --disabled-password \
-      dodo
+      dodo \
+ && adduser dodo users
 
 # Cleanup
 RUN rm -r /usr/share/info/* \
