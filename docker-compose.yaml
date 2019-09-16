@@ -1,20 +1,47 @@
 version: '3.7'
 
+# TODO: handle bind mounts from the user's home directory properls
+# - do not hard code the user names
+# - encrypt secrets
+
 services:
   tmux:
-    build:
-      context: tmux
+    container_name: tmux-session
+    restart: always
+    depends_on:
+      - init-volumes
+    build: tmux
+    environment:
+      - 'TMUX_TMPDIR=/data/tmux'
     volumes:
       - 'tmux-data:/data/tmux'
       - 'zsh-data:/data/zsh'
+      - 'vim-data:/data/vim'
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/Users:/Users'
-    environment:
-      - 'TMUX_TMPDIR=/data/tmux'
-    working_dir: '${HOMEDIR}'
-    entrypoint: /session.sh
-    container_name: tmux
-    restart: always
+      - '/Users/ole.claussen:/home/dodo/ole.claussen'
+      - '/Users/ole.claussen/.dodfiles:/home/dodo/.dodfiles'
+      - '/Users/ole.claussen/.dodo.yaml:/home/dodo/.dodo.yaml'
+
+  init-volumes:
+    image: dodo/base
+    volumes:
+      - 'tmux-data:/data/tmux'
+      - 'zsh-data:/data/zsh'
+      - 'vim-data:/data/vim'
+      - 'sshconfig:/data/sshconfig'
+      - 'awsconfig:/data/awsconfig'
+      - 'kubeconfig:/data/kubeconfig'
+      - '/Users/ole.claussen/.ssh:/home/dodo/.ssh'
+      - '/Users/ole.claussen/.aws:/home/dodo/.aws'
+      - '/Users/ole.claussen/.kube:/home/dodo/.kube'
+    entrypoint:
+      - /bin/sh
+      - -euxc
+      - |
+        cp -r /home/dodo/.ssh/* /data/sshconfig/
+        cp -r /home/dodo/.aws/* /data/awsconfig/
+        cp -r /home/dodo/.kube/* /data/kubeconfig/
+        chown -R dodo:dodo /data/*
 
 volumes:
   tmux-data:
@@ -25,3 +52,12 @@ volumes:
 
   zsh-data:
     name: zsh-data
+
+  sshconfig:
+    name: sshconfig
+
+  awsconfig:
+    name: awsconfig
+
+  kubeconfig:
+    name: kubeconfig

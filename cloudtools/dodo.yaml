@@ -6,9 +6,9 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - '{{ user.HomeDir }}/.aws:/root/.aws'
-      - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
-      - '{{ user.HomeDir }}/.kube:/root/.kube'
+      - 'awsconfig:/root/.aws'
+      - 'sshconfig:/root/.ssh'
+      - 'kubeconfig:/root/.kube'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
 

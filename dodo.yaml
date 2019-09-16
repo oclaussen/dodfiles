@@ -5,23 +5,23 @@ include:
   - file: '{{ currentDir }}/tmux/dodo.yaml'
   - file: '{{ currentDir }}/vi/dodo.yaml'
   - file: '{{ currentDir }}/languages/golang/dodo.yaml'
+  - file: '{{ currentDir }}/languages/ruby/dodo.yaml'
 
 backdrops:
   init:
     image:
-      context: '{{ currentDir }}/cloudtools'
-      dockerfile: '{{ currentDir }}/cloudtools/Dockerfile'
+      requires: dodo/base
+      steps: |
+        FROM dodo/base
+        RUN apt-get update && apt-get -y install curl
+        RUN curl -L -o /bin/docker-compose \
+            https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64 \
+         && chmod +x /bin/docker-compose
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '{{ user.HomeDir }}/.dodfiles:/compose'
+      - '{{ currentDir }}:/compose'
     working_dir: '/compose'
-    environment:
-      - 'HOMEDIR={{ user.HomeDir }}'
     script: exec docker-compose up -d --build
-
-  alpine:
-    image: alpine:latest
-    interactive: true
 
   k9s:
     build:
@@ -33,8 +33,8 @@ backdrops:
         RUN wget -O /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/0.7.6/k9s_0.7.6_Linux_x86_64.tar.gz
         RUN tar -xzf /tmp/k9s.tar.gz -C /bin
     volumes:
-      - '{{ user.HomeDir }}/.aws:/root/.aws'
-      - '{{ user.HomeDir }}/.kube:/root/.kube'
+      - 'awsconfig:/root/.aws'
+      - 'kubeconfig:/root/.kube'
     script: exec k9s "$@"
 
   psql:

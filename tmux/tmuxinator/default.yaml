@@ -1,0 +1,25 @@
+name: default
+attach: false
+root: ~/
+
+windows:
+  - work:
+      layout: main-horizontal
+      panes:
+        - dodo vi
+        - zsh
+        - zsh
+  - adhoc:
+      layout: main-horizontal
+      panes:
+        - zsh
+  - wabe:
+      layout: main-horizontal
+      panes:
+        - dodo vi
+        - zsh
+        - zsh
+  - kubernetes:
+      layout: main-horizontal
+      panes:
+        - dodo k9s

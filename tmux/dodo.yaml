@@ -1,13 +1,15 @@
 backdrops:
-  tmux:
+  tmux-client:
+    aliases: tmux
     image:
       name: dodo/tmux
       requires: dodo/base
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      steps: |
+        FROM dodo/base
+        RUN apt-get update && apt-get -y install tmux
     volumes: 'tmux-data:/data/tmux'
-    environment:
-      - 'TMUX_TMPDIR=/data/tmux'
+    environment: 'TMUX_TMPDIR=/data/tmux'
+    user: dodo
     script: |
       if [ $# != 0 ]; then
         exec tmux "$@"

@@ -5,7 +5,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
+      - 'sshconfig:/root/.ssh'
       - '{{ projectRoot }}:/project'
-      - '{{ user.HomeDir }}/.ssh/id_rsa:/root/.ssh/id_rsa:ro'
     working_dir: '/project/{{ projectPath }}'
     script: exec git "$@"
