@@ -1,25 +1,35 @@
 name: default
 attach: false
-root: ~/
+root: /Users/ole.claussen
 
 windows:
   - work:
       layout: main-horizontal
+      root: /Users/ole.claussen/github-n4
       panes:
         - dodo vi
         - zsh
         - zsh
+
   - adhoc:
       layout: main-horizontal
       panes:
         - zsh
+
   - wabe:
       layout: main-horizontal
+      root: /Users/ole.claussen/github
       panes:
         - dodo vi
         - zsh
         - zsh
+
   - kubernetes:
       layout: main-horizontal
       panes:
         - dodo k9s
+
+  - host:
+      layout: main-horizontal
+      panes:
+        - dodo ssh ole.claussen@192.168.99.1

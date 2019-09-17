@@ -2,7 +2,8 @@ include:
   - file: '{{ currentDir }}/base/dodo.yaml'
   - file: '{{ currentDir }}/cloudtools/dodo.yaml'
   - file: '{{ currentDir }}/git/dodo.yaml'
-  - file: '{{ currentDir }}/tmux/dodo.yaml'
+  - file: '{{ currentDir }}/session/dodo.yaml'
+  - file: '{{ currentDir }}/ssh/dodo.yaml'
   - file: '{{ currentDir }}/vi/dodo.yaml'
   - file: '{{ currentDir }}/languages/golang/dodo.yaml'
   - file: '{{ currentDir }}/languages/ruby/dodo.yaml'
@@ -10,7 +11,8 @@ include:
 backdrops:
   init:
     image:
-      requires: dodo/base
+      # Make sure to build everything on init
+      requires: [dodo/base, dodo/git, dodo/tmux, dodo/vim]
       steps: |
         FROM dodo/base
         RUN apt-get update && apt-get -y install curl

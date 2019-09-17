@@ -3,6 +3,7 @@ FROM dodo/base
 RUN apt-get -y update \
  && apt-get -y install \
         curl \
+        less \
         tmux \
         zsh \
         libssl-dev \
@@ -26,6 +27,7 @@ COPY session.sh /session.sh
 ENTRYPOINT ["/session.sh"]
 
 USER dodo
-COPY tmux.conf /home/dodo/.tmux.conf
-COPY tmuxinator /home/dodo/.config/tmuxinator
-COPY zshrc /home/dodo/.zshrc
+COPY tmux.conf          /home/dodo/.tmux.conf
+COPY tmuxinator         /home/dodo/.config/tmuxinator
+COPY zshrc              /home/dodo/.zshrc
+COPY dodo_redirect.yaml /home/dodo/.dodo.yaml
