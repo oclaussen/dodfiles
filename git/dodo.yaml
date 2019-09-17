@@ -1,11 +1,12 @@
 backdrops:
   git:
     image:
+      name: dodo/git
       requires: dodo/base
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'sshconfig:/root/.ssh'
+      - 'sshconfig:/home/dodo/.ssh'
       - '{{ projectRoot }}:/project'
     working_dir: '/project/{{ projectPath }}'
     script: exec git "$@"

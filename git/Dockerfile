@@ -5,4 +5,5 @@ RUN apt-get -y update \
         git \
         git-lfs
 
-COPY gitconfig /root/.gitconfig
+USER dodo
+COPY gitconfig /home/dodo/.gitconfig

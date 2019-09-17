@@ -8,7 +8,7 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'vim-data:/data'
-      - '{{ projectRoot }}:/work'
+      - '{{ cwd }}:/work'
     working_dir: /work
     script: |
       mkdir -p /data/backups /data/swaps /data/undo
