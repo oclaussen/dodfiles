@@ -1,0 +1,10 @@
+backdrops:
+  ssh:
+    image:
+      name: dodo/ssh
+      requires: dodo/base
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'sshconfig:/home/dodo/.ssh'
+    script: exec ssh "$@"
