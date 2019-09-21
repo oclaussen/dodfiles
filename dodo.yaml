@@ -7,6 +7,7 @@ include:
   - file: '{{ currentDir }}/vi/dodo.yaml'
   - file: '{{ currentDir }}/languages/buildbase/dodo.yaml'
   - file: '{{ currentDir }}/languages/golang/dodo.yaml'
+  - file: '{{ currentDir }}/languages/python/dodo.yaml'
   - file: '{{ currentDir }}/languages/ruby/dodo.yaml'
 
 backdrops:
