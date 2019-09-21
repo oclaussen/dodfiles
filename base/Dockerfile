@@ -28,6 +28,8 @@ RUN apt-get update \
  && apt-get upgrade --with-new-pkgs -y -o Dpkg::Options::="--force-confdef" \
  && apt-get clean
 
+RUN locale-gen
+
 # Users and groups
 RUN addgroup \
       --gid 1000 \
@@ -56,5 +58,10 @@ RUN rm -r /usr/share/info/* \
 # Final image
 FROM scratch
 MAINTAINER Ole Claussen <claussen.ole@gmail.com>
-ENV DEBIAN_FRONTEND=noninteractive
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
+
 COPY --from=chroot / /
