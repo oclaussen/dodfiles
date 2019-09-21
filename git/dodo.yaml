@@ -2,11 +2,16 @@ backdrops:
   git:
     image:
       name: dodo/git
-      requires: dodo/base
+      requires: [dodo/base, dodo/languages/python]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'sshconfig:/home/dodo/.ssh'
       - '{{ projectRoot }}:/project'
     working_dir: '/project/{{ projectPath }}'
-    script: exec git "$@"
+    script: |
+      if [ $# != 0 ]; then
+        exec git "$@"
+      else
+        exec gitsome
+      fi
