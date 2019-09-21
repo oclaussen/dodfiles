@@ -25,7 +25,7 @@ RUN dpkg --configure -a \
 
 # Update everything
 RUN apt-get update \
- && apt-get upgrade -y -o Dpkg::Options::="--force-confdef" \
+ && apt-get upgrade --with-new-pkgs -y -o Dpkg::Options::="--force-confdef" \
  && apt-get clean
 
 # Users and groups
@@ -56,7 +56,5 @@ RUN rm -r /usr/share/info/* \
 # Final image
 FROM scratch
 MAINTAINER Ole Claussen <claussen.ole@gmail.com>
+ENV DEBIAN_FRONTEND=noninteractive
 COPY --from=chroot / /
-
-ENV TERM xterm-256color
-ENTRYPOINT ["/bin/bash"]

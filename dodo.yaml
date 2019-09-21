@@ -5,6 +5,7 @@ include:
   - file: '{{ currentDir }}/session/dodo.yaml'
   - file: '{{ currentDir }}/ssh/dodo.yaml'
   - file: '{{ currentDir }}/vi/dodo.yaml'
+  - file: '{{ currentDir }}/languages/buildbase/dodo.yaml'
   - file: '{{ currentDir }}/languages/golang/dodo.yaml'
   - file: '{{ currentDir }}/languages/ruby/dodo.yaml'
 

@@ -1,20 +1,9 @@
-FROM dodo/base AS build
+FROM dodo/languages/buildbase AS build
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-        autoconf \
         bison \
-        build-essential \
-        ca-certificates \
-        libssl-dev \
-        libyaml-dev \
-        libreadline6-dev \
-        libncurses5-dev \
-        libffi-dev \
-        libgdbm-dev \
-        wget \
-        zlib1g-dev \
- && rm -rf /var/lib/apt/lists/*
+ && apt-get clean
 
 ENV RUBY_MAJOR 2.6
 ENV RUBY_VERSION 2.6.4
@@ -32,17 +21,11 @@ RUN patch < disable_path_check.patch \
  && ./configure \
       --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
       --disable-install-doc \
-      --enable-shared \
       --prefix=/opt/ruby \
  && make -j "$(nproc)" \
  && make install
 
 FROM dodo/base
-
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-        libc6 \
- && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /opt/ruby /opt/ruby
 COPY gemrc /opt/ruby/etc/gemrc

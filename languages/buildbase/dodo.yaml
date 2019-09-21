@@ -1,0 +1,8 @@
+backdrops:
+  buildbase:
+    image:
+      name: dodo/languages/buildbase
+      requires: dodo/base
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    interactive: true
