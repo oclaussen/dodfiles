@@ -9,6 +9,7 @@ include:
   - file: '{{ currentDir }}/languages/golang/dodo.yaml'
   - file: '{{ currentDir }}/languages/python/dodo.yaml'
   - file: '{{ currentDir }}/languages/ruby/dodo.yaml'
+  - file: '{{ currentDir }}/languages/rust/dodo.yaml'
 
 backdrops:
   init:

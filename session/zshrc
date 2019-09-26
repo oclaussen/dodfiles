@@ -1,6 +1,11 @@
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
+export RUSTUP_HOME="/opt/rust/rustup"
+export CARGO_HOME="/opt/rust/cargo"
+export GEM_HOME="/opt/ruby/bundle"
+export PATH="${CARGO_HOME}/bin:$GEM_HOME/bin:/opt/ruby/bin:${PATH}"
+
 export PS1=$'%{\033[34m%}(%{\033[38m%}%{\033[33m%}%n@%m%{\033[38m%}%{\033[34m%})-%{\033[38m%}%{\033[34m%}(%{\033[38m%}%{\033[33m%}%3~%{\033[38m%}%{\033[34m%})-%{\033[38m%}%{\033[34m%}(%{\033[38m%}%(?.%{\033[32m%}%h%{\033[38m%}.%{\033[31m%}%h%{\033[38m%})%{\033[34m%})-%{\033[38m%}%{\033[34m%}( %{\033[38m%}%{\033[0m%}'
 
 [[ -n "${terminfo[khome]}" ]] && bindkey "${terminfo[khome]}" beginning-of-line
@@ -32,12 +37,9 @@ export CDPATH=":..:~"
 }
 
 alias ':q'="exit"
-alias 'ls'="ls -p"
-alias 'll'="ls -phlA"
-alias 'grep'="grep --color=auto"
-alias 'egrep'="egrep --color=auto"
-alias 'fgrep'="fgrep --color=auto"
-alias 'pgrep'="pgrep -l"
+alias 'ls'="exa"
+alias 'll'="exa -hal"
+alias 'grep'="rg"
 alias 'rm'="rm -v"
 alias 'cp'="cp -v"
 alias 'mv'="mv -v"

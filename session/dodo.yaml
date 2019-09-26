@@ -1,4 +1,12 @@
 backdrops:
+  session:
+    image:
+      name: dodo/session
+      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/rust, dodo/languages/ruby]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    interactive: true
+
   tmux-client:
     aliases: tmux
     image:

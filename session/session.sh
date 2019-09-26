@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eux
 
-tmuxinator start default
+export GEM_HOME="/opt/ruby/bundle"
+/opt/ruby/bundle/bin/tmuxinator start default
 PID=$(tmux display-message -pF '#{pid}')
 tail --pid="${PID}" -f /dev/null

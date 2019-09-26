@@ -1,0 +1,9 @@
+add_newline = false
+prompt_order = ["directory", "jobs", "character"]
+
+[character]
+symbol = "("
+vimcmd_symbol = "|"
+
+[jobs]
+symbol = "+"
