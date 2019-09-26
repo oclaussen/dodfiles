@@ -6,9 +6,9 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'awsconfig:/root/.aws'
-      - 'sshconfig:/root/.ssh'
-      - 'kubeconfig:/root/.kube'
+      - 'awsconfig:/home/dodo/.aws'
+      - 'sshconfig:/home/dodo/.ssh'
+      - 'kubeconfig:/home/dodo/.kube'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
 
