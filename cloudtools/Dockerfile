@@ -36,7 +36,7 @@ RUN apt-get -y update \
         zip
 
 RUN pip3 install --upgrade \
-        ansible \
+        ansible==2.8.1 \
         argparse \
         awscli \
         boto3
@@ -44,6 +44,9 @@ RUN pip3 install --upgrade \
 COPY --from=docker:19.03.1         /usr/local/bin/docker /bin/docker
 COPY --from=hashicorp/packer:1.3.4 /bin/packer           /bin/packer
 COPY --from=terraform-bundler      /terraform-bundle/*   /bin/
+RUn curl -L -o /bin/tfsec \
+    https://github.com/liamg/tfsec/releases/download/v0.10.0/tfsec-linux-amd64 \
+ && chmod +x /bin/tfsec
 
 RUN curl -L -o session-manager-plugin.deb https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb \
  && dpkg -i session-manager-plugin.deb

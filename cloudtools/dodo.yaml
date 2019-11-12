@@ -10,7 +10,18 @@ backdrops:
       - 'sshconfig:/home/dodo/.ssh'
       - 'kubeconfig:/home/dodo/.kube'
       - '{{ projectRoot }}:/build'
+      - '/var/run/docker.sock:/var/run/docker.sock'
     working_dir: '/build/{{ projectPath }}'
+
+  docker:
+    <<: *cloudtools
+    script: |
+      if [ "$1" = "compose" ]; then
+        shift
+        exec docker-compose "$@"
+      else
+        exec docker "$@"
+      fi
 
   aws:
     <<: *cloudtools
@@ -26,6 +37,10 @@ backdrops:
       test -f terraform.log && rm -f terraform.log
       exec terraform "$@"
     command: apply
+
+  tfsec:
+    <<: *cloudtools
+    script: exec tfsec "$@"
 
   packer:
     <<: *cloudtools
