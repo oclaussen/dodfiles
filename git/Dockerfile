@@ -2,8 +2,11 @@ FROM dodo/base
 
 RUN apt-get -y update \
  && apt-get -y install \
+        bash-completion \
         git \
         git-lfs \
+        less \
+        vim \
         sqlite3
 
 COPY --from=dodo/languages/python /opt/python /opt/python
