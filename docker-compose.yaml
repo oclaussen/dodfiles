@@ -6,12 +6,13 @@ version: '3.7'
 
 services:
   session:
+    image: dodo/session
     container_name: tmux-session
     restart: always
     depends_on:
       - init-volumes
-    build: session
     environment:
+      - 'DOCKER_HOST=unix:///var/run/docker.sock'
       - 'TMUX_TMPDIR=/data/tmux'
     volumes:
       - 'tmux-data:/data/tmux'

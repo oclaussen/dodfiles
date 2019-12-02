@@ -9,6 +9,7 @@ backdrops:
 
   tmux-client:
     aliases: tmux
+    stage: '{{ if eq (env `DOCKER_HOST`) "" }}default{{ end }}'
     image:
       name: dodo/tmux
       requires: dodo/base

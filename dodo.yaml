@@ -11,8 +11,16 @@ include:
   - file: '{{ currentDir }}/languages/ruby/dodo.yaml'
   - file: '{{ currentDir }}/languages/rust/dodo.yaml'
 
+stages:
+  default:
+    type: docker-machine
+
+  wabe:
+    type: virtualbox
+
 backdrops:
   init:
+    stage: '{{ if eq (env `DOCKER_HOST`) "" }}default{{ end }}'
     image:
       # Make sure to build everything on init
       requires: [dodo/base, dodo/git, dodo/tmux, dodo/vim]
@@ -22,6 +30,8 @@ backdrops:
         RUN curl -L -o /bin/docker-compose \
             https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64 \
          && chmod +x /bin/docker-compose
+    environment:
+      - 'DOCKER_HOST=unix:///var/run/docker.sock'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '{{ currentDir }}:/compose'
