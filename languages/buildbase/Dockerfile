@@ -6,6 +6,7 @@ RUN apt-get update \
         autoconf \
         build-essential \
         curl \
+        git \
         gnupg2 \
         libssl-dev \
         libyaml-dev \
