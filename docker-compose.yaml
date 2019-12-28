@@ -11,6 +11,7 @@ services:
       - 'tmux-data:/data/tmux'
       - 'zsh-data:/data/zsh'
       - 'vim-data:/data/vim'
+      - 'pulseaudio:/data/pulseaudio'
       - 'sshconfig:/data/sshconfig'
       - 'awsconfig:/data/awsconfig'
       - 'kubeconfig:/data/kubeconfig'
@@ -44,3 +45,9 @@ volumes:
 
   kubeconfig:
     name: kubeconfig
+
+  pulseaudio:
+    name: pulseaudio
+
+  dbus:
+    name: dbus
