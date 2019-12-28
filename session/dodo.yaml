@@ -1,15 +1,28 @@
 backdrops:
   session:
+    container_name: session
+    stage: wabe
+    forward_stage: true
     image:
       name: dodo/session
       requires: [dodo/base, dodo/languages/buildbase, dodo/languages/rust, dodo/languages/ruby]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
-    interactive: true
+    environment:
+      - 'TMUX_TMPDIR=/data/tmux'
+    volumes:
+      - 'tmux-data:/data/tmux'
+      - 'zsh-data:/data/zsh'
+      - 'vim-data:/data/vim'
+      - '/Users:/Users'
+    script: |
+      tmuxinator start default
+      PID=$(tmux display-message -pF '#{pid}')
+      tail --pid="${PID}" -f /dev/null
 
   tmux-client:
     aliases: tmux
-    stage: '{{ if eq (env `DOCKER_HOST`) "" }}default{{ end }}'
+    stage: wabe
     image:
       name: dodo/tmux
       requires: dodo/base

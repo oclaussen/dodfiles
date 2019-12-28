@@ -10,13 +10,11 @@ backdrops:
       - 'sshconfig:/home/dodo/.ssh'
       - 'kubeconfig:/home/dodo/.kube'
       - '{{ projectRoot }}:/build'
-      - '/var/run/docker.sock:/var/run/docker.sock'
     working_dir: '/build/{{ projectPath }}'
 
   docker:
     <<: *cloudtools
-    environment:
-      - 'DOCKER_HOST=unix:///var/run/docker.sock'
+    forward_stage: true
     script: |
       if [ "$1" = "compose" ]; then
         shift

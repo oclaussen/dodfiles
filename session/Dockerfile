@@ -68,9 +68,6 @@ ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
 COPY --from=build /opt/navi /opt/navi
 COPY --from=build /bin/navi /bin/navi
 
-COPY session.sh /session.sh
-ENTRYPOINT ["/session.sh"]
-
 USER dodo
 RUN mkdir -p /home/dodo/.config
 COPY tmux.conf          /home/dodo/.tmux.conf

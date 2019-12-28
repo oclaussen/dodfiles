@@ -17,10 +17,36 @@ stages:
 
   wabe:
     type: virtualbox
+    box:
+      user: debian
+      name: buster64
+      version: 10.0.0
+    volumes:
+      - size: 100GB
+    options:
+      cpu: 4
+      memory: 8192
+      modify: [
+        '--usb', 'on',
+        '--audio', 'coreaudio',
+        '--audiocontroller', 'ac97',
+        '--audiocodec', 'ad1980',
+      ]
+      provision:
+        - apt-get update
+        - apt-get install -y nfs-common ntp
+        - if [ "$(file -b -s /dev/sdb)" = "data" ]; then mkfs -F -t ext4 /dev/sdb; fi
+        - mkdir -p /var/lib/docker
+        - mount /dev/sdb /var/lib/docker
+        - mkdir -p /Users/ole.claussen
+        # TODO: this gives a 130 error code, investigate why and fix
+        # TODO: also, manage the nfs share on the host
+        - mount -t nfs 192.168.99.1:/Users/ole.claussen /Users/ole.claussen || true
 
 backdrops:
   init:
-    stage: '{{ if eq (env `DOCKER_HOST`) "" }}default{{ end }}'
+    stage: wabe
+    forward_stage: true
     image:
       # Make sure to build everything on init
       requires: [dodo/base, dodo/git, dodo/tmux, dodo/vim]
@@ -30,10 +56,7 @@ backdrops:
         RUN curl -L -o /bin/docker-compose \
             https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64 \
          && chmod +x /bin/docker-compose
-    environment:
-      - 'DOCKER_HOST=unix:///var/run/docker.sock'
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock'
       - '{{ currentDir }}:/compose'
     working_dir: '/compose'
     script: exec docker-compose up -d --build
