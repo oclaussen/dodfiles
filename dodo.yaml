@@ -75,6 +75,14 @@ backdrops:
       - 'kubeconfig:/root/.kube'
     script: exec k9s "$@"
 
+  ctop:
+    forward_stage: true
+    build:
+      steps: |
+        FROM alpine:3.9
+        COPY --from=quay.io/vektorlab/ctop:latest /ctop /bin/ctop
+    script: exec ctop "$@"
+
   psql:
     image:
       steps: |
