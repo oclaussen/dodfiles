@@ -1,0 +1,30 @@
+backdrops:
+  docker:
+    forward_stage: true
+    image:
+      name: dodo/docker
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: |
+      if [ "$1" = "compose" ]; then
+        shift
+        exec docker-compose "$@"
+      elif [ "$1" = "host" ]; then
+        shift
+        exec docker run -it --rm --privileged --net=host --pid=host --ipc=host --volume /:/host "$@" busybox chroot /host
+      else
+        exec docker "$@"
+      fi
+
+  ctop:
+    forward_stage: true
+    image:
+      name: dodo/docker
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    script: exec ctop "$@"

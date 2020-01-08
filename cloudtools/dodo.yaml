@@ -12,20 +12,6 @@ backdrops:
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
 
-  docker:
-    <<: *cloudtools
-    forward_stage: true
-    script: |
-      if [ "$1" = "compose" ]; then
-        shift
-        exec docker-compose "$@"
-      elif [ "$1" = "host" ]; then
-        shift
-        exec docker run -it --rm --privileged --net=host --pid=host --ipc=host --volume /:/host "$@" busybox chroot /host
-      else
-        exec docker "$@"
-      fi
-
   aws:
     <<: *cloudtools
     script: exec aws "$@"
@@ -35,7 +21,7 @@ backdrops:
     environment:
       - TF_LOG=DEBUG
       - TF_LOG_PATH=/build/terraform.log
-      - TF_VAR_username=ole.claussen
+      - TF_VAR_username=ole.claussen.api
     script: |
       test -f terraform.log && rm -f terraform.log
       exec terraform "$@"
@@ -57,19 +43,6 @@ backdrops:
       eval $(ssh-agent)
       ssh-add
       ansible-playbook "$@"
-
-  kubectl:
-    <<: *cloudtools
-    script: |
-      if [ "$1" = "ctx" ]; then
-        shift
-        exec /bin/kubectx "$@"
-      elif [ "$1" = "ns" ]; then
-        shift
-        exec /bin/kubens "$@"
-      else
-        exec /bin/kubectl "$@"
-      fi
 
   render:
     <<: *cloudtools

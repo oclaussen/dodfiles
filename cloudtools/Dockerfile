@@ -41,7 +41,6 @@ RUN pip3 install --upgrade \
         awscli \
         boto3
 
-COPY --from=docker:19.03.1         /usr/local/bin/docker /bin/docker
 COPY --from=hashicorp/packer:1.3.4 /bin/packer           /bin/packer
 COPY --from=terraform-bundler      /terraform-bundle/*   /bin/
 RUn curl -L -o /bin/tfsec \
@@ -51,10 +50,6 @@ RUn curl -L -o /bin/tfsec \
 RUN curl -L -o session-manager-plugin.deb https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb \
  && dpkg -i session-manager-plugin.deb
 
-RUN curl -L -o /bin/docker-compose \
-    https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64 \
- && chmod +x /bin/docker-compose
-
 RUN curl -L -o /bin/kubectl \
     https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl \
  && chmod +x /bin/kubectl
@@ -62,10 +57,6 @@ RUN curl -L -o /bin/kubectl \
 RUN curl -L -o /bin/aws-iam-authenticator \
     https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator \
  && chmod +x /bin/aws-iam-authenticator
-
-RUN git clone https://github.com/ahmetb/kubectx /opt/kubectx \
- && ln -s /opt/kubectx/kubectx /bin/kubectx \
- && ln -s /opt/kubectx/kubens /bin/kubens
 
 RUN curl -L -o /bin/render \
     https://github.com/VirtusLab/render/releases/download/v0.1.3/render-linux-amd64 \

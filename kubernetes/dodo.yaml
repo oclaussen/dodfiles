@@ -1,0 +1,34 @@
+backdrops:
+  kube:
+    aliases: kubectl
+    image:
+      name: dodo/kube
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'awsconfig:/home/dodo/.aws'
+      - 'kubeconfig:/home/dodo/.kube'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: |
+      if [ "$1" = "ctx" ]; then
+        shift
+        exec /bin/kubectx "$@"
+      elif [ "$1" = "ns" ]; then
+        shift
+        exec /bin/kubens "$@"
+      else
+        exec /bin/kubectl "$@"
+      fi
+
+  k9s:
+    image:
+      name: dodo/kube
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'awsconfig:/home/dodo/.aws'
+      - 'kubeconfig:/home/dodo/.kube'
+    script: exec /bin/k9s "$@"
