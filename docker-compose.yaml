@@ -11,10 +11,13 @@ services:
       - 'tmux-data:/data/tmux'
       - 'zsh-data:/data/zsh'
       - 'vim-data:/data/vim'
+      - 'gpg-data:/data/gpg'
       - 'pulseaudio:/data/pulseaudio'
+      - 'scd:/data/pcscd'
       - 'sshconfig:/data/sshconfig'
       - 'awsconfig:/data/awsconfig'
       - 'kubeconfig:/data/kubeconfig'
+      - 'passwords:/data/passwords'
       - '/Users/ole.claussen/.ssh:/home/dodo/.ssh'
       - '/Users/ole.claussen/.aws:/home/dodo/.aws'
       - '/Users/ole.claussen/.kube:/home/dodo/.kube'
@@ -37,6 +40,9 @@ volumes:
   zsh-data:
     name: zsh-data
 
+  gpg-data:
+    name: gpg-data
+
   sshconfig:
     name: sshconfig
 
@@ -46,8 +52,14 @@ volumes:
   kubeconfig:
     name: kubeconfig
 
+  passwords:
+    name: passwords
+
   pulseaudio:
     name: pulseaudio
 
   dbus:
     name: dbus
+
+  scd:
+    name: scd

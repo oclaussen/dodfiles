@@ -1,0 +1,30 @@
+backdrops:
+  gpg:
+    image:
+      name: dodo/gpg
+      requires: [dodo/languages/buildbase, dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'gpg-data:/data/gpg'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
+    script: exec gpg "$@"
+
+  unlock:
+    image:
+      name: dodo/gpg
+      requires: [dodo/languages/buildbase, dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '/dev/bus/usb:/dev/bus/usb'
+      - 'scd:/var/run/pcscd'
+      - 'gpg-data:/data/gpg'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
+    devices:
+      - cgroup_rule: 'c *:* rmw'
+    script: |
+      /init/configure.sh
+      /init/unlock.sh

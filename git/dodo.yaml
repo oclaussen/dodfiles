@@ -6,12 +6,13 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
+      - 'gpg-data:/data/gpg'
       - 'sshconfig:/home/dodo/.ssh'
       - '{{ projectRoot }}:/project'
+    environment:
+      - 'SSH_AUTH_SOCK=/data/gpg/S.gpg-agent.ssh'
     working_dir: '/project/{{ projectPath }}'
     script: |
-      eval $(ssh-agent)
-      ssh-add
       if [ $# != 0 ]; then
         exec git "$@"
       else
