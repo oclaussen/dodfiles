@@ -1,0 +1,44 @@
+backdrops:
+  curl:
+    image:
+      name: dodo/net
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ cwd }}/cwd'
+    working_dir: /cwd
+    script: exec curl "$@"
+
+  dig:
+    image:
+      name: dodo/net
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ cwd }}/cwd'
+    working_dir: /cwd
+    script: exec dig "$@"
+
+  host:
+    image:
+      name: dodo/net
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ cwd }}/cwd'
+    working_dir: /cwd
+    script: exec host "$@"
+
+  wget:
+    image:
+      name: dodo/net
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ cwd }}/cwd'
+    working_dir: /cwd
+    script: exec wget "$@"
