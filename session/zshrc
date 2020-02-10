@@ -64,3 +64,13 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_ALL_DUPS
 setopt INC_APPEND_HISTORY
 setopt APPEND_HISTORY
+
+command_not_found_handler () {
+  d=$(command -v dodo)
+  if [ $? = 0 ]; then
+    $d "$@"
+    return $?
+  fi
+  echo "command not found: $0"
+  return 127
+}

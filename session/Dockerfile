@@ -15,6 +15,7 @@ ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
 
 RUN cargo install \
     bat \
+    broot \
     exa \
     fd-find \
     procs \
@@ -37,6 +38,7 @@ RUN apt-get update \
         curl \
         less \
         man \
+        procps \
         tmux \
         zsh \
         libyaml-dev \
@@ -50,7 +52,7 @@ RUN curl -L -o /bin/chirp \
  && chmod +x /bin/chirp
 
 RUN curl -L -o /bin/dodo \
-    https://github.com/oclaussen/dodo/releases/download/1.4.1/dodo_linux_amd64 \
+    https://github.com/oclaussen/dodo/releases/download/1.6.0/dodo_linux_amd64 \
  && chmod +x /bin/dodo
 
 RUN curl -L -o /tmp/fzf.tgz \
