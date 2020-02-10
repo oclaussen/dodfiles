@@ -8,7 +8,7 @@ RUN curl -L -o /bin/kubectl \
  && chmod +x /bin/kubectl
 
 RUN curl -L -o /tmp/k9s.tar.gz \
-    https://github.com/derailed/k9s/releases/download/0.7.6/k9s_0.7.6_Linux_x86_64.tar.gz \
+    https://github.com/derailed/k9s/releases/download/v0.13.8/k9s_0.13.8_Linux_x86_64.tar.gz \
  && tar -xzf /tmp/k9s.tar.gz -C /bin
 
 RUN curl -L -o /bin/aws-iam-authenticator \
