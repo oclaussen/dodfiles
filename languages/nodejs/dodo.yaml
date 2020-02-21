@@ -1,0 +1,12 @@
+backdrops:
+  nodejs:
+    aliases: [node]
+    image:
+      name: dodo/languages/nodejs
+      requires: [dodo/base, dodo/languages/buildbase]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/work'
+    working_dir: /work
+    script: exec node "$@"
