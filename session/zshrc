@@ -52,7 +52,6 @@ alias 'ping'="ping -c 3"
 alias 'yank'="chirp copy --address 192.168.99.1:24709"
 alias 'put'="chirp paste --address 192.168.99.1:24709"
 
-autoload -Uz compinit && compinit
 export KEYTIMEOUT=""
 unsetopt nomatch
 setopt extendedglob
