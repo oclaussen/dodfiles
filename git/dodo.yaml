@@ -12,9 +12,4 @@ backdrops:
     environment:
       - 'SSH_AUTH_SOCK=/data/gpg/S.gpg-agent.ssh'
     working_dir: '/project/{{ projectPath }}'
-    script: |
-      if [ $# != 0 ]; then
-        exec git "$@"
-      else
-        exec gitsome
-      fi
+    script: exec lab "$@"

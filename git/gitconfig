@@ -12,6 +12,7 @@
     prune = true
 
 [alias]
+    # TODO: alias for git fetch origin master:master
     s = status -s
     fa = fetch --all
     precommit = diff --cached --diff-algorithm=minimal -w
@@ -21,7 +22,7 @@
     gud = "!git fetch --all --prune && git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs git branch -D && git gc"
     todo = "!git grep -HEIin --full-name -e \"(#|//|;|--|!|/\\*|\\{-)\\s*todo\" | sed -Ee \"s/([^:]*:[0-9]*):.*[Tt][Oo][Dd][Oo]:?(.*)$/- \\2 [\\1]/\""
     git = !exec git
-    backup = !git bundle create "/Volumes/FOOBAR/Documents/git/$(basename $(pwd)).bundle" --all && git tag -f backup
+    backup = !git bundle create "/Volumes/FOOBAR/Documents/git/$(basename $(pwd)).bundle" --all
     unstage = reset HEAD --
     discard = checkout --
     hotfix = commit --amend --no-edit
