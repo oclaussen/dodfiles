@@ -23,6 +23,10 @@ RUN curl -L -o /tmp/krew.tar.gz \
  && curl -L -o /tmp/krew.yaml \
     https://github.com/kubernetes-sigs/krew/releases/download/v0.3.3/krew.yaml
 
+RUN curl -L -o /tmp/popeye.tar.gz \
+    https://github.com/derailed/popeye/releases/download/v0.7.1/popeye_Linux_x86_64.tar.gz \
+ && tar -xzf /tmp/popeye.tar.gz -C /tmp
+
 USER dodo
 RUN /tmp/krew-linux_amd64 install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
 ENV PATH /home/dodo/.krew/bin:${PATH}
@@ -35,6 +39,7 @@ FROM dodo/base
 COPY --from=build /bin/kubectl               /bin/kubectl
 COPY --from=build /bin/k9s                   /bin/k9s
 COPY --from=build /bin/aws-iam-authenticator /bin/aws-iam-authenticator
+COPY --from=build /tmp/popeye                /bin/popeye
 
 COPY --from=build /opt/kubectx /opt/kubectx
 RUN ln -s /opt/kubectx/kubectx /bin/kubectx \

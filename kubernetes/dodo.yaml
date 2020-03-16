@@ -23,6 +23,7 @@ backdrops:
       fi
 
   k9s:
+    name: k9s
     image:
       name: dodo/kube
       requires: [dodo/base]
@@ -32,3 +33,14 @@ backdrops:
       - 'awsconfig:/home/dodo/.aws'
       - 'kubeconfig:/home/dodo/.kube'
     script: exec /bin/k9s "$@"
+
+  popeye:
+    image:
+      name: dodo/kube
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'awsconfig:/home/dodo/.aws'
+      - 'kubeconfig:/home/dodo/.kube'
+    script: exec /bin/popeye "$@"
