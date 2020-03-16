@@ -1,16 +1,17 @@
 FROM dodo/languages/golang AS terraform-bundler
+ARG terraform_version=0.11.14
 
 RUN apt-get -y update \
  && apt-get install -y git zip
 
 RUN go get -d -v github.com/hashicorp/terraform \
  && cd /root/go/src/github.com/hashicorp/terraform \
- && git checkout v0.11.14 \
+ && git checkout v${terraform_version} \
  && go install ./tools/terraform-bundle
 
-COPY terraform-bundle.hcl .
+COPY terraform-bundle-*.hcl .
 
-RUN /root/go/bin/terraform-bundle package terraform-bundle.hcl \
+RUN /root/go/bin/terraform-bundle package terraform-bundle-${terraform_version}.hcl \
  && mkdir -p terraform-bundle \
  && unzip -d terraform-bundle terraform_*.zip
 
@@ -36,10 +37,11 @@ RUN apt-get -y update \
         zip
 
 RUN pip3 install --upgrade \
-        ansible==2.8.1 \
+        ansible \
         argparse \
         awscli \
-        boto3
+        boto3 \
+        pywinrm
 
 COPY --from=hashicorp/packer:1.3.4 /bin/packer           /bin/packer
 COPY --from=terraform-bundler      /terraform-bundle/*   /bin/

@@ -27,6 +27,22 @@ backdrops:
       exec terraform "$@"
     command: apply
 
+  terraform12:
+    <<: *cloudtools
+    image:
+      name: dodo/cloudtools/terraform12
+      requires: [dodo/base, dodo/languages/golang]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+      args:
+        terraform_version: '0.12.20'
+    environment:
+      - TF_VAR_username=ole.claussen.api
+    script: |
+      test -f terraform.log && rm -f terraform.log
+      exec terraform "$@"
+    command: apply
+
   tfsec:
     <<: *cloudtools
     script: exec tfsec "$@"
@@ -39,10 +55,7 @@ backdrops:
     <<: *cloudtools
     environment:
       - ANSIBLE_HOST_KEY_CHECKING=False
-    script: |
-      eval $(ssh-agent)
-      ssh-add
-      ansible-playbook "$@"
+    script: exec ansible-playbook "$@"
 
   render:
     <<: *cloudtools
