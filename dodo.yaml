@@ -88,3 +88,10 @@ backdrops:
         FROM alpine:3.9
         RUN apk add --no-cache mysql-client
     script: exec mysql "$@"
+
+  jq:
+    image:
+      steps: |
+        FROM alpine:3.9
+        RUN apk add --no-cache jq
+    script: exec jq "$@"
