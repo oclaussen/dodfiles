@@ -14,5 +14,5 @@ gpg --card-status
 # Cache secret keys in daemon
 echo "unlock" | gpg --encrypt --recipient claussen.ole@gmail.com | gpg --decrypt
 
-# Keep daemon alive for 8 hours
-sleep 43200
+# Keep daemon alive for an hour
+sleep 3600
