@@ -1,0 +1,26 @@
+backdrops:
+  packer:
+    image:
+      name: dodo/packer
+      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'awsconfig:/home/dodo/.aws'
+      - 'sshconfig:/home/dodo/.ssh'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec packer "$@"
+
+  kitchen:
+    image:
+      name: dodo/packer
+      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'awsconfig:/home/dodo/.aws'
+      - 'sshconfig:/home/dodo/.ssh'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec kitchen "$@"

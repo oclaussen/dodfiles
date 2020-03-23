@@ -47,10 +47,6 @@ backdrops:
     <<: *cloudtools
     script: exec tfsec "$@"
 
-  packer:
-    <<: *cloudtools
-    script: exec packer "$@"
-
   ansible:
     <<: *cloudtools
     environment:
