@@ -1,0 +1,12 @@
+[user]
+    name = Ole Claussen
+    email = claussen.ole@gmail.com
+
+[core]
+    whitespace = trailing-space
+
+[push]
+    default = simple
+
+[fetch]
+    prune = true

@@ -19,3 +19,4 @@ COPY --from=build /bin/chirp  /bin/chirp
 COPY xclip /bin/xclip
 
 USER dodo
+COPY gitconfig /home/dodo/.gitconfig
