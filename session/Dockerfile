@@ -2,8 +2,19 @@ FROM dodo/languages/buildbase AS build
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+        autoconf \
+        automake \
+        bison \
         clang \
- && apt-get clean
+        libevent-dev \
+        ncurses-dev \
+        pkg-config
+
+RUN git clone https://github.com/tmux/tmux.git /tmux \
+ && cd /tmux \
+ && sh autogen.sh \
+ && ./configure \
+ && make
 
 COPY --from=dodo/languages/rust /opt/rust /opt/rust
 ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
@@ -39,9 +50,10 @@ RUN apt-get update \
         less \
         man \
         procps \
-        tmux \
         zsh \
+        libevent-dev \
         libyaml-dev \
+        ncurses-dev \
  && apt-get clean
 
 RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
@@ -69,6 +81,8 @@ ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
 
 COPY --from=build /opt/navi /opt/navi
 COPY --from=build /bin/navi /bin/navi
+
+COPY --from=build /tmux/tmux /bin/tmux
 
 USER dodo
 RUN mkdir -p /home/dodo/.config
