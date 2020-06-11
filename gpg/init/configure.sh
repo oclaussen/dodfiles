@@ -17,6 +17,6 @@ for file in $(ls ${SOURCEDIR}/keys/0x*.txt); do
 done
 
 # Trust public keys in list
-for key in $(cat "${SOURCEDIR}/keys/trustlist.txt"); do
+for key in $(cat "${SOURCEDIR}/keys/trustlist.txt" | grep -v '^#'); do
   echo $key | gpg --import-ownertrust
 done

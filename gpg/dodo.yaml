@@ -12,6 +12,7 @@ backdrops:
     script: exec gpg "$@"
 
   unlock:
+    container_name: gpg-agent
     image:
       name: dodo/gpg
       requires: [dodo/languages/buildbase, dodo/base]
