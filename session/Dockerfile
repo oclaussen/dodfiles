@@ -32,14 +32,17 @@ RUN cargo install \
     procs \
     ripgrep \
     sd \
-    starship \
     tokei \
     xsv
+
+RUN cargo install \
+    --git https://github.com/starship/starship.git \
+    --branch feat/format-string
 
 RUN gem install tmuxinator
 
 RUN git clone https://github.com/denisidoro/navi /opt/navi \
- && /opt/navi/scripts/install /bin
+ && BIN_DIR=/bin /opt/navi/scripts/install
 
 
 FROM dodo/base
@@ -89,4 +92,5 @@ RUN mkdir -p /home/dodo/.config
 COPY tmux.conf          /home/dodo/.tmux.conf
 COPY tmuxinator         /home/dodo/.config/tmuxinator
 COPY zshrc              /home/dodo/.zshrc
+COPY starship.toml      /home/dodo/.config/starship.toml
 COPY dodo_redirect.yaml /home/dodo/.dodo.yaml

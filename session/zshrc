@@ -6,8 +6,6 @@ export CARGO_HOME="/opt/rust/cargo"
 export GEM_HOME="/opt/ruby/bundle"
 export PATH="${CARGO_HOME}/bin:$GEM_HOME/bin:/opt/ruby/bin:${PATH}"
 
-export PS1=$'%{\033[34m%}(%{\033[38m%}%{\033[33m%}%n@%m%{\033[38m%}%{\033[34m%})-%{\033[38m%}%{\033[34m%}(%{\033[38m%}%{\033[33m%}%3~%{\033[38m%}%{\033[34m%})-%{\033[38m%}%{\033[34m%}(%{\033[38m%}%(?.%{\033[32m%}%h%{\033[38m%}.%{\033[31m%}%h%{\033[38m%})%{\033[34m%})-%{\033[38m%}%{\033[34m%}( %{\033[38m%}%{\033[0m%}'
-
 [[ -n "${terminfo[khome]}" ]] && bindkey "${terminfo[khome]}" beginning-of-line
 [[ -n "${terminfo[kend]}"  ]] && bindkey "${terminfo[kend]}"  end-of-line
 [[ -n "${terminfo[kich1]}" ]] && bindkey "${terminfo[kich1]}" overwrite-mode
@@ -73,3 +71,5 @@ command_not_found_handler () {
   echo "command not found: $0"
   return 127
 }
+
+eval "$(starship init zsh)"
