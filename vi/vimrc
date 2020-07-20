@@ -70,9 +70,6 @@ set shortmess+=c
 set nobackup
 set nowritebackup
 
-"set directory=/data/swaps
-"set undodir=/data/undo
-
 let g:mapleader=","
 
 nnoremap <C-J> <C-W><C-J>
@@ -160,10 +157,8 @@ nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
 
 command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
 
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
