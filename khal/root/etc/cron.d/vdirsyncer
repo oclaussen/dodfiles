@@ -1,0 +1,2 @@
+0 * * * * dodo /opt/python/bin/vdirsyncer sync >> /data/vdir/vdirsyncer.log 2>&1
+

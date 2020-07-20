@@ -4,6 +4,7 @@ include:
   - file: '{{ currentDir }}/docker/dodo.yaml'
   - file: '{{ currentDir }}/git/dodo.yaml'
   - file: '{{ currentDir }}/gpg/dodo.yaml'
+  - file: '{{ currentDir }}/khal/dodo.yaml'
   - file: '{{ currentDir }}/kubernetes/dodo.yaml'
   - file: '{{ currentDir }}/net/dodo.yaml'
   - file: '{{ currentDir }}/packer/dodo.yaml'
