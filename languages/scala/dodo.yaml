@@ -1,0 +1,19 @@
+backdrops:
+  scala:
+    image:
+      name: dodo/languages/scala
+      requires: [dodo/base, dodo/languages/java11]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    interactive: true
+
+  sbt:
+    image:
+      name: dodo/languages/scala
+      requires: [dodo/base, dodo/languages/java11]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/work'
+    working_dir: /work
+    script: exec sbt "$@"
