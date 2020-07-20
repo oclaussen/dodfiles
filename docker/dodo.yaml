@@ -7,6 +7,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
+      - 'awsconfig:/home/dodo/.aws'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     script: |
