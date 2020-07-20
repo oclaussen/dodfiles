@@ -1,0 +1,22 @@
+backdrops:
+  zip:
+    image:
+      name: dodo/zip
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ cwd }}:/cwd'
+    working_dir: /cwd
+    script: exec zip "$@"
+
+  unzip:
+    image:
+      name: dodo/zip
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ cwd }}:/cwd'
+    working_dir: /cwd
+    script: exec unzip "$@"
