@@ -15,19 +15,14 @@ services:
       - 'pulseaudio:/data/pulseaudio'
       - 'scd:/data/pcscd'
       - 'sshconfig:/data/sshconfig'
-      - 'awsconfig:/data/awsconfig'
       - 'kubeconfig:/data/kubeconfig'
       - 'passwords:/data/passwords'
       - '/Users/ole.claussen/.ssh:/home/dodo/.ssh'
-      - '/Users/ole.claussen/.aws:/home/dodo/.aws'
-      - '/Users/ole.claussen/.kube:/home/dodo/.kube'
     entrypoint:
       - /bin/sh
       - -euxc
       - |
         cp -r /home/dodo/.ssh/* /data/sshconfig/
-        cp -r /home/dodo/.aws/* /data/awsconfig/
-        cp -r /home/dodo/.kube/* /data/kubeconfig/
         chown -R dodo:dodo /data/*
 
 volumes:
@@ -45,9 +40,6 @@ volumes:
 
   sshconfig:
     name: sshconfig
-
-  awsconfig:
-    name: awsconfig
 
   kubeconfig:
     name: kubeconfig

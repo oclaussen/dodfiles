@@ -1,6 +1,7 @@
 include:
+  - file: '{{ currentDir }}/ansible/dodo.yaml'
+  - file: '{{ currentDir }}/aws/dodo.yaml'
   - file: '{{ currentDir }}/base/dodo.yaml'
-  - file: '{{ currentDir }}/cloudtools/dodo.yaml'
   - file: '{{ currentDir }}/docker/dodo.yaml'
   - file: '{{ currentDir }}/git/dodo.yaml'
   - file: '{{ currentDir }}/gpg/dodo.yaml'
@@ -10,7 +11,9 @@ include:
   - file: '{{ currentDir }}/packer/dodo.yaml'
   - file: '{{ currentDir }}/pass/dodo.yaml'
   - file: '{{ currentDir }}/pulseaudio/dodo.yaml'
+  - file: '{{ currentDir }}/render/dodo.yaml'
   - file: '{{ currentDir }}/session/dodo.yaml'
+  - file: '{{ currentDir }}/terraform/dodo.yaml'
   - file: '{{ currentDir }}/ssh/dodo.yaml'
   - file: '{{ currentDir }}/vi/dodo.yaml'
   - file: '{{ currentDir }}/zip/dodo.yaml'

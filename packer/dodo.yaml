@@ -6,9 +6,12 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'awsconfig:/home/dodo/.aws'
       - 'sshconfig:/home/dodo/.ssh'
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
     working_dir: '/build/{{ projectPath }}'
     script: exec packer "$@"
 
@@ -19,8 +22,11 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'awsconfig:/home/dodo/.aws'
       - 'sshconfig:/home/dodo/.ssh'
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
     working_dir: '/build/{{ projectPath }}'
     script: exec kitchen "$@"

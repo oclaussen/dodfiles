@@ -1,0 +1,15 @@
+backdrops:
+  aws:
+    image:
+      name: dodo/aws
+      requires: [dodo/base, dodo/languages/python]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
+    script: exec aws "$@"

@@ -1,26 +1,21 @@
 backdrops:
   kube:
     aliases: kubectl
+    forward_stage: true
     image:
       name: dodo/kube
       requires: [dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'awsconfig:/home/dodo/.aws'
       - 'kubeconfig:/home/dodo/.kube'
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
     working_dir: '/build/{{ projectPath }}'
-    script: |
-      if [ "$1" = "ctx" ]; then
-        shift
-        exec /bin/kubectx "$@"
-      elif [ "$1" = "ns" ]; then
-        shift
-        exec /bin/kubens "$@"
-      else
-        exec /bin/kubectl "$@"
-      fi
+    script: exec /bin/kubectl "$@"
 
   k9s:
     name: k9s
@@ -30,8 +25,11 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'awsconfig:/home/dodo/.aws'
       - 'kubeconfig:/home/dodo/.kube'
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
     script: exec /bin/k9s "$@"
 
   popeye:
@@ -41,6 +39,20 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'awsconfig:/home/dodo/.aws'
       - 'kubeconfig:/home/dodo/.kube'
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
+    environment:
+      - 'GNUPGHOME=/data/gpg'
     script: exec /bin/popeye "$@"
+
+  kind:
+    forward_stage: true
+    image:
+      name: dodo/kube
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'kubeconfig:/home/dodo/.kube'
+    script: exec /bin/kind "$@"

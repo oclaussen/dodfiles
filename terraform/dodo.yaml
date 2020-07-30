@@ -1,0 +1,61 @@
+backdrops:
+  terraform:
+    image:
+       name: dodo/terraform
+       requires: [dodo/base, dodo/languages/golang]
+       context: '{{ currentDir }}'
+       dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'sshconfig:/home/dodo/.ssh'
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    environment:
+      - GNUPGHOME=/data/gpg
+      - TF_LOG=DEBUG
+      - TF_LOG_PATH=/build/terraform.log
+      - TF_VAR_username=ole.claussen.api
+    script: |
+      test -f terraform.log && rm -f terraform.log
+      if [ "$1" = "fa" ]; then
+        exec terraform init -get=true -upgrade=true
+      else
+        exec terraform "$@"
+      fi
+
+  terraform12:
+    image:
+      name: dodo/terraform12
+      requires: [dodo/base, dodo/languages/golang]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+      args:
+        terraform_version: '0.12.20'
+    volumes:
+      - 'sshconfig:/home/dodo/.ssh'
+      - 'gpg-data:/data/gpg'
+      - 'passwords:/home/dodo/.password-store'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    environment:
+      - GNUPGHOME=/data/gpg
+      - TF_VAR_username=ole.claussen.api
+    script: |
+      test -f terraform.log && rm -f terraform.log
+      if [ "$1" = "fa" ]; then
+        exec terraform init -get=true -upgrade=true
+      else
+        exec terraform "$@"
+      fi
+
+  tfsec:
+    image:
+       name: dodo/terraform
+       requires: [dodo/base, dodo/languages/golang]
+       context: '{{ currentDir }}'
+       dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec tfsec "$@"

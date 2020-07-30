@@ -1,0 +1,8 @@
+backdrops:
+  render:
+    image:
+      name: dodo/render
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    script: exec render "$@"

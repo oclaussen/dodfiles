@@ -1,0 +1,14 @@
+backdrops:
+  ansible:
+    image:
+      name: dodo/ansible
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'sshconfig:/home/dodo/.ssh'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING=False
+    script: exec ansible-playbook "$@"
