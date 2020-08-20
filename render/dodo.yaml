@@ -5,4 +5,7 @@ backdrops:
       requires: [dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
     script: exec render "$@"
