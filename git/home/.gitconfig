@@ -26,6 +26,7 @@
     hotfix = commit --amend --no-edit
     root = rev-parse --show-toplevel
     sha = rev-parse HEAD
+    commits = rev-list --count HEAD
     tags = tag -l
     branches = branch -a
     remotes = remote -v
