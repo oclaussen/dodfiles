@@ -1,2 +1,2 @@
-0 * * * * dodo /opt/python/bin/vdirsyncer sync >> /data/vdir/vdirsyncer.log 2>&1
+*/15 * * * * dodo /bin/vdir_sync.sh >> /data/vdir/vdirsyncer.log 2>&1
 
