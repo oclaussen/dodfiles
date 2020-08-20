@@ -37,7 +37,7 @@ RUN cargo install \
 
 RUN cargo install \
     --git https://github.com/starship/starship.git \
-    --branch feat/format-string
+    --branch master
 
 RUN gem install tmuxinator
 
@@ -88,9 +88,4 @@ COPY --from=build /bin/navi /bin/navi
 COPY --from=build /tmux/tmux /bin/tmux
 
 USER dodo
-RUN mkdir -p /home/dodo/.config
-COPY tmux.conf          /home/dodo/.tmux.conf
-COPY tmuxinator         /home/dodo/.config/tmuxinator
-COPY zshrc              /home/dodo/.zshrc
-COPY starship.toml      /home/dodo/.config/starship.toml
-COPY dodo_redirect.yaml /home/dodo/.dodo.yaml
+COPY --chown=dodo:dodo home/ /home/dodo/

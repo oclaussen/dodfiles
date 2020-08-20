@@ -11,10 +11,20 @@ windows:
         - zsh
         - zsh
 
+  - org:
+      layout: tiled
+      root: /home/dodo
+      panes:
+        - dodo khal
+        - zsh
+        - zsh
+        - zsh
+
   - adhoc:
-      layout: main-horizontal
+      layout: even-horizontal
       panes:
         - zsh
+        - dodo ssh ole.claussen@192.168.99.1
 
   - wabe:
       layout: main-horizontal
@@ -28,11 +38,6 @@ windows:
       layout: main-horizontal
       panes:
         - dodo k9s
-
-  - host:
-      layout: main-horizontal
-      panes:
-        - dodo ssh ole.claussen@192.168.99.1
 
   - dodfiles:
       layout: main-horizontal
