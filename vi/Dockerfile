@@ -41,9 +41,7 @@ RUN go get golang.org/x/tools/gopls@latest
 RUN curl -L -o /home/dodo/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-RUN mkdir -p /home/dodo/.config/nvim
-COPY vimrc /home/dodo/.config/nvim/init.vim
-COPY coc-settings.json /home/dodo/.config/nvim/coc-settings.json
+COPY --chown=dodo:dodo home/ /home/dodo/
 
 RUN nvim --headless -n -i NONE \
     -c PlugUpgrade \

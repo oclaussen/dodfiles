@@ -1,6 +1,6 @@
 backdrops:
   vim:
-    aliases: vi
+    aliases: [vi]
     image:
       name: dodo/vim
       requires: [dodo/base, dodo/languages/golang]
