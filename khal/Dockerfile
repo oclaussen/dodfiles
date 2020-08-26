@@ -11,6 +11,9 @@ RUN apt-get update \
  && apt-get install -y cron libsqlite3-0 \
  && chmod u+s /usr/sbin/cron
 
+RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
+ && echo Europe/Berlin > /etc/timezone
+
 COPY --from=build /opt/python /opt/python
 ENV PATH /opt/python/bin:$PATH
 
