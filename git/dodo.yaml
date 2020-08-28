@@ -7,9 +7,11 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'gpg-data:/data/gpg'
-      - 'sshconfig:/home/dodo/.ssh'
+      - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/project'
     environment:
+      - 'GNUPGHOME=/data/gpg'
       - 'SSH_AUTH_SOCK=/data/gpg/S.gpg-agent.ssh'
     working_dir: '/project/{{ projectPath }}'
-    script: exec lab "$@"
+    script: |
+      exec lab "$@"

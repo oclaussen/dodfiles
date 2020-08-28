@@ -14,16 +14,13 @@ services:
       - 'gpg-data:/data/gpg'
       - 'pulseaudio:/data/pulseaudio'
       - 'scd:/data/pcscd'
-      - 'sshconfig:/data/sshconfig'
       - 'kubeconfig:/data/kubeconfig'
       - 'passwords:/data/passwords'
-      - '/Users/ole.claussen/.ssh:/home/dodo/.ssh'
+      - 'vdir:/data/vdir'
     entrypoint:
       - /bin/sh
       - -euxc
-      - |
-        cp -r /home/dodo/.ssh/* /data/sshconfig/
-        chown -R dodo:dodo /data/*
+      - chown -R dodo:dodo /data/*
 
 volumes:
   tmux-data:
@@ -37,9 +34,6 @@ volumes:
 
   gpg-data:
     name: gpg-data
-
-  sshconfig:
-    name: sshconfig
 
   kubeconfig:
     name: kubeconfig
@@ -55,3 +49,6 @@ volumes:
 
   scd:
     name: scd
+
+  vdir:
+    name: vdir

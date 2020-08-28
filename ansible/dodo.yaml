@@ -6,7 +6,6 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'sshconfig:/home/dodo/.ssh'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:

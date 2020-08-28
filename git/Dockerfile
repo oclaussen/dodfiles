@@ -8,17 +8,23 @@ RUN curl -L -o /tmp/lab.tar.gz \
     https://github.com/zaquestion/lab/releases/download/v0.17.2/lab_0.17.2_linux_amd64.tar.gz \
  && tar -xzf /tmp/lab.tar.gz -C /tmp
 
+RUN curl -L -o /tmp/gopass.tgz \
+    https://github.com/gopasspw/gopass/releases/download/v1.8.6/gopass-1.8.6-linux-amd64.tar.gz \
+ && tar -xzf /tmp/gopass.tgz -C /tmp/ --strip-components=1
+
 FROM dodo/base
 
 RUN apt-get -y update \
  && apt-get -y install \
         git \
         git-lfs \
+        gnupg \
         less \
         vim
 
 COPY --from=build /tmp/hub-linux-amd64-2.14.2/bin/hub /bin/hub
 COPY --from=build /tmp/lab /bin/lab
+COPY --from=build /tmp/gopass  /bin/gopass
 
 USER dodo
 COPY --chown=dodo:dodo home/ /home/dodo/

@@ -6,7 +6,6 @@ backdrops:
        context: '{{ currentDir }}'
        dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'sshconfig:/home/dodo/.ssh'
       - 'gpg-data:/data/gpg'
       - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
@@ -33,7 +32,6 @@ backdrops:
       args:
         terraform_version: '0.12.20'
     volumes:
-      - 'sshconfig:/home/dodo/.ssh'
       - 'gpg-data:/data/gpg'
       - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'

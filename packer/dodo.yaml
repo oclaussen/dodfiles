@@ -6,7 +6,6 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'sshconfig:/home/dodo/.ssh'
       - 'gpg-data:/data/gpg'
       - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
@@ -22,7 +21,6 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'sshconfig:/home/dodo/.ssh'
       - 'gpg-data:/data/gpg'
       - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
