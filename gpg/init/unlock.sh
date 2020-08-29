@@ -14,8 +14,11 @@ gpg-agent --daemon
 gpg --card-status
 
 # Cache secret keys in daemon
+load_key() {
+  echo "unlock" | gpg --encrypt --recipient "$1" | gpg --decrypt
+}
 for recipient in $(cat "${SOURCEDIR}/keys/recipients.txt" | grep -v '^#'); do
-  echo "unlock" | gpg --encrypt --recipient "${recipient}" | gpg --decrypt
+  load_key "${recipient}" || echo "could not find private key for ${recipient}"
 done
 
 # Keep daemon alive for an hour
