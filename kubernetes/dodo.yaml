@@ -1,6 +1,6 @@
 backdrops:
   kube:
-    aliases: kubectl
+    aliases: [kubectl]
     forward_stage: true
     image:
       name: dodo/kube
