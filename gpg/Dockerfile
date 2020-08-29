@@ -6,6 +6,7 @@ RUN apt-get update \
     flex \
     libtool \
     pkg-config \
+    swig \
     libpcsclite-dev \
     libusb-1.0.0-dev
 
@@ -28,6 +29,10 @@ RUN ./bootstrap \
  && make \
  && make install
 
+COPY --from=dodo/languages/python /opt/python /opt/python
+ENV PATH /opt/python/bin:$PATH
+RUN pip install pyscard yubikey-manager
+
 FROM dodo/base
 
 RUN apt-get -y update \
@@ -36,10 +41,15 @@ RUN apt-get -y update \
         scdaemon \
         gnupg \
         libncurses6 \
-        pinentry-curses
+        libpcsclite1 \
+        pinentry-curses \
+        procps
 
 COPY --from=build /opt/pcsc /opt/pcsc
 ENV PATH /opt/pcsc/bin:/opt/pcsc/sbin:$PATH
+
+COPY --from=build /opt/python /opt/python
+ENV PATH /opt/python/bin:$PATH
 
 COPY init /init
 USER dodo
