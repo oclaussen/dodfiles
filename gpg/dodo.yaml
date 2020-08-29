@@ -28,7 +28,7 @@ backdrops:
       - cgroup_rule: 'c *:* rmw'
     script: |
       /init/configure.sh
-      /init/unlock.sh
+      /init/unlock.sh "$@"
 
   ykman:
     image:

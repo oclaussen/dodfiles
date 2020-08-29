@@ -3,6 +3,19 @@ set -eux
 
 SOURCEDIR=$(dirname $0)
 
+# Sanity check arguments
+CARDNAME="$1"
+if [ -z "${CARDNAME}" ]; then
+  echo "Specify card name"
+  exit 1
+fi
+
+RECIPIENTS="${SOURCEDIR}/cards/${CARDNAME}.txt"
+if [ ! -f "${RECIPIENTS}" ]; then
+  echo "No configuration for ${CARDNAME}"
+  exit 1
+fi
+
 # Start smart card daemon
 rm -f /var/run/pcscd/*
 pcscd
@@ -14,11 +27,8 @@ gpg-agent --daemon
 gpg --card-status
 
 # Cache secret keys in daemon
-load_key() {
-  echo "unlock" | gpg --encrypt --recipient "$1" | gpg --decrypt
-}
-for recipient in $(cat "${SOURCEDIR}/keys/recipients.txt" | grep -v '^#'); do
-  load_key "${recipient}" || echo "could not find private key for ${recipient}"
+for recipient in $(cat "${RECIPIENTS}" | grep -v '^#'); do
+  echo "unlock" | gpg --encrypt --recipient "${recipient}" | gpg --decrypt
 done
 
 # Keep daemon alive for an hour
