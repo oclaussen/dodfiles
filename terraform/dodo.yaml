@@ -2,16 +2,15 @@ backdrops:
   terraform:
     image:
        name: dodo/terraform
-       requires: [dodo/base, dodo/languages/golang]
+       requires: [dodo/base, dodo/languages/golang, dodo/gpg]
        context: '{{ currentDir }}'
        dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'gpg-data:/data/gpg'
-      - 'passwords:/home/dodo/.password-store'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
-      - GNUPGHOME=/data/gpg
       - TF_LOG=DEBUG
       - TF_LOG_PATH=/build/terraform.log
       - TF_VAR_username=ole.claussen.api
@@ -26,18 +25,17 @@ backdrops:
   terraform12:
     image:
       name: dodo/terraform12
-      requires: [dodo/base, dodo/languages/golang]
+      requires: [dodo/base, dodo/languages/golang, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
       args:
         terraform_version: '0.12.20'
     volumes:
-      - 'gpg-data:/data/gpg'
-      - 'passwords:/home/dodo/.password-store'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
-      - GNUPGHOME=/data/gpg
       - TF_VAR_username=ole.claussen.api
     script: |
       test -f terraform.log && rm -f terraform.log

@@ -16,7 +16,8 @@ RUN apt-get -y update \
 COPY --from=build /tmp/gopass /bin/gopass
 COPY --from=build /bin/chirp  /bin/chirp
 
-COPY xclip /bin/xclip
+COPY root/ /
 
 USER dodo
-COPY gitconfig /home/dodo/.gitconfig
+COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
+COPY --chown=dodo:dodo home/ /home/dodo/

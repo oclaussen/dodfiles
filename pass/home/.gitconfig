@@ -1,0 +1,10 @@
+[user]
+
+[core]
+    whitespace = trailing-space
+
+[push]
+    default = simple
+
+[fetch]
+    prune = true

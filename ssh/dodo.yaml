@@ -6,7 +6,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'gpg-data:/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
     environment:
-      - 'SSH_AUTH_SOCK=/data/gpg/S.gpg-agent.ssh'
+      - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
     script: exec ssh "$@"

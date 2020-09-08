@@ -11,7 +11,7 @@ services:
       - 'tmux-data:/data/tmux'
       - 'zsh-data:/data/zsh'
       - 'vim-data:/data/vim'
-      - 'gpg-data:/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
       - 'pulseaudio:/data/pulseaudio'
       - 'scd:/data/pcscd'
       - 'kubeconfig:/data/kubeconfig'
@@ -32,8 +32,8 @@ volumes:
   zsh-data:
     name: zsh-data
 
-  gpg-data:
-    name: gpg-data
+  gpg-agent:
+    name: gpg-agent
 
   kubeconfig:
     name: kubeconfig

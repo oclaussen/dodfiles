@@ -6,10 +6,8 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'gpg-data:/data/gpg'
-      - 'passwords:/home/dodo/.password-store'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
     script: exec aws "$@"

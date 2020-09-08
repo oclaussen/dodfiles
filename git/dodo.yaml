@@ -2,13 +2,13 @@ backdrops:
   git:
     image:
       name: dodo/git
-      requires: [dodo/base, dodo/languages/python]
+      requires: [dodo/base, dodo/languages/python, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'gpg-data:/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
       - '{{ projectRoot }}:/project'
     environment:
-      - 'SSH_AUTH_SOCK=/data/gpg/S.gpg-agent.ssh'
+      - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
     working_dir: '/project/{{ projectPath }}'
     script: exec lab "$@"

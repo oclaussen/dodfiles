@@ -10,7 +10,7 @@ if [ -z "${CARDNAME}" ]; then
   exit 1
 fi
 
-RECIPIENTS="${SOURCEDIR}/cards/${CARDNAME}.txt"
+RECIPIENTS="/home/dodo/.gnupg/cards/${CARDNAME}.txt"
 if [ ! -f "${RECIPIENTS}" ]; then
   echo "No configuration for ${CARDNAME}"
   exit 1

@@ -48,4 +48,5 @@ COPY --from=build /bin/tfsec   /bin/tfsec
 COPY --from=build /tmp/gopass  /bin/gopass
 
 USER dodo
+COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 COPY --chown=dodo:dodo home/ /home/dodo/

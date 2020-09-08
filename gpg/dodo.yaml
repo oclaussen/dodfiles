@@ -6,9 +6,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'gpg-data:/data/gpg'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
     script: exec gpg "$@"
 
   unlock:
@@ -21,14 +19,12 @@ backdrops:
     volumes:
       - '/dev/bus/usb:/dev/bus/usb'
       - 'scd:/var/run/pcscd'
-      - 'gpg-data:/data/gpg'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
     devices:
       - cgroup_rule: 'c *:* rmw'
     script: |
-      /init/configure.sh
-      /init/unlock.sh "$@"
+      export GPG_TTY=$(tty)
+      unlock-card.sh "$@"
 
   ykman:
     image:

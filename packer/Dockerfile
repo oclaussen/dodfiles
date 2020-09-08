@@ -52,4 +52,5 @@ ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
 COPY --from=build /tmp/gopass /bin/gopass
 
 USER dodo
+COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 COPY --chown=dodo:dodo home/ /home/dodo/

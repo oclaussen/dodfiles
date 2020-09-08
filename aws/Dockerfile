@@ -22,4 +22,5 @@ RUN curl -L -o /tmp/gopass.tgz \
  && mv /tmp/gopass /bin/gopass
 
 USER dodo
+COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 COPY --chown=dodo:dodo home/ /home/dodo/

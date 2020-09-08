@@ -58,6 +58,7 @@ COPY --from=build /bin/kind                  /bin/kind
 COPY --from=build /tmp/gopass                /bin/gopass
 
 USER dodo
+COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 
 COPY --from=build /home/dodo/.krew /home/dodo/.krew
 ENV PATH /home/dodo/.krew/bin:${PATH}

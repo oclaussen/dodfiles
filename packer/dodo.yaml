@@ -2,29 +2,25 @@ backdrops:
   packer:
     image:
       name: dodo/packer
-      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby]
+      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'gpg-data:/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
     working_dir: '/build/{{ projectPath }}'
     script: exec packer "$@"
 
   kitchen:
     image:
       name: dodo/packer
-      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby]
+      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
-      - 'gpg-data:/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/home/dodo/.password-store'
       - '{{ projectRoot }}:/build'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
     working_dir: '/build/{{ projectPath }}'
     script: exec kitchen "$@"

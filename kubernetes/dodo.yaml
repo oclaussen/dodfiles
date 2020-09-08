@@ -4,16 +4,14 @@ backdrops:
     forward_stage: true
     image:
       name: dodo/kube
-      requires: [dodo/base]
+      requires: [dodo/base, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
-      - 'gpg-data:/data/gpg'
-      - 'passwords:/home/dodo/.password-store'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
     working_dir: '/build/{{ projectPath }}'
     script: exec /bin/kubectl "$@"
 
@@ -21,36 +19,32 @@ backdrops:
     name: k9s
     image:
       name: dodo/kube
-      requires: [dodo/base]
+      requires: [dodo/base, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
-      - 'gpg-data:/data/gpg'
-      - 'passwords:/home/dodo/.password-store'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
     script: exec /bin/k9s "$@"
 
   popeye:
     image:
       name: dodo/kube
-      requires: [dodo/base]
+      requires: [dodo/base, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
-      - 'gpg-data:/data/gpg'
-      - 'passwords:/home/dodo/.password-store'
-    environment:
-      - 'GNUPGHOME=/data/gpg'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
     script: exec /bin/popeye "$@"
 
   kind:
     forward_stage: true
     image:
       name: dodo/kube
-      requires: [dodo/base]
+      requires: [dodo/base, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
