@@ -2,7 +2,7 @@ backdrops:
   packer:
     image:
       name: dodo/packer
-      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg]
+      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg, dodo/pass]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
@@ -15,7 +15,7 @@ backdrops:
   kitchen:
     image:
       name: dodo/packer
-      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg]
+      requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg, dodo/pass]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:

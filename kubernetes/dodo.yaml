@@ -4,7 +4,7 @@ backdrops:
     forward_stage: true
     image:
       name: dodo/kube
-      requires: [dodo/base, dodo/gpg]
+      requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
@@ -19,7 +19,7 @@ backdrops:
     name: k9s
     image:
       name: dodo/kube
-      requires: [dodo/base, dodo/gpg]
+      requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
@@ -31,7 +31,7 @@ backdrops:
   popeye:
     image:
       name: dodo/kube
-      requires: [dodo/base, dodo/gpg]
+      requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
@@ -44,7 +44,7 @@ backdrops:
     forward_stage: true
     image:
       name: dodo/kube
-      requires: [dodo/base, dodo/gpg]
+      requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:

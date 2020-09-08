@@ -2,7 +2,7 @@ backdrops:
   terraform:
     image:
        name: dodo/terraform
-       requires: [dodo/base, dodo/languages/golang, dodo/gpg]
+       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
        context: '{{ currentDir }}'
        dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
@@ -25,7 +25,7 @@ backdrops:
   terraform12:
     image:
       name: dodo/terraform12
-      requires: [dodo/base, dodo/languages/golang, dodo/gpg]
+      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
       args:

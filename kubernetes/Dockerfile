@@ -25,10 +25,6 @@ RUN curl -L -o /bin/kind \
     https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64 \
  && chmod +x /bin/kind
 
-RUN curl -L -o /tmp/gopass.tgz \
-    https://github.com/gopasspw/gopass/releases/download/v1.8.6/gopass-1.8.6-linux-amd64.tar.gz \
- && tar -xzf /tmp/gopass.tgz -C /tmp/ --strip-components=1
-
 USER dodo
 RUN /tmp/krew-linux_amd64 install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
 ENV PATH /home/dodo/.krew/bin:${PATH}
@@ -41,13 +37,7 @@ RUN kubectl krew update \
 FROM dodo/base
 
 RUN apt-get -y update \
- && apt-get -y install \
-        ncurses-bin \
-        python3 \
-        python3-pip \
-        vim
-
-RUN pip3 install --upgrade awscli
+ && apt-get -y install gnupg ncurses-bin vim
 
 COPY --from=docker:19.03.1 /usr/local/bin/docker /bin/docker
 
@@ -55,10 +45,16 @@ COPY --from=build /bin/kubectl               /bin/kubectl
 COPY --from=build /bin/k9s                   /bin/k9s
 COPY --from=build /tmp/popeye                /bin/popeye
 COPY --from=build /bin/kind                  /bin/kind
-COPY --from=build /tmp/gopass                /bin/gopass
+
+COPY --from=dodo/pass /bin/gopass /bin/gopass
+
+COPY --from=dodo/aws /opt/python /opt/python
+ENV PATH /opt/python/bin:$PATH
 
 USER dodo
-COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
+COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg/
+COPY --from=dodo/pass /home/dodo/.config/gopass/ /home/dodo/.config/gopass/
+COPY --from=dodo/aws /home/dodo/.aws/ /home/dodo/.aws/
 
 COPY --from=build /home/dodo/.krew /home/dodo/.krew
 ENV PATH /home/dodo/.krew/bin:${PATH}

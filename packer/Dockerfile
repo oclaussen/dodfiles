@@ -24,10 +24,6 @@ RUN gem install \
         kitchen-inspec \
         psych
 
-RUN curl -L -o /tmp/gopass.tgz \
-    https://github.com/gopasspw/gopass/releases/download/v1.8.6/gopass-1.8.6-linux-amd64.tar.gz \
- && tar -xzf /tmp/gopass.tgz -C /tmp/ --strip-components=1
-
 FROM dodo/base
 
 RUN apt-get update \
@@ -49,8 +45,8 @@ COPY --from=build /opt/ruby /opt/ruby
 ENV GEM_HOME /opt/ruby/bundle
 ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
 
-COPY --from=build /tmp/gopass /bin/gopass
+COPY --from=dodo/pass /bin/gopass /bin/gopass
 
 USER dodo
 COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
-COPY --chown=dodo:dodo home/ /home/dodo/
+COPY --from=dodo/pass /home/dodo/.config/gopass/ /home/dodo/.config/gopass/

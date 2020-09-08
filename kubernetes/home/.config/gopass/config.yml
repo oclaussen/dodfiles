@@ -1,6 +1,0 @@
----
-root:
-  path: gpgcli-gitcli-fs+file:///data/passwords
-  autosync: false
-
-mounts: {}

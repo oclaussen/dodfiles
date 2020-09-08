@@ -2,7 +2,7 @@ backdrops:
   aws:
     image:
       name: dodo/aws
-      requires: [dodo/base, dodo/languages/python]
+      requires: [dodo/base, dodo/languages/python, dodo/pass]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
