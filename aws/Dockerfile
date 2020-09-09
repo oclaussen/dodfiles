@@ -19,6 +19,6 @@ RUN curl -L -o session-manager-plugin.deb https://s3.amazonaws.com/session-manag
 COPY --from=dodo/pass /bin/gopass /bin/gopass
 
 USER dodo
-COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg/
+COPY --chown=dodo:dodo --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 COPY --from=dodo/pass /home/dodo/.config/gopass/ /home/dodo/.config/gopass/
 COPY --chown=dodo:dodo home/ /home/dodo/

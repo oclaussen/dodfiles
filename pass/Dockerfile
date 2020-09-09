@@ -19,5 +19,5 @@ COPY --from=build /bin/chirp  /bin/chirp
 COPY root/ /
 
 USER dodo
-COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
+COPY --chown=dodo:dodo --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 COPY --chown=dodo:dodo home/ /home/dodo/

@@ -21,5 +21,5 @@ COPY --from=build /tmp/hub-linux-amd64-2.14.2/bin/hub /bin/hub
 COPY --from=build /tmp/lab /bin/lab
 
 USER dodo
-COPY --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
+COPY --chown=dodo:dodo --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 COPY --chown=dodo:dodo home/ /home/dodo/
