@@ -32,7 +32,8 @@ ENV PATH /home/dodo/.krew/bin:${PATH}
 RUN kubectl krew update \
  && kubectl krew install tree \
  && kubectl krew install ctx \
- && kubectl krew install ns
+ && kubectl krew install ns \
+ && kubectl krew install neat
 
 FROM dodo/base
 
