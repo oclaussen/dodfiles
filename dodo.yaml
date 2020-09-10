@@ -5,6 +5,7 @@ include:
   - file: '{{ currentDir }}/docker/dodo.yaml'
   - file: '{{ currentDir }}/git/dodo.yaml'
   - file: '{{ currentDir }}/gpg/dodo.yaml'
+  - file: '{{ currentDir }}/jq/dodo.yaml'
   - file: '{{ currentDir }}/khal/dodo.yaml'
   - file: '{{ currentDir }}/kubernetes/dodo.yaml'
   - file: '{{ currentDir }}/net/dodo.yaml'
@@ -83,24 +84,3 @@ backdrops:
       - '{{ currentDir }}:/compose'
     working_dir: '/compose'
     script: exec docker-compose up -d --build
-
-  psql:
-    image:
-      steps: |
-        FROM alpine:3.9
-        RUN apk add --no-cache postgresql-client
-    script: exec psql "$@"
-
-  mysql:
-    image:
-      steps: |
-        FROM alpine:3.9
-        RUN apk add --no-cache mysql-client
-    script: exec mysql "$@"
-
-  jq:
-    image:
-      steps: |
-        FROM alpine:3.9
-        RUN apk add --no-cache jq
-    script: exec jq "$@"

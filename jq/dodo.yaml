@@ -1,0 +1,8 @@
+backdrops:
+  jq:
+    image:
+      name: dodo/jq
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    script: exec jq "$@"
