@@ -28,46 +28,6 @@ include:
   - file: '{{ currentDir }}/languages/rust/dodo.yaml'
   - file: '{{ currentDir }}/languages/scala/dodo.yaml'
 
-stages:
-  default:
-    type: docker-machine
-
-  wabe:
-    type: virtualbox
-    box:
-      user: debian
-      name: buster64
-      version: 10.0.0
-    resources:
-      cpu: 4
-      memory: 8192
-      volumes:
-        - size: 100GB
-      usb:
-        - name: 'Yubico Yubikey NEO OTP+U2F+CCID'
-          vendorid: '0x1050'
-          productid: '0x0116'
-    options:
-      modify: [
-        '--usb', 'on',
-        '--audio', 'coreaudio',
-        '--audiocontroller', 'ac97',
-        '--audiocodec', 'ad1980',
-        '--vram', '256',
-      ]
-      provision:
-        - apt-get update
-        - apt-get install -y nfs-common ntp
-        - if [ "$(file -b -s /dev/sdb)" = "data" ]; then mkfs -F -t ext4 /dev/sdb; fi
-        - mkdir -p /var/lib/docker
-        - mount /dev/sdb /var/lib/docker
-        - mkdir -p /Users/ole.claussen
-        # TODO: this gives a 130 error code, investigate why and fix
-        # TODO: also, manage the nfs share on the host
-        - mount -t nfs 192.168.99.1:/Users/ole.claussen /Users/ole.claussen || true
-        - echo 'ATTRS{idVendor}=="1050",ATTRS{idProduct}=="0116",MODE="0666"' > /etc/udev/rules.d/99-yubikey.rules
-        - udevadm control --reload-rules && udevadm trigger
-
 backdrops:
   init:
     stage: wabe
