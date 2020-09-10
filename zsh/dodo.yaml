@@ -1,0 +1,13 @@
+backdrops:
+  zsh:
+    image:
+      name: dodo/zsh
+      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/rust]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'zsh-data:/data/zsh'
+      - '/Users:/Users'
+    working_dir: /Users/ole.claussen
+    interpreter: /usr/bin/zsh
+    interactive: true

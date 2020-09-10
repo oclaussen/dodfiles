@@ -8,22 +8,22 @@ windows:
       root: /Users/ole.claussen/github-n4
       panes:
         - dodo vi
-        - zsh
-        - zsh
+        - dodo zsh
+        - dodo zsh
 
   - org:
       layout: tiled
       root: /home/dodo
       panes:
         - dodo khal
-        - zsh
-        - zsh
-        - zsh
+        - dodo zsh
+        - dodo zsh
+        - dodo zsh
 
   - adhoc:
       layout: even-horizontal
       panes:
-        - zsh
+        - dodo zsh
         - dodo ssh ole.claussen@192.168.99.1
 
   - wabe:
@@ -31,8 +31,8 @@ windows:
       root: /Users/ole.claussen/github
       panes:
         - dodo vi
-        - zsh
-        - zsh
+        - dodo zsh
+        - dodo zsh
 
   - kubernetes:
       layout: main-horizontal
@@ -44,5 +44,5 @@ windows:
       root: /Users/ole.claussen/.dodfiles
       panes:
         - dodo vi
-        - zsh
-        - zsh
+        - dodo zsh
+        - dodo zsh
