@@ -9,6 +9,7 @@ include:
   - file: '{{ currentDir }}/jq/dodo.yaml'
   - file: '{{ currentDir }}/khal/dodo.yaml'
   - file: '{{ currentDir }}/kubernetes/dodo.yaml'
+  - file: '{{ currentDir }}/linuxkit/dodo.yaml'
   - file: '{{ currentDir }}/net/dodo.yaml'
   - file: '{{ currentDir }}/packer/dodo.yaml'
   - file: '{{ currentDir }}/pass/dodo.yaml'

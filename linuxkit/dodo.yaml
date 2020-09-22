@@ -1,0 +1,11 @@
+backdrops:
+  linuxkit:
+    image:
+       name: dodo/linuxkit
+       requires: [dodo/languages/buildbase, dodo/languages/golang]
+       context: '{{ currentDir }}'
+       dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec linuxkit "$@"
