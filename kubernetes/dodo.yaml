@@ -15,6 +15,21 @@ backdrops:
     working_dir: '/build/{{ projectPath }}'
     script: exec /bin/kubectl "$@"
 
+  helm:
+    forward_stage: true
+    image:
+      name: dodo/kube
+      requires: [dodo/base, dodo/gpg, dodo/aws]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'kubeconfig:/home/dodo/.kube'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec /bin/helm "$@"
+
   k9s:
     name: k9s
     image:

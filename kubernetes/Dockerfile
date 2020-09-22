@@ -25,6 +25,10 @@ RUN curl -L -o /bin/kind \
     https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64 \
  && chmod +x /bin/kind
 
+RUN curl -L -o /tmp/helm.tar.gz \
+    https://get.helm.sh/helm-v3.3.1-linux-amd64.tar.gz \
+ && tar -xzf /tmp/helm.tar.gz -C /tmp --strip-components 1
+
 USER dodo
 RUN /tmp/krew-linux_amd64 install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
 ENV PATH /home/dodo/.krew/bin:${PATH}
@@ -33,7 +37,8 @@ RUN kubectl krew update \
  && kubectl krew install tree \
  && kubectl krew install ctx \
  && kubectl krew install ns \
- && kubectl krew install neat
+ && kubectl krew install neat \
+ && kubectl krew install view-secret
 
 FROM dodo/base
 
@@ -46,6 +51,7 @@ COPY --from=build /bin/kubectl               /bin/kubectl
 COPY --from=build /bin/k9s                   /bin/k9s
 COPY --from=build /tmp/popeye                /bin/popeye
 COPY --from=build /bin/kind                  /bin/kind
+COPY --from=build /tmp/helm                  /bin/helm
 
 COPY --from=dodo/pass /bin/gopass /bin/gopass
 
