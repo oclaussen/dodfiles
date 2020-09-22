@@ -43,7 +43,8 @@ RUN apt-get -y update \
         libncurses6 \
         libpcsclite1 \
         pinentry-curses \
-        procps
+        procps \
+        usbutils
 
 COPY --from=build /opt/pcsc /opt/pcsc
 ENV PATH /opt/pcsc/bin:/opt/pcsc/sbin:$PATH

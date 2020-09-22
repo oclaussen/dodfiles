@@ -31,5 +31,6 @@ for recipient in $(cat "${RECIPIENTS}" | grep -v '^#'); do
   echo "unlock" | gpg --encrypt --recipient "${recipient}" | gpg --decrypt
 done
 
-# Keep daemon alive for an hour
-sleep 3600
+# Keep daemon running until card disconnects
+set +x
+while lsusb -d 1050:0116 > /dev/null; do sleep 1; done
