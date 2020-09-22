@@ -1,0 +1,11 @@
+backdrops:
+  croc:
+    image:
+      name: dodo/croc
+      requires: [dodo/languages/buildbase, dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '{{ cwd }}:/build'
+    working_dir: '/build'
+    script: exec croc "$@"

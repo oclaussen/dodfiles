@@ -2,6 +2,7 @@ include:
   - file: '{{ currentDir }}/ansible/dodo.yaml'
   - file: '{{ currentDir }}/aws/dodo.yaml'
   - file: '{{ currentDir }}/base/dodo.yaml'
+  - file: '{{ currentDir }}/croc/dodo.yaml'
   - file: '{{ currentDir }}/docker/dodo.yaml'
   - file: '{{ currentDir }}/git/dodo.yaml'
   - file: '{{ currentDir }}/gpg/dodo.yaml'
