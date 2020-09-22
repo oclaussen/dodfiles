@@ -43,4 +43,6 @@ USER dodo
 COPY --chown=dodo:dodo --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
 COPY --from=dodo/pass /home/dodo/.config/gopass/ /home/dodo/.config/gopass/
 COPY --from=dodo/aws /home/dodo/.aws/ /home/dodo/.aws/
+COPY --from=dodo/kube /home/dodo/.kubeconfig /home/dodo/.kubeconfig
 COPY --chown=dodo:dodo home/ /home/dodo/
+ENV KUBECONFIG /home/dodo/.kubeconfig

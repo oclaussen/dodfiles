@@ -6,6 +6,7 @@ backdrops:
        context: '{{ currentDir }}'
        dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
+      - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
@@ -14,6 +15,7 @@ backdrops:
       - TF_LOG=DEBUG
       - TF_LOG_PATH=/build/terraform.log
       - TF_VAR_username=ole.claussen.api
+      - SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh
     script: |
       test -f terraform.log && rm -f terraform.log
       if [ "$1" = "fa" ]; then
