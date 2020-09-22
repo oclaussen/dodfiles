@@ -7,7 +7,7 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
-      - 'passwords:/home/dodo/.password-store'
+      - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     script: exec packer "$@"
@@ -20,7 +20,7 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
-      - 'passwords:/home/dodo/.password-store'
+      - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     script: exec kitchen "$@"
