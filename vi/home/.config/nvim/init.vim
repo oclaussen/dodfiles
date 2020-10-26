@@ -10,6 +10,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
+Plug 'mbbill/undotree'
+Plug 'junegunn/vim-peakaboo'
 call plug#end()
 
 filetype indent plugin on
@@ -69,6 +71,10 @@ set shortmess+=c
 
 set nobackup
 set nowritebackup
+
+set undodir=/data/vim/undofiles
+set undofile
+set undolevels=10000
 
 let g:mapleader=","
 
