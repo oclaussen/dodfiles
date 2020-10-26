@@ -1,0 +1,17 @@
+backdrops:
+  jira:
+    image:
+      name: dodo/jira
+      requires: [dodo/base, dodo/languages/golang]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'jira-data:/home/dodo/.jira.d'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
+      - '{{ projectRoot }}:/project'
+    working_dir: '/project/{{ projectPath }}'
+    script: |
+      cp /home/dodo/.jira.yml /home/dodo/.jira.d/config.yml
+      exec jira "$@"
+

@@ -10,6 +10,7 @@ services:
     volumes:
       - 'tmux-data:/data/tmux'
       - 'zsh-data:/data/zsh'
+      - 'jira-data:/data/jira'
       - 'vim-data:/data/vim'
       - 'gpg-agent:/data/gpg-agent'
       - 'pulseaudio:/data/pulseaudio'
@@ -31,6 +32,9 @@ volumes:
 
   zsh-data:
     name: zsh-data
+
+  jira-data:
+    name: jira-data
 
   gpg-agent:
     name: gpg-agent

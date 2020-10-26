@@ -1,0 +1,5 @@
+---
+password-source: gopass
+password-name: jira
+
+custom-commands:
