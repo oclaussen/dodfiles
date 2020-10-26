@@ -13,7 +13,9 @@ backdrops:
       - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
-    script: exec /bin/kubectl "$@"
+    script: |
+      test -f /home/dodo/.kube/context.yaml || cp /home/dodo/context.yaml /home/dodo/.kube/context.yaml
+      exec /bin/kubectl "$@"
 
   helm:
     forward_stage: true

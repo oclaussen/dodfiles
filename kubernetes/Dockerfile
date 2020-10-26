@@ -67,4 +67,4 @@ COPY --from=build /home/dodo/.krew /home/dodo/.krew
 ENV PATH /home/dodo/.krew/bin:${PATH}
 
 COPY --chown=dodo:dodo home/ /home/dodo/
-ENV KUBECONFIG /home/dodo/.kube/config:/home/dodo/.kubeconfig
+ENV KUBECONFIG /home/dodo/.kube/context.yaml:/home/dodo/.kubeconfig:/home/dodo/.kube/config
