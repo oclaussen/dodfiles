@@ -1,6 +1,6 @@
 FROM dodo/base
 
-RUN wget -O /tmp/go.tgz https://golang.org/dl/go1.13.8.linux-amd64.tar.gz \
+RUN wget -O /tmp/go.tgz https://golang.org/dl/go1.15.2.linux-amd64.tar.gz \
  && tar -C /opt -xzf /tmp/go.tgz \
  && rm /tmp/go.tgz
 
