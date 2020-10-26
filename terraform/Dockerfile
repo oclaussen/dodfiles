@@ -1,13 +1,11 @@
 FROM dodo/languages/golang AS terraform-bundler
-ARG terraform_version=0.11.14
+ARG terraform_version=0.13.4
 
 RUN apt-get update \
  && apt-get install -y git zip
 
-RUN go get -d -v github.com/hashicorp/terraform \
- && cd /root/go/src/github.com/hashicorp/terraform \
- && git checkout v${terraform_version} \
- && go install ./tools/terraform-bundle
+RUN git clone --branch v${terraform_version} https://github.com/hashicorp/terraform.git /terraform
+RUN cd /terraform && go install ./tools/terraform-bundle
 
 COPY terraform-bundle-*.hcl .
 
@@ -16,6 +14,10 @@ RUN /root/go/bin/terraform-bundle package terraform-bundle-${terraform_version}.
  && unzip -d terraform-bundle terraform_*.zip
 
 FROM dodo/languages/buildbase AS build
+
+RUN curl -L -o /bin/terragrunt \
+    https://github.com/gruntwork-io/terragrunt/releases/download/v0.25.5/terragrunt_linux_amd64 \
+ && chmod +x /bin/terragrunt
 
 RUN curl -L -o /bin/tfsec \
     https://github.com/liamg/tfsec/releases/download/v0.10.0/tfsec-linux-amd64 \
@@ -33,9 +35,10 @@ RUN apt-get update \
 COPY --from=dodo/aws /opt/python /opt/python
 ENV PATH /opt/python/bin:$PATH
 
-COPY --from=terraform-bundler  /terraform-bundle/* /bin/
-COPY --from=build /bin/kubectl /bin/kubectl
-COPY --from=build /bin/tfsec   /bin/tfsec
+COPY --from=terraform-bundler     /terraform-bundle/* /bin/
+COPY --from=build /bin/terragrunt /bin/terragrunt
+COPY --from=build /bin/kubectl    /bin/kubectl
+COPY --from=build /bin/tfsec      /bin/tfsec
 
 COPY --from=dodo/pass /bin/gopass /bin/gopass
 

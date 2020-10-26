@@ -5,6 +5,8 @@ backdrops:
        requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
        context: '{{ currentDir }}'
        dockerfile: '{{ currentDir }}/Dockerfile'
+      args:
+        terraform_version: '0.11.14'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -14,7 +16,7 @@ backdrops:
     environment:
       - TF_LOG=DEBUG
       - TF_LOG_PATH=/build/terraform.log
-      - TF_VAR_username=ole.claussen.api
+      - TF_VAR_username=ole.claussen
       - SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh
     script: |
       test -f terraform.log && rm -f terraform.log
@@ -24,21 +26,21 @@ backdrops:
         exec terraform "$@"
       fi
 
-  terraform12:
+  terraform13:
     image:
-      name: dodo/terraform12
+      name: dodo/terraform13
       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
       args:
-        terraform_version: '0.12.20'
+        terraform_version: '0.13.4'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
-      - TF_VAR_username=ole.claussen.api
+      - TF_VAR_username=ole.claussen
     script: |
       test -f terraform.log && rm -f terraform.log
       if [ "$1" = "fa" ]; then
@@ -46,6 +48,23 @@ backdrops:
       else
         exec terraform "$@"
       fi
+
+  terragrunt:
+    image:
+      name: dodo/terraform13
+      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+      args:
+        terraform_version: '0.13.4'
+    volumes:
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    environment:
+      - TF_VAR_username=ole.claussen
+    script: exec terragrunt "$@"
 
   tfsec:
     image:
