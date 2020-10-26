@@ -6,8 +6,10 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
+      - 'gpg-agent:/data/gpg-agent'
       - '{{ projectRoot }}:/build'
-    working_dir: '/build/{{ projectPath }}'
     environment:
+      - SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh
       - ANSIBLE_HOST_KEY_CHECKING=False
+    working_dir: '/build/{{ projectPath }}'
     script: exec ansible-playbook "$@"
