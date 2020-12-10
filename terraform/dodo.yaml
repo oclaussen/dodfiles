@@ -5,8 +5,8 @@ backdrops:
        requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
        context: '{{ currentDir }}'
        dockerfile: '{{ currentDir }}/Dockerfile'
-      args:
-        terraform_version: '0.11.14'
+       args:
+         terraform_version: '0.11.14'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -33,7 +33,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
       args:
-        terraform_version: '0.13.4'
+        terraform_version: '0.13.5'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -57,7 +57,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
       args:
-        terraform_version: '0.13.4'
+        terraform_version: '0.13.5'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'

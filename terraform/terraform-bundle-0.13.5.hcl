@@ -1,10 +1,14 @@
 terraform {
-  version = "0.13.4"
+  version = "0.13.5"
 }
 
 providers {
   aws = {
     versions = ["~> 3.10"]
+  }
+
+  google = {
+    versions = ["~> 3.49"]
   }
 
   external = {
