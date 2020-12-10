@@ -1,0 +1,12 @@
+backdrops:
+  gcloud:
+    image:
+      name: dodo/gcloud
+      requires: [dodo/base, dodo/languages/python]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'gcloud-data:/home/dodo/.config/gcloud'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec gcloud "$@"
