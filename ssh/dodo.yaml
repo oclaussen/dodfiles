@@ -12,3 +12,17 @@ backdrops:
       - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
     working_dir: /cwd
     script: exec ssh "$@"
+
+  sftp:
+    image:
+      name: dodo/ssh
+      requires: dodo/base
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'gpg-agent:/data/gpg-agent'
+      - '{{ cwd }}:/cwd'
+    environment:
+      - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
+    working_dir: /cwd
+    script: exec sftp "$@"
