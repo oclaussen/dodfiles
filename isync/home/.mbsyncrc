@@ -1,0 +1,23 @@
+IMAPAccount gmail
+Host imap.gmail.com
+Port 993
+User <email>
+PassCmd "gopass show isync"
+AuthMechs LOGIN
+SSLType IMAPS
+PipelineDepth 10
+
+IMAPSTORE gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Subfolders Verbatim
+Path /data/mail/gmail/
+Inbox /data/mail/gmail/Inbox
+
+Channel gmail
+Master :gmail-remote:
+Slave :gmail-local:
+Pattern *
+Create Both
+SyncState *

@@ -1,0 +1,17 @@
+backdrops:
+  isync:
+    aliases: [mbsync]
+    image:
+      name: dodo/isync
+      requires: [dodo/base]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'mail:/data/mail'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/home/dodo/.password-store'
+    environment:
+      - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
+    script: |
+      mkdir -p /data/mail/gmail/Inbox
+      exec mbsync "$@"

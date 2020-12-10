@@ -18,6 +18,7 @@ services:
       - 'kubeconfig:/data/kubeconfig'
       - 'passwords:/data/passwords'
       - 'vdir:/data/vdir'
+      - 'mail:/data/mail'
     entrypoint:
       - /bin/sh
       - -euxc
@@ -56,3 +57,6 @@ volumes:
 
   vdir:
     name: vdir
+
+  mail:
+    name: mail
