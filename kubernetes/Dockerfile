@@ -29,6 +29,14 @@ RUN curl -L -o /tmp/helm.tar.gz \
     https://get.helm.sh/helm-v3.3.1-linux-amd64.tar.gz \
  && tar -xzf /tmp/helm.tar.gz -C /tmp --strip-components 1
 
+RUN curl -L -o /tmp/crictl.tar.gz \
+    https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.19.0/crictl-v1.19.0-linux-amd64.tar.gz \
+ && tar -xzf /tmp/crictl.tar.gz -C /bin
+
+RUN curl -L -o /tmp/critest.tar.gz \
+    https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.19.0/critest-v1.19.0-linux-amd64.tar.gz \
+ && tar -xzf /tmp/critest.tar.gz -C /bin
+
 USER dodo
 RUN /tmp/krew-linux_amd64 install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
 ENV PATH /home/dodo/.krew/bin:${PATH}
@@ -47,11 +55,13 @@ RUN apt-get -y update \
 
 COPY --from=docker:19.03.1 /usr/local/bin/docker /bin/docker
 
-COPY --from=build /bin/kubectl               /bin/kubectl
-COPY --from=build /bin/k9s                   /bin/k9s
-COPY --from=build /tmp/popeye                /bin/popeye
-COPY --from=build /bin/kind                  /bin/kind
-COPY --from=build /tmp/helm                  /bin/helm
+COPY --from=build /bin/kubectl /bin/kubectl
+COPY --from=build /bin/k9s     /bin/k9s
+COPY --from=build /tmp/popeye  /bin/popeye
+COPY --from=build /bin/kind    /bin/kind
+COPY --from=build /tmp/helm    /bin/helm
+COPY --from=build /bin/crictl  /bin/crictl
+COPY --from=build /bin/critest /bin/critest
 
 COPY --from=dodo/pass /bin/gopass /bin/gopass
 

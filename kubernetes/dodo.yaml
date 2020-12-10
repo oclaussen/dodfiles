@@ -15,7 +15,12 @@ backdrops:
     working_dir: '/build/{{ projectPath }}'
     script: |
       test -f /home/dodo/.kube/context.yaml || cp /home/dodo/context.yaml /home/dodo/.kube/context.yaml
-      exec /bin/kubectl "$@"
+      if [ "$1" = "debug" ]; then
+        shift
+        exec kubectl run -i --rm --tty debug --image=alpine:latest --restart=Never "$@" -- sh
+      else
+        exec /bin/kubectl "$@"
+      fi
 
   helm:
     forward_stage: true
@@ -28,6 +33,7 @@ backdrops:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - 'helm:/home/dodo/.cache/helm'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     script: exec /bin/helm "$@"
@@ -44,6 +50,16 @@ backdrops:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
     script: exec /bin/k9s "$@"
+
+  crictl:
+    image:
+      name: dodo/kube
+      requires: [dodo/base, dodo/gpg, dodo/aws]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - '/run/containerd/containerd.sock:/run/containerd/containerd.sock'
+    script: exec /bin/crictl "$@"
 
   popeye:
     image:

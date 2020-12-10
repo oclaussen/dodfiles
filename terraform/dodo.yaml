@@ -37,6 +37,7 @@ backdrops:
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - 'helm:/home/dodo/.cache/helm'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
@@ -60,6 +61,7 @@ backdrops:
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - 'helm:/home/dodo/.cache/helm'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:

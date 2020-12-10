@@ -19,6 +19,7 @@ services:
       - 'passwords:/data/passwords'
       - 'vdir:/data/vdir'
       - 'mail:/data/mail'
+      - 'helm:/data/helm'
     entrypoint:
       - /bin/sh
       - -euxc
@@ -60,3 +61,6 @@ volumes:
 
   mail:
     name: mail
+
+  helm:
+    name: helm
