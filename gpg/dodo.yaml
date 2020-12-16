@@ -2,7 +2,7 @@ backdrops:
   gpg:
     image:
       name: dodo/gpg
-      requires: [dodo/languages/buildbase, dodo/base]
+      requires: [dodo/languages/buildbase, dodo/languages/python, dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
@@ -13,7 +13,7 @@ backdrops:
     container_name: gpg-agent
     image:
       name: dodo/gpg
-      requires: [dodo/languages/buildbase, dodo/base]
+      requires: [dodo/languages/buildbase, dodo/languages/python, dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
@@ -29,7 +29,7 @@ backdrops:
   ykman:
     image:
       name: dodo/gpg
-      requires: [dodo/languages/buildbase, dodo/base]
+      requires: [dodo/languages/buildbase, dodo/languages/python, dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:

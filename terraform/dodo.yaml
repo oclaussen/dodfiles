@@ -2,7 +2,7 @@ backdrops:
   terraform:
     image:
        name: dodo/terraform
-       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
+       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube]
        context: '{{ currentDir }}'
        dockerfile: '{{ currentDir }}/Dockerfile'
        args:
@@ -29,7 +29,7 @@ backdrops:
   terraform13:
     image:
       name: dodo/terraform13
-      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
+      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
       args:
@@ -53,7 +53,7 @@ backdrops:
   terragrunt:
     image:
       name: dodo/terraform13
-      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws]
+      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
       args:
