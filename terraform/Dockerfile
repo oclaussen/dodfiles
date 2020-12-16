@@ -1,15 +1,14 @@
 FROM dodo/languages/golang AS terraform-bundler
-ARG terraform_version=0.13.5
 
 RUN apt-get update \
  && apt-get install -y git zip
 
-RUN git clone --branch v${terraform_version} https://github.com/hashicorp/terraform.git /terraform
+RUN git clone --branch v0.13.5 https://github.com/hashicorp/terraform.git /terraform
 RUN cd /terraform && go install ./tools/terraform-bundle
 
-COPY terraform-bundle-*.hcl .
+COPY terraform-bundle-0.13.5.hcl .
 
-RUN /root/go/bin/terraform-bundle package terraform-bundle-${terraform_version}.hcl \
+RUN /root/go/bin/terraform-bundle package terraform-bundle-0.13.5.hcl \
  && mkdir -p terraform-bundle \
  && unzip -d terraform-bundle terraform_*.zip
 

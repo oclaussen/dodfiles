@@ -1,12 +1,10 @@
 backdrops:
-  terraform:
+  terraform11:
     image:
-       name: dodo/terraform
+       name: dodo/terraform11
        requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube]
        context: '{{ currentDir }}'
-       dockerfile: '{{ currentDir }}/Dockerfile'
-       args:
-         terraform_version: '0.11.14'
+       dockerfile: '{{ currentDir }}/Dockerfile-0.11'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -26,18 +24,17 @@ backdrops:
         exec terraform "$@"
       fi
 
-  terraform13:
+  terraform:
     image:
-      name: dodo/terraform13
+      name: dodo/terraform
       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
-      args:
-        terraform_version: '0.13.5'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
       - 'helm:/home/dodo/.cache/helm'
+      - 'gcloud-data:/home/dodo/.config/gcloud'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
@@ -52,16 +49,15 @@ backdrops:
 
   terragrunt:
     image:
-      name: dodo/terraform13
+      name: dodo/terraform
       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
-      args:
-        terraform_version: '0.13.5'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
       - 'helm:/home/dodo/.cache/helm'
+      - 'gcloud-data:/home/dodo/.config/gcloud'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
