@@ -15,6 +15,8 @@ services:
       - 'gpg-agent:/data/gpg-agent'
       - 'pulseaudio:/data/pulseaudio'
       - 'scd:/data/pcscd'
+      - 'aws-data:/data/aws-data'
+      - 'gcloud-data:/data/gcloud-data'
       - 'kubeconfig:/data/kubeconfig'
       - 'passwords:/data/passwords'
       - 'vdir:/data/vdir'
@@ -40,6 +42,12 @@ volumes:
 
   gpg-agent:
     name: gpg-agent
+
+  aws-data:
+    name: aws-data
+
+  gcloud-data:
+    name: gcloud-data
 
   kubeconfig:
     name: kubeconfig
