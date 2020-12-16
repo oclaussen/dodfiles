@@ -9,4 +9,6 @@ backdrops:
       - 'gcloud-data:/home/dodo/.config/gcloud'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
-    script: exec gcloud "$@"
+    script: |
+      cp /home/dodo/.gcloud/* /home/dodo/.config/gcloud/configurations/
+      exec gcloud "$@"
