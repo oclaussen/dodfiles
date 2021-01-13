@@ -11,6 +11,10 @@ providers {
     versions = ["~> 3.49"]
   }
 
+  helm = {
+    versions = ["~> 1.3"]
+  }
+
   external = {
     versions = ["~> 2.0"]
   }
