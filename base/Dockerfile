@@ -30,20 +30,6 @@ RUN apt-get update \
 
 RUN locale-gen
 
-# Users and groups
-RUN addgroup \
-      --gid 1000 \
-      dodo \
- && adduser \
-      --uid 1000 \
-      --gid 1000 \
-      --gecos '' \
-      --home /home/dodo \
-      --shell /bin/bash \
-      --disabled-password \
-      dodo \
- && adduser dodo users
-
 # Cleanup
 RUN rm -r /usr/share/info/* \
  && rm -r /usr/share/locale/* \
