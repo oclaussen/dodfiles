@@ -12,8 +12,6 @@ backdrops:
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
-      - TF_LOG=DEBUG
-      - TF_LOG_PATH=/build/terraform.log
       - TF_VAR_username=ole.claussen
       - SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh
     script: |
@@ -62,7 +60,8 @@ backdrops:
     working_dir: '/build/{{ projectPath }}'
     environment:
       - TF_VAR_username=ole.claussen
-    script: exec terragrunt "$@"
+    script: |
+      exec terragrunt "$@"
 
   tfsec:
     image:
