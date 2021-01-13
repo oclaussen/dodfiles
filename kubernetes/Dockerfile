@@ -37,6 +37,10 @@ RUN curl -L -o /tmp/critest.tar.gz \
     https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.19.0/critest-v1.19.0-linux-amd64.tar.gz \
  && tar -xzf /tmp/critest.tar.gz -C /bin
 
+RUN curl -L -o /tmp/flux.tar.gz \
+    https://github.com/fluxcd/flux2/releases/download/v0.5.7/flux_0.5.7_linux_amd64.tar.gz \
+ && tar -xzf tmp/flux.tar.gz -C /tmp
+
 USER dodo
 RUN /tmp/krew-linux_amd64 install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
 ENV PATH /home/dodo/.krew/bin:${PATH}
@@ -75,6 +79,7 @@ COPY --from=build /bin/kind    /bin/kind
 COPY --from=build /tmp/helm    /bin/helm
 COPY --from=build /bin/crictl  /bin/crictl
 COPY --from=build /bin/critest /bin/critest
+COPY --from=build /tmp/flux    /bin/flux
 
 COPY --from=dodo/pass /bin/gopass /bin/gopass
 

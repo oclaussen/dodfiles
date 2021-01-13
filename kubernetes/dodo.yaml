@@ -1,7 +1,5 @@
 backdrops:
-  kube:
-    aliases: [kubectl]
-    forward_stage: true
+  kubectl:
     image:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
@@ -60,6 +58,20 @@ backdrops:
     volumes:
       - '/run/containerd/containerd.sock:/run/containerd/containerd.sock'
     script: exec /bin/crictl "$@"
+
+  flux:
+    image:
+      name: dodo/kube
+      requires: [dodo/base, dodo/gpg, dodo/aws]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    environment:
+      - 'KUBECONFIG=/home/dodo/.kubeconfig'
+    volumes:
+      - 'kubeconfig:/home/dodo/.kube'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
+    script: exec /bin/flux "$@"
 
   popeye:
     image:
