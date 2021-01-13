@@ -1,44 +1,46 @@
 backdrops:
   curl:
     image:
-      name: dodo/net
-      requires: [dodo/base]
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      name: dodo/curl
+      steps: |
+        # syntax = oclaussen/dodfile-syntax
+        base_image: dodo/base
+        user:
+          name: dodo
+        packages:
+          name: [curl]
     volumes:
-      - '{{ cwd }}/cwd'
+      - '{{ cwd }}:/cwd'
     working_dir: /cwd
     script: exec curl "$@"
 
   dig:
     image:
-      name: dodo/net
-      requires: [dodo/base]
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-    volumes:
-      - '{{ cwd }}/cwd'
-    working_dir: /cwd
+      name: dodo/dig
+      steps: |
+        # syntax = oclaussen/dodfile-syntax
+        base_image: dodo/base
+        packages:
+          name: [dnsutils]
     script: exec dig "$@"
-
-  host:
-    image:
-      name: dodo/net
-      requires: [dodo/base]
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-    volumes:
-      - '{{ cwd }}/cwd'
-    working_dir: /cwd
-    script: exec host "$@"
 
   wget:
     image:
-      name: dodo/net
-      requires: [dodo/base]
-      context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      steps: |
+        # syntax = oclaussen/dodfile-syntax
+        base_image: dodo/base
+        packages:
+          name: [wget]
     volumes:
-      - '{{ cwd }}/cwd'
+      - '{{ cwd }}:/cwd'
     working_dir: /cwd
     script: exec wget "$@"
+
+  traceroute:
+    image:
+      steps: |
+        # syntax = oclaussen/dodfile-syntax
+        base_image: dodo/base
+        packages:
+          name: [traceroute]
+    script: exec traceroute "$@"
