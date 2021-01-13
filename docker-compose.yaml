@@ -6,7 +6,7 @@ version: '3.7'
 
 services:
   init-volumes:
-    image: dodo/base
+    image: dodo/docker
     volumes:
       - 'tmux-data:/data/tmux'
       - 'zsh-data:/data/zsh'
