@@ -1,0 +1,18 @@
+backdrops:
+  mysql:
+    image:
+      name: dodo/mysql
+      steps: |
+        # syntax = oclaussen/dodfile-syntax
+        packages:
+          name: [mysql-client]
+    script: exec mysql "$@"
+
+  psql:
+    image:
+      name: dodo/psql
+      steps: |
+        # syntax = oclaussen/dodfile-syntax
+        packages:
+          name: [postgresql-client]
+    script: exec psql "$@"
