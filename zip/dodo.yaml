@@ -8,7 +8,7 @@ backdrops:
         user:
           name: dodo
         packages:
-          name: [zip]
+          name: [zip, unzip]
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd
@@ -23,7 +23,7 @@ backdrops:
         user:
           name: dodo
         packages:
-          name: [zip]
+          name: [zip, unzip]
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd
