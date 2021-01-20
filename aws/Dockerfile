@@ -1,39 +1,40 @@
-FROM dodo/base
+# syntax = oclaussen/dodfile-syntax
+base_image: dodo/base
 
-RUN addgroup \
-      --gid 1000 \
-      dodo \
- && adduser \
-      --uid 1000 \
-      --gid 1000 \
-      --gecos '' \
-      --home /home/dodo \
-      --shell /bin/bash \
-      --disabled-password \
-      dodo \
- && adduser dodo users
+user:
+  name: dodo
+  dotfiles: home
 
-RUN apt-get update \
- && apt-get -y install \
-        curl \
-        gnupg \
-        groff \
-        jq \
-        less
+env:
+  PATH: /opt/python/bin
 
-COPY --from=dodo/languages/python /opt/python /opt/python
-ENV PATH /opt/python/bin:$PATH
+packages:
+  name:
+    - curl
+    - gnupg
+    - groff
+    - jq
+    - less
 
-RUN pip3 install argparse awscli boto3
+download:
+  - source: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb
+    destination: /tmp/session-manager-plugin.deb
 
-RUN curl -L -o session-manager-plugin.deb https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb \
- && dpkg -i session-manager-plugin.deb
+from:
+  - image: dodo/gpg
+    path: /home/dodo/.gnupg
+  - image: dodo/pass
+    path: /bin/gopass
+  - image: dodo/pass
+    path: /home/dodo/.config/gopass
+  - directory: root
+    path: /
 
-COPY --from=dodo/pass /bin/gopass /bin/gopass
+  - dockerfile: |
+      FROM dodo/languages/python
+      ENV PATH /opt/python/bin:$PATH
+      RUN pip3 install argparse awscli boto3
+    path: /opt/python
 
-COPY root/ /
-
-USER dodo
-COPY --chown=dodo:dodo --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
-COPY --from=dodo/pass /home/dodo/.config/gopass/ /home/dodo/.config/gopass/
-COPY --chown=dodo:dodo home/ /home/dodo/
+run:
+  - script: dpkg -i /tmp/session-manager-plugin.deb
