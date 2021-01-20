@@ -1,29 +1,24 @@
-FROM dodo/base
+# syntax = oclaussen/dodfile-syntax
+base_image: dodo/base
 
-RUN addgroup \
-      --gid 1000 \
-      dodo \
- && adduser \
-      --uid 1000 \
-      --gid 1000 \
-      --gecos '' \
-      --home /home/dodo \
-      --shell /bin/bash \
-      --disabled-password \
-      dodo \
- && adduser dodo users
+user:
+  name: dodo
+  dotfiles: home
 
-RUN apt-get update \
- && apt-get -y install curl libsqlite3-0
+env:
+  PATH: /opt/google-cloud-sdk/bin:/opt/python/bin
 
-COPY --from=dodo/languages/python /opt/python /opt/python
-ENV PATH /opt/python/bin:$PATH
+packages:
+  name:
+    - libsqlite3-0
 
-RUN curl -L -o /tmp/google-cloud-sdk.tar.gz \
-    https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-320.0.0-linux-x86_64.tar.gz \
- && tar -xvzf /tmp/google-cloud-sdk.tar.gz -C /opt
+download:
+  - source: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-320.0.0-linux-x86_64.tar.gz
+    destination: /tmp/google-cloud-sdk.tar.gz
 
-ENV PATH /opt/google-cloud-sdk/bin:$PATH
+from:
+  - image: dodo/languages/python
+    path: /opt/python
 
-USER dodo
-COPY --chown=dodo:dodo home/ /home/dodo/
+run:
+  - script: tar -xvzf /tmp/google-cloud-sdk.tar.gz -C /opt
