@@ -36,6 +36,9 @@ download:
   - source: https://github.com/bcicen/ctop/releases/download/v0.7.5/ctop-0.7.5-linux-amd64
     destination: /bin/ctop
 
+  - source: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
+    destination: /usr/lib/docker/cli-plugins/docker-buildx
+
 from:
   - image: dodo/gpg
     path: /home/dodo/.gnupg
