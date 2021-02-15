@@ -4,7 +4,7 @@ backdrops:
     forward_stage: true
     image:
       name: dodo/tmux
-      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby]
+      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby, dodo/languages/golang]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     environment:
@@ -21,7 +21,7 @@ backdrops:
     stage: wabe
     image:
       name: dodo/tmux
-      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby]
+      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby, dodo/languages/golang, dodo/gpg]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes: 'tmux-data:/data/tmux'
