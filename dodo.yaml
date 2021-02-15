@@ -36,8 +36,6 @@ include:
 
 backdrops:
   init:
-    stage: wabe
-    forward_stage: true
     image:
       requires: [dodo/base]
       steps: |

@@ -1,7 +1,5 @@
 backdrops:
   tmux-server:
-    stage: wabe
-    forward_stage: true
     image:
       name: dodo/tmux
       requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby, dodo/languages/golang]
@@ -18,7 +16,6 @@ backdrops:
       tail --pid="${PID}" -f /dev/null
 
   tmux:
-    stage: wabe
     image:
       name: dodo/tmux
       requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby, dodo/languages/golang, dodo/gpg]
