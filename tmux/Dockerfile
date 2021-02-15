@@ -30,10 +30,15 @@ FROM dodo/languages/buildbase AS dodo
 COPY --from=dodo/languages/golang /opt/go /opt/go
 ENV PATH /opt/go/bin:$PATH
 
-RUN git clone -b master https://github.com/dodo-cli/dodo /dodo
-COPY generate.yaml /dodo/generate.yaml
 WORKDIR /dodo
-RUN go generate . && go build .
+RUN git init \
+ && git remote add origin https://github.com/dodo-cli/dodo \
+ && git fetch origin master \
+ && git reset --hard FETCH_HEAD
+
+COPY generate.yaml .
+RUN go generate . \
+ && go build .
 
 FROM dodo/base
 
