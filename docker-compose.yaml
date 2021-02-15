@@ -6,7 +6,7 @@ version: '3.7'
 
 services:
   init-volumes:
-    image: dodo/docker
+    image: docker
     volumes:
       - 'tmux-data:/data/tmux'
       - 'zsh-data:/data/zsh'
@@ -25,7 +25,7 @@ services:
     entrypoint:
       - /bin/sh
       - -euxc
-      - chown -R dodo:dodo /data/*
+      - chown -R 1000:1000 /data/*
 
 volumes:
   tmux-data:
