@@ -34,6 +34,10 @@ download:
     unpack: linux-amd64/helm
     destination: /bin/helm
 
+  - source: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.10.0/kustomize_v3.10.0_linux_amd64.tar.gz
+    unpack: kustomize
+    destination: /bin/kustomize
+
   - source: https://github.com/fluxcd/flux2/releases/download/v0.5.7/flux_0.5.7_linux_amd64.tar.gz
     unpack: flux
     destination: /bin/flux
