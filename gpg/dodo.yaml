@@ -7,7 +7,15 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
-    script: exec gpg "$@"
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: |
+      if [ "$1" = "status" ]; then
+        shift
+        exec /bin/lock-status.sh
+      else
+        exec gpg "$@"
+      fi
 
   unlock:
     container_name: gpg-agent

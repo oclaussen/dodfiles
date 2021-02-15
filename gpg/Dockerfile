@@ -55,7 +55,7 @@ RUN apt-get -y update \
         gnupg \
         libncurses6 \
         libpcsclite1 \
-        pinentry-curses \
+        pinentry-tty \
         procps \
         usbutils
 
