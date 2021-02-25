@@ -5,7 +5,7 @@ root: /Users/ole.claussen
 windows:
   - work:
       layout: main-horizontal
-      root: /Users/ole.claussen/github-n4
+      root: /Users/ole.claussen/gitlab
       panes:
         - dodo vi
         - dodo zsh
