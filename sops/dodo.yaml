@@ -1,0 +1,12 @@
+backdrops:
+  sops:
+    image:
+      name: dodo/sops
+      requires: [dodo/base, dodo/gpg]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'gpg-agent:/data/gpg-agent'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec sops "$@"
