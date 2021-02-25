@@ -22,10 +22,14 @@ services:
       - 'vdir:/data/vdir'
       - 'mail:/data/mail'
       - 'helm:/data/helm'
+      - 'chirp:/data/chirp'
+      - '/Users/ole.claussen:/Users/ole.claussen'
     entrypoint:
       - /bin/sh
       - -euxc
-      - chown -R 1000:1000 /data/*
+      - |
+        cp /Users/ole.claussen/.chirp/* /data/chirp/
+        chown -R 1000:1000 /data/*
 
 volumes:
   tmux-data:
@@ -72,3 +76,6 @@ volumes:
 
   helm:
     name: helm
+
+  chirp:
+    name: chirp

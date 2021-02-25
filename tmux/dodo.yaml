@@ -8,6 +8,8 @@ backdrops:
     environment:
       - 'TMUX_TMPDIR=/data/tmux'
     volumes:
+      - 'chirp:/data/chirp'
+      - 'gpg-agent:/data/gpg-agent'
       - 'tmux-data:/data/tmux'
       - '/Users:/Users'
     script: |

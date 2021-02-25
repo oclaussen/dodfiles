@@ -47,8 +47,8 @@ alias 'du'="du -h"
 alias 'mkdir'="mkdir -p -v"
 alias 'ping'="ping -c 3"
 
-alias 'yank'="chirp copy --address 192.168.99.1:24709"
-alias 'put'="chirp paste --address 192.168.99.1:24709"
+alias 'yank'="chirp copy"
+alias 'put'="chirp paste"
 
 export KEYTIMEOUT=""
 unsetopt nomatch

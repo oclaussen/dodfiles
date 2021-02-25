@@ -6,6 +6,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
+      - 'chirp:/data/chirp'
       - 'zsh-data:/data/zsh'
       - '/Users:/Users'
     working_dir: /Users/ole.claussen

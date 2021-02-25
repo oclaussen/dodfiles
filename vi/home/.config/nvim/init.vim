@@ -25,12 +25,12 @@ let g:clipboard = {
 \  'name': 'chirp',
 \  'cache_enabled': 1,
 \  'copy': {
-\    '+': 'chirp copy --address 192.168.99.1:24709',
-\    '*': 'chirp copy --address 192.168.99.1:24709',
+\    '+': 'chirp copy',
+\    '*': 'chirp copy',
 \  },
 \  'paste': {
-\    '+': 'chirp paste --address 192.168.99.1:24709',
-\    '*': 'chirp paste --address 192.168.99.1:24709',
+\    '+': 'chirp paste',
+\    '*': 'chirp paste',
 \  },
 \}
 

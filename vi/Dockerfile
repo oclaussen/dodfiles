@@ -41,9 +41,9 @@ ENV PATH /opt/nvim/usr/bin:$PATH
 
 COPY --from=build /tmp/terraform-lsp /bin/terraform-lsp
 
-RUN curl -L -o /bin/chirp \
-    https://github.com/oclaussen/chirp/releases/download/1.0/chirp_linux_amd64 \
- && chmod +x /bin/chirp
+RUN curl -L -o /tmp/chirp.tgz \
+    https://github.com/oclaussen/chirp/releases/download/v2.0.0/chirp_2.0.0_Linux_x86_64.tar.gz \
+ && tar xvzf /tmp/chirp.tgz -C /bin
 
 USER dodo
 

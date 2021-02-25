@@ -4,9 +4,9 @@ RUN curl -L -o /tmp/gopass.tgz \
     https://github.com/gopasspw/gopass/releases/download/v1.8.6/gopass-1.8.6-linux-amd64.tar.gz \
  && tar -xzf /tmp/gopass.tgz -C /tmp/ --strip-components=1
 
-RUN curl -L -o /bin/chirp \
-    https://github.com/oclaussen/chirp/releases/download/1.0/chirp_linux_amd64 \
- && chmod +x /bin/chirp
+RUN curl -L -o /tmp/chirp.tgz \
+    https://github.com/oclaussen/chirp/releases/download/v2.0.0/chirp_2.0.0_Linux_x86_64.tar.gz \
+ && tar xvzf /tmp/chirp.tgz -C /bin
 
 FROM dodo/base
 

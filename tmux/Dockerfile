@@ -21,9 +21,9 @@ ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
 
 RUN gem install tmuxinator
 
-RUN curl -L -o /bin/chirp \
-    https://github.com/oclaussen/chirp/releases/download/1.0/chirp_linux_amd64 \
- && chmod +x /bin/chirp
+RUN curl -L -o /tmp/chirp.tgz \
+    https://github.com/oclaussen/chirp/releases/download/v2.0.0/chirp_2.0.0_Linux_x86_64.tar.gz \
+ && tar xvzf /tmp/chirp.tgz -C /bin
 
 FROM dodo/languages/buildbase AS dodo
 

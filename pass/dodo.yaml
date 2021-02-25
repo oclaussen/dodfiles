@@ -6,6 +6,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
+      - 'chirp:/data/chirp'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
     environment:
