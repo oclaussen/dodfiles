@@ -1,0 +1,9 @@
+---
+exec: ['/opt/python/bin/aws']
+subcommands:
+  sh:
+    exec: ['/bin/bash']
+  accountid:
+    exec: ['/bin/print_account_id.py']
+  accountids:
+    exec: ['/bin/print_account_id.py', '--all']

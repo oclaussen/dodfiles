@@ -10,12 +10,4 @@ backdrops:
       - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
-    script: |
-      if [ "$1" = "accountid" ]; then
-        shift
-        exec print_account_id.py "$@"
-      elif [ "$1" = "accountids" ]; then
-        exec print_account_id.py --all
-      else
-        exec aws "$@"
-      fi
+    script: exec dormouse /dormouse.yaml -- "$@"

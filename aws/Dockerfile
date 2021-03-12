@@ -20,6 +20,10 @@ download:
   - source: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb
     destination: /tmp/session-manager-plugin.deb
 
+  - source: https://github.com/oclaussen/dormouse/releases/download/v0.1.1/dormouse_0.1.1_Linux_x86_64.tar.gz
+    unpack: dormouse
+    destination: /bin/dormouse
+
 from:
   - image: dodo/gpg
     path: /home/dodo/.gnupg
@@ -29,6 +33,8 @@ from:
     path: /home/dodo/.config/gopass
   - directory: root
     path: /
+  - directory: dormouse.yaml
+    path: /dormouse.yaml
 
   - dockerfile: |
       FROM dodo/languages/python
