@@ -94,6 +94,7 @@ autocmd BufNewFile,BufRead *.frb set filetype=ruby
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd vimenter * NERDTree | wincmd w
 noremap  <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeShowHidden=1
 
 let g:ctrlp_user_command=[".git","cd %s && git ls-files -co --exclude-standard"]
 let g:ctrlp_map="<C-e>"
