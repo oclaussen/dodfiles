@@ -1,0 +1,10 @@
+backdrops:
+  status:
+    image:
+      name: dodo/status
+      requires: [dodo/base, dodo/languages/python, dodo/khal]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'vdir:/data/vdir'
+    script: exec watch --color --no-title status.sh
