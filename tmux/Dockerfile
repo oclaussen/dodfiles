@@ -59,7 +59,8 @@ RUN apt-get update \
  && apt-get  install -y --no-install-recommends \
         libevent-dev \
         libyaml-dev \
-        ncurses-dev
+        ncurses-dev \
+        gnupg
 
 RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
  && echo Europe/Berlin > /etc/timezone
@@ -73,4 +74,6 @@ COPY --from=build /bin/chirp /bin/chirp
 COPY --from=dodo /dodo/dodo /bin/dodo
 
 USER dodo
+ENV PATH /home/dodo/bin:$PATH
 COPY --chown=dodo:dodo home/ /home/dodo/
+COPY --from=dodo/gpg --chown=dodo:dodo /home/dodo/.gnupg /home/dodo/.gnupg

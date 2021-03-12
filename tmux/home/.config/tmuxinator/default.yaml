@@ -1,3 +1,4 @@
+---
 name: default
 attach: false
 root: /Users/ole.claussen
@@ -11,18 +12,10 @@ windows:
         - dodo zsh
         - dodo zsh
 
-  - org:
-      layout: tiled
-      root: /home/dodo
-      panes:
-        - dodo khal
-        - dodo zsh
-        - dodo zsh
-        - dodo zsh
-
   - adhoc:
       layout: even-horizontal
       panes:
+        - dodo zsh
         - dodo zsh
         - dodo ssh ole.claussen@192.168.99.1
 

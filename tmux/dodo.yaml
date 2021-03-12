@@ -14,6 +14,7 @@ backdrops:
       - '/Users:/Users'
     script: |
       tmuxinator start default
+      trap 'tmux kill-session -t default' EXIT
       PID=$(tmux display-message -pF '#{pid}')
       tail --pid="${PID}" -f /dev/null
 
