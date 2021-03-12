@@ -2,25 +2,9 @@ backdrops:
   ansible:
     image:
       name: dodo/ansible
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        user:
-          name: dodo
-        env:
-          PATH: /opt/python/bin
-        packages:
-          name:
-            - gettext
-            - openssh-client
-            - sshpass
-            - zip
-        from:
-          - dockerfile: |
-              FROM dodo/languages/python
-              ENV PATH /opt/python/bin:$PATH
-              RUN pip3 install ansible pywinrm
-            path: /opt/python
+      requires: [dodo/base, dodo/languages/python, dodo/gpg]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - '{{ projectRoot }}:/build'
