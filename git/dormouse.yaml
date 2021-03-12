@@ -1,0 +1,9 @@
+---
+exec: ['/usr/bin/git']
+subcommands:
+  sh:
+    exec: ['/bin/bash']
+  hub:
+    exec: ['/bin/hub']
+  lab:
+    exec: ['/bin/lab']

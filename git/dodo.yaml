@@ -7,8 +7,9 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/project'
     environment:
       - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
     working_dir: '/project/{{ projectPath }}'
-    script: exec lab "$@"
+    script: exec dormouse /dormouse.yaml -- "$@"
