@@ -1,0 +1,22 @@
+---
+exec: ['/bin/docker']
+subcommands:
+  sh:
+    exec: ['/bin/bash']
+  compose:
+    exec: ['/bin/docker-compose']
+  host:
+    exec:
+      - '/bin/docker'
+      - 'run'
+      - '-it'
+      - '--rm'
+      - '--privileged'
+      - '--net=host'
+      - '--pid=host'
+      - '--ipc=host'
+      - '--volume'
+      - '/:/host'
+      - 'busybox'
+      - 'chroot'
+      - '/host'

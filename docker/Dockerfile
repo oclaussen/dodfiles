@@ -39,6 +39,10 @@ download:
   - source: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
     destination: /usr/lib/docker/cli-plugins/docker-buildx
 
+  - source: https://github.com/oclaussen/dormouse/releases/download/v0.1.1/dormouse_0.1.1_Linux_x86_64.tar.gz
+    unpack: dormouse
+    destination: /bin/dormouse
+
 from:
   - image: dodo/gpg
     path: /home/dodo/.gnupg
@@ -48,6 +52,8 @@ from:
     path: /home/dodo/.config/gopass
   - image: dodo/aws
     path: /home/dodo/.aws
+  - directory: dormouse.yaml
+    path: /dormouse.yaml
 
   - dockerfile: |
       FROM dodo/languages/python
