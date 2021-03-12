@@ -65,9 +65,8 @@ ENV PATH /opt/pcsc/bin:/opt/pcsc/sbin:$PATH
 COPY --from=build /opt/python /opt/python
 ENV PATH /opt/python/bin:$PATH
 
-COPY root/ /
-
 USER dodo
+ENV PATH /home/dodo/bin:$PATH
 COPY --chown=dodo:dodo home/ /home/dodo/
 RUN chmod 700 /home/dodo/.gnupg
 

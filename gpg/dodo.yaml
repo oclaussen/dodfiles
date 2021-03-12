@@ -11,8 +11,10 @@ backdrops:
     working_dir: '/build/{{ projectPath }}'
     script: |
       if [ "$1" = "status" ]; then
-        shift
-        exec /bin/lock-status.sh
+        . /home/dodo/.lib/gpg_cards.sh
+        if ! is_agent_running; then echo "locked"; exit 0; fi
+        card="$(current_card)"
+        if [ -n "${card}" ]; then basename "${card}" .txt; else echo "locked"; fi
       else
         exec gpg "$@"
       fi
@@ -32,7 +34,10 @@ backdrops:
       - cgroup_rule: 'c *:* rmw'
     script: |
       export GPG_TTY=$(tty)
-      unlock-card.sh "$@"
+      . /home/dodo/.lib/gpg_cards.sh
+      init_agent
+      unlock_any_card
+      while check_usb; do sleep 1; done
 
   ykman:
     image:
