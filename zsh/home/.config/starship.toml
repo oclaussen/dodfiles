@@ -4,7 +4,7 @@ format = "$directory$character"
 [character]
 success_symbol = '[\(](blue)'
 error_symbol = '[\(](red)'
-vimcmd_symbol = "[|](blue)"
+vicmd_symbol = "[|](blue)"
 
 [directory]
 format = '[\(](blue)[$path](yellow)[\)-](blue)'
