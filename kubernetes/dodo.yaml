@@ -36,6 +36,22 @@ backdrops:
     working_dir: '/build/{{ projectPath }}'
     script: exec /bin/helm "$@"
 
+  kustomize:
+    image:
+      name: dodo/kube
+      requires: [dodo/base, dodo/gpg, dodo/aws]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
+    volumes:
+      - 'kubeconfig:/home/dodo/.kube'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: |
+      test -f /home/dodo/.kube/context.yaml || cp /home/dodo/context.yaml /home/dodo/.kube/context.yaml
+      exec kustomize "$@"
+
   k9s:
     name: k9s
     image:
