@@ -23,7 +23,7 @@ download:
     unpack: lab
     destination: /bin/lab
 
-  - source: https://github.com/oclaussen/dormouse/releases/download/v0.1.1/dormouse_0.1.1_Linux_x86_64.tar.gz
+  - source: https://github.com/oclaussen/dormouse/releases/download/v0.1.3/dormouse_0.1.3_Linux_x86_64.tar.gz
     unpack: dormouse
     destination: /bin/dormouse
 

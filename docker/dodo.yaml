@@ -11,7 +11,7 @@ backdrops:
       - 'passwords:/data/passwords'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
-    script: exec dormouse /dormouse.yaml -- "$@"
+    script: exec dormouse /dormouse.yaml "$@"
 
   ctop:
     forward_stage: true
