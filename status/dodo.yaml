@@ -7,4 +7,4 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - 'vdir:/data/vdir'
-    script: exec watch --color --no-title status.sh
+    script: exec watch -n 60 --color --no-title status
