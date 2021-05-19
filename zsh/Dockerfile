@@ -1,86 +1,64 @@
-FROM dodo/languages/buildbase AS build
+# syntax = oclaussen/dodfile-syntax
+base_image: dodo/base
 
-RUN apt-get update \
- && apt-get install -y \
-        clang \
-        pkg-config
+user:
+  name: dodo
+  dotfiles: home
 
-COPY --from=dodo/languages/rust /opt/rust /opt/rust
-ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
-ENV PATH ${CARGO_HOME}/bin:$PATH
+env:
+  RUSTUP_HOME: /opt/rust/rustup
+  CARGO_HOME: /opt/rust/cargo
+  PATH: /opt/rust/cargo/bin:$PATH
 
-RUN cargo install \
-    bat \
-    broot \
-    exa \
-    fd-find \
-    procs \
-    ripgrep \
-    sd \
-    tokei \
-    xsv
+packages:
+  name:
+    - less
+    - man
+    - procps
+    - zsh
 
-RUN cargo install \
-    --git https://github.com/starship/starship.git \
-    --branch master
+download:
+  - source: https://github.com/oclaussen/chirp/releases/download/v2.0.0/chirp_2.0.0_Linux_x86_64.tar.gz
+    unpack: chirp
+    destination: /bin/chirp
 
-RUN git clone https://github.com/denisidoro/navi /opt/navi \
- && BIN_DIR=/bin /opt/navi/scripts/install
+  - source: https://github.com/junegunn/fzf-bin/releases/download/0.19.0/fzf-0.19.0-linux_amd64.tgz
+    unpack: fzf
+    destination: /bin/fzf
 
-RUN curl -L -o /tmp/chirp.tgz \
-    https://github.com/oclaussen/chirp/releases/download/v2.0.0/chirp_2.0.0_Linux_x86_64.tar.gz \
- && tar xvzf /tmp/chirp.tgz -C /bin
+from:
+  - dockerfile: |
+      FROM dodo/languages/rust
+      ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
+      ENV PATH ${CARGO_HOME}/bin:$PATH
 
-RUN curl -L -o /tmp/fzf.tgz \
-    https://github.com/junegunn/fzf-bin/releases/download/0.19.0/fzf-0.19.0-linux_amd64.tgz \
- && tar xvzf /tmp/fzf.tgz -C /bin
+      RUN apt-get update && apt-get install -y clang libssl-dev make pkg-config
 
-FROM dodo/languages/buildbase AS dodo
+      RUN cargo install \
+          bat \
+          broot \
+          exa \
+          fd-find \
+          procs \
+          ripgrep \
+          sd \
+          starship \
+          tokei \
+          xsv
+    path: /opt/rust
 
-COPY --from=dodo/languages/golang /opt/go /opt/go
-ENV PATH /opt/go/bin:$PATH
+  - dockerfile: |
+      FROM dodo/languages/golang
+      ENV PATH /opt/go/bin:$PATH
+      WORKDIR /dodo
 
-WORKDIR /dodo
-RUN git init \
- && git remote add origin https://github.com/dodo-cli/dodo \
- && git fetch origin master \
- && git reset --hard FETCH_HEAD
+      RUN apt-get update && apt-get install -y git
 
-COPY generate.yaml .
-RUN go generate . \
- && go build .
-
-FROM dodo/base
-
-RUN addgroup \
-      --gid 1000 \
-      dodo \
- && adduser \
-      --uid 1000 \
-      --gid 1000 \
-      --gecos '' \
-      --home /home/dodo \
-      --shell /bin/bash \
-      --disabled-password \
-      dodo \
- && adduser dodo users
-
-RUN apt-get update \
- && apt-get  install -y \
-        less \
-        man \
-        procps \
-        zsh
-
-COPY --from=build /opt/rust /opt/rust
-ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
-ENV PATH ${CARGO_HOME}/bin:$PATH
-
-COPY --from=build /opt/navi /opt/navi
-COPY --from=build /bin/navi /bin/navi
-COPY --from=build /bin/chirp /bin/chirp
-COPY --from=build /bin/fzf /bin/fzf
-COPY --from=dodo /dodo/dodo /bin/dodo
-
-USER dodo
-COPY --chown=dodo:dodo home/ /home/dodo/
+      RUN git init \
+       && git remote add origin https://github.com/dodo-cli/dodo \
+       && git fetch origin master \
+       && git reset --hard FETCH_HEAD
+      
+      ADD generate.yaml .
+      RUN go generate . && go build . && mv dodo /bin/dodo
+    path: /bin/dodo
