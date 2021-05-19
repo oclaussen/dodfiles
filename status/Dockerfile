@@ -10,6 +10,7 @@ env:
 
 packages:
   name:
+    - curl
     - gcal
     - libsqlite3-0
     - procps

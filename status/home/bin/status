@@ -1,6 +1,8 @@
 #!/bin/sh
 set +x
 
+curl wttr.in/Hamburg?format=4
+
 gcal \
   --force-highlighting \
   --with-week-number \
