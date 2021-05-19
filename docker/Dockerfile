@@ -3,6 +3,7 @@ base_image: dodo/base
 
 user:
   name: dodo
+  dotfiles: home
 
 env:
   DOCKER_TLS_CERTDIR: /certs
@@ -15,6 +16,7 @@ packages:
    - iproute2
    - openssl
    - xfsprogs
+   - gnupg
 
 download:
   - source: https://download.docker.com/linux/static/stable/x86_64/docker-19.03.13.tgz
@@ -38,6 +40,9 @@ download:
 
   - source: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
     destination: /usr/lib/docker/cli-plugins/docker-buildx
+
+  - source: https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.5.0/linux-amd64/docker-credential-ecr-login
+    destination: /bin/docker-credential-ecr-login
 
   - source: https://github.com/oclaussen/dormouse/releases/download/v0.1.3/dormouse_0.1.3_Linux_x86_64.tar.gz
     unpack: dormouse
