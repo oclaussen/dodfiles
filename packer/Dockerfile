@@ -1,66 +1,52 @@
-FROM dodo/languages/buildbase AS build
+# syntax = oclaussen/dodfile-syntax
+base_image: dodo/base
 
-RUN apt-get update \
- && apt-get -y install \
-        libyaml-dev
+user:
+  name: dodo
 
-COPY --from=dodo/languages/python /opt/python /opt/python
-ENV PATH /opt/python/bin:$PATH
+env:
+  GEM_HOME: /opt/ruby/bundle
+  PATH: /opt/python/bin:/opt/ruby/bundle/bin:/opt/ruby/bin
 
-RUN pip3 install \
-        ansible \
-        pywinrm
+packages:
+  name:
+    - gettext
+    - git
+    - gnupg
+    - libyaml-0-2
+    - openssh-client
+    - sshpass
+    - zip
 
-COPY --from=dodo/languages/ruby /opt/ruby /opt/ruby
-ENV GEM_HOME /opt/ruby/bundle
-ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
+download:
+  - source: https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_amd64.zip
+    unpack: packer
+    destination: /bin/packer
 
-RUN gem install \
-        awspec \
-        inspec \
-        kitchen \
-        kitchen-ec2 \
-        kitchen-verifier-awspec \
-        kitchen-inspec \
-        psych
+from:
+  - dockerfile: |
+      FROM dodo/languages/python
+      ENV PATH /opt/python/bin:$PATH
+      RUN apt-get update && apt-get install -y libyaml-dev
+      RUN pip3 install ansible pywinrm
+    path: /opt/python
 
-FROM dodo/base
+  - dockerfile: |
+      FROM dodo/languages/ruby
+      ENV GEM_HOME /opt/ruby/bundle
+      ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
+      RUN apt-get update && apt-get install -y make gcc libffi-dev libyaml-dev
+      RUN gem install psych \
+              kitchen kitchen-ec2 \
+              awspec kitchen-verifier-awspec \
+              inspec kitchen-inspec
+    path: /opt/ruby
 
-RUN addgroup \
-      --gid 1000 \
-      dodo \
- && adduser \
-      --uid 1000 \
-      --gid 1000 \
-      --gecos '' \
-      --home /home/dodo \
-      --shell /bin/bash \
-      --disabled-password \
-      dodo \
- && adduser dodo users
-
-RUN apt-get update \
- && apt-get -y install \
-        gettext \
-        git \
-        gnupg \
-        libyaml-0-2 \
-        openssh-client \
-        sshpass \
-        zip
-
-COPY --from=hashicorp/packer:1.4.1 /bin/packer /bin/packer
-
-COPY --from=build /opt/python /opt/python
-ENV PATH /opt/python/bin:$PATH
-
-COPY --from=build /opt/ruby /opt/ruby
-ENV GEM_HOME /opt/ruby/bundle
-ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
-
-COPY --from=dodo/pass /bin/gopass /bin/gopass
-
-USER dodo
-COPY --chown=dodo:dodo --from=dodo/gpg /home/dodo/.gnupg/ /home/dodo/.gnupg
-COPY --from=dodo/pass /home/dodo/.config/gopass/ /home/dodo/.config/gopass/
-COPY --from=dodo/aws /home/dodo/.aws/ /home/dodo/.aws/
+  - image: dodo/gpg
+    path: /home/dodo/.gnupg
+  - image: dodo/pass
+    path: /bin/gopass
+  - image: dodo/pass
+    path: /home/dodo/.config/gopass
+  - image: dodo/aws
+    path: /home/dodo/.aws
