@@ -19,7 +19,7 @@ download:
     unpack: terraform
     destination: /bin/terraform
 
-  - source: https://github.com/gruntwork-io/terragrunt/releases/download/v0.25.5/terragrunt_linux_amd64
+  - source: https://github.com/gruntwork-io/terragrunt/releases/download/v0.28.15/terragrunt_linux_amd64
     destination: /bin/terragrunt
 
   - source: https://github.com/liamg/tfsec/releases/download/v0.10.0/tfsec-linux-amd64
