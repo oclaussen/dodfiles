@@ -9,6 +9,7 @@ backdrops:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - 'terraform:/data/terraform'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
@@ -33,6 +34,7 @@ backdrops:
       - 'passwords:/data/passwords'
       - 'helm:/home/dodo/.cache/helm'
       - 'gcloud-data:/home/dodo/.config/gcloud'
+      - 'terraform:/data/terraform'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:
@@ -56,6 +58,7 @@ backdrops:
       - 'passwords:/data/passwords'
       - 'helm:/home/dodo/.cache/helm'
       - 'gcloud-data:/home/dodo/.config/gcloud'
+      - 'terraform:/data/terraform'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
     environment:

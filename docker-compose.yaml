@@ -23,6 +23,7 @@ services:
       - 'mail:/data/mail'
       - 'helm:/data/helm'
       - 'chirp:/data/chirp'
+      - 'terraform:/data/terraform'
       - '/Users/ole.claussen:/Users/ole.claussen'
     entrypoint:
       - /bin/sh
@@ -79,3 +80,6 @@ volumes:
 
   chirp:
     name: chirp
+
+  terraform:
+    name: terraform
