@@ -65,7 +65,7 @@ setopt APPEND_HISTORY
 command_not_found_handler () {
   d=$(command -v dodo)
   if [ $? = 0 ]; then
-    $d "$@"
+    $d run "$@"
     return $?
   fi
   echo "command not found: $0"
