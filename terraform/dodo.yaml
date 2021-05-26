@@ -4,7 +4,7 @@ backdrops:
        name: dodo/terraform11
        requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube]
        context: '{{ currentDir }}'
-       dockerfile: '{{ currentDir }}/Dockerfile-0.11'
+       dockerfile: '{{ currentDir }}/Dockerfile-0.11.yaml'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -27,7 +27,7 @@ backdrops:
       name: dodo/terraform
       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -50,7 +50,7 @@ backdrops:
       name: dodo/terraform
       requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -68,7 +68,7 @@ backdrops:
        name: dodo/terraform
        requires: [dodo/base, dodo/languages/golang]
        context: '{{ currentDir }}'
-       dockerfile: '{{ currentDir }}/Dockerfile'
+       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'

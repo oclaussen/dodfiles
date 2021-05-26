@@ -4,7 +4,7 @@ backdrops:
       name: dodo/gcloud
       requires: [dodo/base, dodo/languages/python]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gcloud-data:/home/dodo/.config/gcloud'
       - '{{ projectRoot }}:/build'

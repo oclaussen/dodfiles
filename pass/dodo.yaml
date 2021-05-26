@@ -4,7 +4,7 @@ backdrops:
       name: dodo/pass
       requires: [dodo/languages/buildbase, dodo/base, dodo/gpg]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'chirp:/data/chirp'
       - 'gpg-agent:/data/gpg-agent'

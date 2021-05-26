@@ -4,7 +4,7 @@ backdrops:
       name: dodo/gpg
       requires: [dodo/languages/buildbase, dodo/languages/python, dodo/base]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - '{{ projectRoot }}:/build'
@@ -25,7 +25,7 @@ backdrops:
       name: dodo/gpg
       requires: [dodo/languages/buildbase, dodo/languages/python, dodo/base]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '/dev/bus/usb:/dev/bus/usb'
       - 'scd:/var/run/pcscd'
@@ -44,7 +44,7 @@ backdrops:
       name: dodo/gpg
       requires: [dodo/languages/buildbase, dodo/languages/python, dodo/base]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '/dev/bus/usb:/dev/bus/usb'
       - 'scd:/var/run/pcscd'

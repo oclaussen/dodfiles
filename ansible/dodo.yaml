@@ -4,7 +4,7 @@ backdrops:
       name: dodo/ansible
       requires: [dodo/base, dodo/languages/python, dodo/gpg]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - '{{ projectRoot }}:/build'

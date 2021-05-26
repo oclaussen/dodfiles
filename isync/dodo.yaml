@@ -5,7 +5,7 @@ backdrops:
       name: dodo/isync
       requires: [dodo/base]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'mail:/data/mail'
       - 'gpg-agent:/data/gpg-agent'

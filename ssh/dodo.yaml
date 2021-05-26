@@ -4,7 +4,7 @@ backdrops:
       name: dodo/ssh
       requires: dodo/base
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - '{{ cwd }}:/cwd'
@@ -18,7 +18,7 @@ backdrops:
       name: dodo/ssh
       requires: dodo/base
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - '{{ cwd }}:/cwd'
@@ -32,7 +32,7 @@ backdrops:
       name: dodo/ssh
       requires: dodo/base
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - '{{ cwd }}:/cwd'

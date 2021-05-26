@@ -4,7 +4,7 @@ backdrops:
       name: dodo/sops
       requires: [dodo/base, dodo/gpg]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - '{{ projectRoot }}:/build'

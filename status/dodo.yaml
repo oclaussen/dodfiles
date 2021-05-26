@@ -4,7 +4,7 @@ backdrops:
       name: dodo/status
       requires: [dodo/base, dodo/languages/python, dodo/khal]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'vdir:/data/vdir'
     script: exec watch -n 60 --color --no-title status

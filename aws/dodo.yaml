@@ -4,7 +4,7 @@ backdrops:
       name: dodo/aws
       requires: [dodo/base, dodo/languages/python, dodo/pass]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'

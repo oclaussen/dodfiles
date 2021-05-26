@@ -5,7 +5,7 @@ backdrops:
       name: dodo/docker
       requires: [dodo/base]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -19,5 +19,5 @@ backdrops:
       name: dodo/docker
       requires: [dodo/base]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     script: exec ctop "$@"

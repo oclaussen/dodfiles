@@ -4,7 +4,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -26,7 +26,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -41,7 +41,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -58,7 +58,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     ports: '8080:8080'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
@@ -71,7 +71,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '/run/containerd/containerd.sock:/run/containerd/containerd.sock'
     script: exec /bin/crictl "$@"
@@ -81,7 +81,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     environment:
       - 'KUBECONFIG=/home/dodo/.kubeconfig'
     volumes:
@@ -95,7 +95,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
@@ -108,7 +108,7 @@ backdrops:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
     script: exec /bin/kind "$@"

@@ -4,7 +4,7 @@ backdrops:
       name: dodo/packer
       requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg, dodo/pass]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -17,7 +17,7 @@ backdrops:
       name: dodo/packer
       requires: [dodo/base, dodo/languages/python, dodo/languages/ruby, dodo/gpg, dodo/pass]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'

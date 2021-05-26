@@ -4,7 +4,7 @@ backdrops:
       name: dodo/jira
       requires: [dodo/base, dodo/languages/golang]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - 'jira-data:/home/dodo/.jira.d'
       - 'gpg-agent:/data/gpg-agent'
