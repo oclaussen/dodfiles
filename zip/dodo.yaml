@@ -2,13 +2,8 @@ backdrops:
   zip:
     image:
       name: dodo/zip
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        user:
-          name: dodo
-        packages:
-          name: [zip, unzip]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd
@@ -17,13 +12,8 @@ backdrops:
   unzip:
     image:
       name: dodo/zip
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        user:
-          name: dodo
-        packages:
-          name: [zip, unzip]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd

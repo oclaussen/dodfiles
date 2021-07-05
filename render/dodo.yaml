@@ -2,12 +2,8 @@ backdrops:
   render:
     image:
       name: dodo/render
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        download:
-          - source: https://github.com/VirtusLab/render/releases/download/v0.1.3/render-linux-amd64
-            destination: /bin/render
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'

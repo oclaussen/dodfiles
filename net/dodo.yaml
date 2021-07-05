@@ -1,14 +1,9 @@
 backdrops:
   curl:
     image:
-      name: dodo/curl
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        user:
-          name: dodo
-        packages:
-          name: [curl]
+      name: dodo/net
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd
@@ -16,21 +11,16 @@ backdrops:
 
   dig:
     image:
-      name: dodo/dig
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        packages:
-          name: [dnsutils]
+      name: dodo/net
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     script: exec dig "$@"
 
   wget:
     image:
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        packages:
-          name: [wget]
+      name: dodo/net
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd
@@ -38,9 +28,7 @@ backdrops:
 
   traceroute:
     image:
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        packages:
-          name: [traceroute]
+      name: dodo/net
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     script: exec traceroute "$@"

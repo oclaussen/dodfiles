@@ -1,18 +1,14 @@
 backdrops:
   mysql:
     image:
-      name: dodo/mysql
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        packages:
-          name: [mysql-client]
+      name: dodo/databases
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     script: exec mysql "$@"
 
   psql:
     image:
-      name: dodo/psql
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        packages:
-          name: [postgresql-client]
+      name: dodo/databases
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     script: exec psql "$@"

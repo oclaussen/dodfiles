@@ -2,11 +2,6 @@ backdrops:
   jq:
     image:
       name: dodo/jq
-      steps: |
-        # syntax = oclaussen/dodfile-syntax
-        base_image: dodo/base
-        user:
-          name: dodo
-        packages:
-          name: [jq]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     script: exec jq "$@"
