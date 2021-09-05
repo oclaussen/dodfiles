@@ -15,5 +15,6 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ projectRoot }}:/work'
+      - 'sbt-cache:/root'
     working_dir: /work
     script: exec sbt "$@"

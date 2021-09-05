@@ -25,6 +25,7 @@ from:
       
       RUN apt-get update \
        && apt-get -y install \
+          autoconf-archive \
           automake \
           flex \
           libtool \

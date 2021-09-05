@@ -16,7 +16,7 @@ RUN for key in \
     A48C2BEE680E841632CD4E44F07496B3EB3C1762 \
     B9E2F5981AA6E0CD28160D9FF13993A75599653C \
     6A010C5166006599AA17F08146C2130DFD2497F5 \
- ; do gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; done
+ ; do gpg --batch --keyserver keys.openpgp.org --recv-keys "$key"; done
 
 RUN mkdir -p /opt/nodejs
 

@@ -83,3 +83,6 @@ volumes:
 
   terraform:
     name: terraform
+
+  sbt-cache:
+    name: sbt-cache
