@@ -3,7 +3,7 @@ backdrops:
     image:
       name: dodo/zip
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd
@@ -13,7 +13,7 @@ backdrops:
     image:
       name: dodo/zip
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
       - '{{ cwd }}:/cwd'
     working_dir: /cwd
