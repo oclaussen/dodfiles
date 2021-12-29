@@ -26,7 +26,7 @@ backdrops:
   terraform:
     image:
       name: dodo/terraform
-      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
+      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/google]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
@@ -50,7 +50,7 @@ backdrops:
   terragrunt:
     image:
       name: dodo/terraform
-      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/gcloud]
+      requires: [dodo/base, dodo/languages/golang, dodo/gpg, dodo/pass, dodo/aws, dodo/kube, dodo/google]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:

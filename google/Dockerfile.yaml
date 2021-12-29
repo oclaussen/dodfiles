@@ -10,15 +10,32 @@ env:
 
 packages:
   name:
+    - git
+    - gnupg
     - libsqlite3-0
+    - xz-utils
 
 download:
   - source: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-320.0.0-linux-x86_64.tar.gz
     destination: /tmp/google-cloud-sdk.tar.gz
+  - source: https://github.com/jay0lee/GAM/releases/download/v6.06/gam-6.06-linux-x86_64-legacy.tar.xz
+    destination: /tmp/gam.tar.xz
 
 from:
+  - image: dodo/gpg
+    path: /home/dodo/.gnupg
+  - image: dodo/pass
+    path: /bin/gopass
+  - image: dodo/pass
+    path: /home/dodo/.config/gopass
   - image: dodo/languages/python
     path: /opt/python
 
 run:
   - script: tar -xvzf /tmp/google-cloud-sdk.tar.gz -C /opt
+
+  - user: dodo
+    cwd: /home/dodo
+    script: |
+      tar -xvf /tmp/gam.tar.xz -C .
+      touch gam/noshorturls.txt
