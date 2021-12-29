@@ -19,18 +19,18 @@ download:
   - source: https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
     destination: /bin/kubectl
 
-  - source: https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz
+  - source: https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz
     unpack: k9s
     destination: /bin/k9s
 
-  - source: https://github.com/derailed/popeye/releases/download/v0.7.1/popeye_Linux_x86_64.tar.gz
+  - source: https://github.com/derailed/popeye/releases/download/v0.9.7/popeye_Linux_x86_64.tar.gz
     unpack: popeye
     destination: /bin/popeye
 
   - source: https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64
     destination: /bin/kind
 
-  - source: https://get.helm.sh/helm-v3.3.1-linux-amd64.tar.gz
+  - source: https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
     unpack: linux-amd64/helm
     destination: /bin/helm
 
@@ -45,6 +45,9 @@ download:
   - source: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.19.0/crictl-v1.19.0-linux-amd64.tar.gz
     unpack: crictl
     destination: /bin/crictl
+
+  - source: https://github.com/armosec/kubescape/releases/download/v1.0.133/kubescape-ubuntu-latest
+    destination: /bin/kubescape
 
 from:
   - image: docker:19.03.1

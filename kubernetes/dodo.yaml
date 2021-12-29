@@ -103,6 +103,18 @@ backdrops:
       - 'passwords:/data/passwords'
     script: exec /bin/popeye "$@"
 
+  kubescape:
+    image:
+      name: dodo/kube
+      requires: [dodo/base, dodo/gpg, dodo/aws]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
+    volumes:
+      - 'kubeconfig:/home/dodo/.kube'
+      - 'gpg-agent:/data/gpg-agent'
+      - 'passwords:/data/passwords'
+    script: exec /bin/kubescape "$@"
+
   kind:
     forward_stage: true
     image:
