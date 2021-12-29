@@ -4,9 +4,7 @@ backdrops:
       name: dodo/languages/java8
       requires: [dodo/base, dodo/languages/buildbase]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-      args:
-        - 'JDK_URL=https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u252-b09/OpenJDK8U-jdk_x64_linux_8u252b09.tar.gz'
+      dockerfile: '{{ currentDir }}/Dockerfile.8'
     volumes:
       - '{{ projectRoot }}:/work'
     working_dir: /work
@@ -18,9 +16,7 @@ backdrops:
       name: dodo/languages/java11
       requires: [dodo/base, dodo/languages/buildbase]
       context: '{{ currentDir }}'
-      dockerfile: '{{ currentDir }}/Dockerfile'
-      args:
-        - 'JDK_URL=https://github.com/AdoptOpenJDK/openjdk11-upstream-binaries/releases/download/jdk-11.0.8%%2B10/OpenJDK11U-jdk_x64_linux_11.0.8_10.tar.gz'
+      dockerfile: '{{ currentDir }}/Dockerfile.11'
     volumes:
       - '{{ projectRoot }}:/work'
     working_dir: /work

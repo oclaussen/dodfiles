@@ -2,7 +2,7 @@ backdrops:
   scala:
     image:
       name: dodo/languages/scala
-      requires: [dodo/base, dodo/languages/java11]
+      requires: [dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     interactive: true
@@ -10,7 +10,7 @@ backdrops:
   sbt:
     image:
       name: dodo/languages/scala
-      requires: [dodo/base, dodo/languages/java11]
+      requires: [dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
