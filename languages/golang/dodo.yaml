@@ -8,5 +8,7 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ projectRoot }}:/work'
+    ports:
+      - '9094:9094'
     working_dir: /work
     script: exec go "$@"
