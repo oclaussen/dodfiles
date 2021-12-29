@@ -1,7 +1,7 @@
 FROM dodo/languages/buildbase AS build
 
 RUN curl -L -o /tmp/nvim.appimage \
-    https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage \
+    https://github.com/neovim/neovim/releases/download/stable/nvim.appimage \
  && chmod +x /tmp/nvim.appimage \
  && /tmp/nvim.appimage --appimage-extract \
  && find squashfs-root -type d -exec chmod 755 {} \; \
