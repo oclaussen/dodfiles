@@ -1,6 +1,6 @@
 backdrops:
   golang:
-    alias: go
+    aliases: [go]
     image:
       name: dodo/languages/golang
       requires: dodo/base

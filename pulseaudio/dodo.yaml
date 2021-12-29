@@ -1,6 +1,6 @@
 backdrops:
   pulseaudio:
-    aliases: pa
+    aliases: [pa]
     image:
       name: dodo/pulseaudio
       context: '{{ currentDir }}'

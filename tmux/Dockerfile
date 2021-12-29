@@ -33,10 +33,10 @@ ENV PATH /opt/go/bin:$PATH
 WORKDIR /dodo
 RUN git init \
  && git remote add origin https://github.com/dodo-cli/dodo \
- && git fetch origin master \
- && git reset --hard FETCH_HEAD
+ && git fetch origin main \
+ && git reset --hard 8c47d24
 
-COPY generate.yaml .
+ADD generate.yaml .
 RUN go generate . \
  && go build .
 
@@ -76,4 +76,3 @@ COPY --from=dodo /dodo/dodo /bin/dodo
 USER dodo
 ENV PATH /home/dodo/bin:$PATH
 COPY --chown=dodo:dodo home/ /home/dodo/
-COPY --from=dodo/gpg --chown=dodo:dodo /home/dodo/.gnupg /home/dodo/.gnupg

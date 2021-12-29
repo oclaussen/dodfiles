@@ -1,7 +1,7 @@
 ---
 plugins:
+  - import: github.com/dodo-cli/dodo/plugin
   - import: github.com/dodo-cli/dodo-core/plugin
-  - import: github.com/dodo-cli/dodo-build/plugin
+  - import: github.com/dodo-cli/dodo-buildkit/plugin
   - import: github.com/dodo-cli/dodo-config/plugin
   - import: github.com/dodo-cli/dodo-docker/plugin
-  - import: github.com/dodo-cli/dodo-daemon/plugin

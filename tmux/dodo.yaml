@@ -11,7 +11,9 @@ backdrops:
       - 'chirp:/data/chirp'
       - 'gpg-agent:/data/gpg-agent'
       - 'tmux-data:/data/tmux'
+      - '/var/run/docker.sock:/var/run/docker.sock'
       - '/Users:/Users'
+    user: '1000:113'
     script: |
       tmuxinator start default
       trap 'tmux kill-session -t default' EXIT
@@ -21,11 +23,13 @@ backdrops:
   tmux:
     image:
       name: dodo/tmux
-      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby, dodo/languages/golang, dodo/gpg]
+      requires: [dodo/base, dodo/languages/buildbase, dodo/languages/ruby, dodo/languages/golang]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
-    volumes: 'tmux-data:/data/tmux'
-    environment: 'TMUX_TMPDIR=/data/tmux'
+    volumes:
+      - 'tmux-data:/data/tmux'
+    environment:
+      - 'TMUX_TMPDIR=/data/tmux'
     user: dodo
     script: |
       if [ $# != 0 ]; then

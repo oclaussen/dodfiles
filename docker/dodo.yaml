@@ -1,6 +1,5 @@
 backdrops:
   docker:
-    forward_stage: true
     image:
       name: dodo/docker
       requires: [dodo/base]
@@ -9,7 +8,9 @@ backdrops:
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - '/var/run/docker.sock:/var/run/docker.sock'
       - '{{ projectRoot }}:/build'
+    user: '1000:113'
     working_dir: '/build/{{ projectPath }}'
     script: exec dormouse /dormouse.yaml "$@"
 
@@ -20,4 +21,7 @@ backdrops:
       requires: [dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    user: '1000:113'
     script: exec ctop "$@"

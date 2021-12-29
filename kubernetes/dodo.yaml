@@ -59,7 +59,8 @@ backdrops:
       requires: [dodo/base, dodo/gpg, dodo/aws]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
-    ports: '8080:8080'
+    ports:
+      - '8080:8080'
     volumes:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
