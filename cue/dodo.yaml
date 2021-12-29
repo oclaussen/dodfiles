@@ -1,0 +1,10 @@
+backdrops:
+  cue:
+    image:
+      name: dodo/cue
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
+    volumes:
+      - '{{ cwd }}:/build'
+    working_dir: '/build'
+    script: exec cue "$@"
