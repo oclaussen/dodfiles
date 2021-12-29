@@ -8,5 +8,6 @@ packages:
   name:
     - curl
     - dnsutils
+    - iperf3
     - traceroute
     - wget

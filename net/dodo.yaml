@@ -32,3 +32,10 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     script: exec traceroute "$@"
+
+  iperf:
+    image:
+      name: dodo/net
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
+    script: exec iperf3 "$@"
