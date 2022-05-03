@@ -7,5 +7,5 @@ backdrops:
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
       - '{{ projectRoot }}:/work'
-    working_dir: /work
+    working_dir: '/work/{{ projectPath }}'
     script: exec python "$@"
