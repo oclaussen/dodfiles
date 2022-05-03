@@ -53,7 +53,7 @@ backdrops:
       exec kustomize "$@"
 
   k9s:
-    name: k9s
+    container_name: k9s
     image:
       name: dodo/kube
       requires: [dodo/base, dodo/gpg, dodo/aws]
