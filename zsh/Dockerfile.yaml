@@ -38,6 +38,7 @@ from:
           bat \
           exa \
           fd-find \
+          jless \
           procs \
           ripgrep \
           sd \
