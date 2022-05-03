@@ -35,7 +35,9 @@ backdrops:
       - 'helm:/home/dodo/.cache/helm'
       - 'gcloud-data:/home/dodo/.config/gcloud'
       - 'terraform:/data/terraform'
+      - '/var/run/docker.sock:/var/run/docker.sock'
       - '{{ projectRoot }}:/build'
+    user: '1000:113'
     working_dir: '/build/{{ projectPath }}'
     environment:
       - TF_VAR_username=ole.claussen
@@ -59,7 +61,9 @@ backdrops:
       - 'helm:/home/dodo/.cache/helm'
       - 'gcloud-data:/home/dodo/.config/gcloud'
       - 'terraform:/data/terraform'
+      - '/var/run/docker.sock:/var/run/docker.sock'
       - '{{ projectRoot }}:/build'
+    user: '1000:113'
     working_dir: '/build/{{ projectPath }}'
     environment:
       - TF_VAR_username=ole.claussen
