@@ -62,6 +62,8 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt INC_APPEND_HISTORY
 setopt APPEND_HISTORY
 
+trap exit TERM
+
 command_not_found_handler () {
   d=$(command -v dodo)
   if [ $? = 0 ]; then
