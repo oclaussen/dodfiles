@@ -2,7 +2,7 @@ backdrops:
   rust:
     image:
       name: dodo/languages/rust
-      requires: dodo/base
+      requires: [dodo/base]
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile'
     volumes:
