@@ -1,0 +1,11 @@
+backdrops:
+  timg:
+    image:
+       name: dodo/timg
+       requires: [dodo/base]
+       context: '{{ currentDir }}'
+       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
+    volumes:
+      - '{{ projectRoot }}:/work'
+    working_dir: '/work/{{ projectPath }}'
+    script: exec timg "$@"
