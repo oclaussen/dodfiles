@@ -15,7 +15,7 @@ packages:
     - jq
 
 download:
-  - source: https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip
+  - source: https://releases.hashicorp.com/terraform/1.1.4/terraform_1.1.4_linux_amd64.zip
     unpack: terraform
     destination: /bin/terraform
 
