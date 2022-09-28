@@ -96,7 +96,8 @@ from:
        && kubectl krew install ctx \
        && kubectl krew install ns \
        && kubectl krew install neat \
-       && kubectl krew install view-secret
+       && kubectl krew install view-secret \
+       && kubectl krew install cert-manager
     path: /home/dodo/.krew
 
   - image: dodo/gpg
