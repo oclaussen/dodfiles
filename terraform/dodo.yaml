@@ -9,6 +9,7 @@ backdrops:
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - 'aws-cache:/home/dodo/.aws/cli/cache'
       - 'terraform:/data/terraform'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
@@ -32,6 +33,7 @@ backdrops:
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - 'aws-cache:/home/dodo/.aws/cli/cache'
       - 'helm:/home/dodo/.cache/helm'
       - 'gcloud-data:/home/dodo/.config/gcloud'
       - 'terraform:/data/terraform'
@@ -41,13 +43,7 @@ backdrops:
     working_dir: '/build/{{ projectPath }}'
     environment:
       - TF_VAR_username=ole.claussen
-    script: |
-      test -f terraform.log && rm -f terraform.log
-      if [ "$1" = "fa" ]; then
-        exec terraform init -get=true -upgrade=true
-      else
-        exec terraform "$@"
-      fi
+    script: exec dormouse /dormouse.yaml "$@"
 
   terragrunt:
     image:
@@ -58,6 +54,7 @@ backdrops:
     volumes:
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
+      - 'aws-cache:/home/dodo/.aws/cli/cache'
       - 'helm:/home/dodo/.cache/helm'
       - 'gcloud-data:/home/dodo/.config/gcloud'
       - 'terraform:/data/terraform'
@@ -67,8 +64,7 @@ backdrops:
     working_dir: '/build/{{ projectPath }}'
     environment:
       - TF_VAR_username=ole.claussen
-    script: |
-      exec terragrunt "$@"
+    script: exec dormouse /dormouse.yaml tg "$@"
 
   tfsec:
     image:

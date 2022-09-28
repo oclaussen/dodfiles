@@ -1,8 +1,15 @@
 ---
-exec: ['/opt/python/bin/aws']
+options:
+  - name: profile
+    default: default
+
+exec: ['/bin/aws-vault', 'exec', '{{ profile }}', '--', 'aws']
+
 subcommands:
   sh:
     exec: ['/bin/bash']
+  vault:
+    exec: ['/bin/aws-vault']
   accountid:
     exec: ['/bin/print_account_id.py']
   accountids:

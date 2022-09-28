@@ -105,5 +105,3 @@ from:
     path: /bin/gopass
   - image: dodo/pass
     path: /home/dodo/.config/gopass
-  - image: dodo/aws
-    path: /home/dodo/.aws

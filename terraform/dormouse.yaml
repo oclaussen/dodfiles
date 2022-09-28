@@ -1,0 +1,15 @@
+---
+options:
+  - name: profile
+    default: default
+
+exec: ['/bin/aws-vault', 'exec', '{{ profile }}', '--', 'terraform']
+
+subcommands:
+  sh:
+    exec: ['/bin/bash']
+  tg:
+    options:
+      - name: profile
+        default: default
+    exec: ['/bin/aws-vault', 'exec', '{{ profile }}', '--', 'terragrunt']

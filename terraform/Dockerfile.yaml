@@ -8,6 +8,10 @@ user:
 env:
   PATH: /opt/python/bin:/opt/google-cloud-sdk/bin
 
+  AWS_VAULT_BACKEND: pass
+  AWS_VAULT_PASS_CMD: /bin/gopass
+  AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
+
 packages:
   name:
     - git
@@ -38,16 +42,25 @@ download:
   - source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
     destination: /bin/sops
 
+  - source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
+    unpack: gopass
+    destination: /bin/gopass
+
+  - source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
+    destination: /bin/aws-vault
+
+  - source: https://github.com/oclaussen/dormouse/releases/download/v0.1.3/dormouse_0.1.3_Linux_x86_64.tar.gz
+    unpack: dormouse
+    destination: /bin/dormouse
+
 from:
   - image: dodo/gpg
     path: /home/dodo/.gnupg
-  - image: dodo/pass
-    path: /bin/gopass
-  - image: dodo/pass
-    path: /home/dodo/.config/gopass
-  - image: dodo/aws
-    path: /home/dodo/.aws
   - image: dodo/aws
     path: /opt/python
+  - image: dodo/aws
+    path: /home/dodo/.aws
   - image: dodo/google
     path: /opt/google-cloud-sdk
+  - directory: dormouse.yaml
+    path: /dormouse.yaml
