@@ -32,13 +32,15 @@ from:
       ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
       ENV PATH ${CARGO_HOME}/bin:$PATH
 
+      COPY --from=dodo/languages/python /opt/python /opt/python
+      ENV PATH /opt/python/bin:$PATH
+
       RUN apt-get update && apt-get install -y clang libssl-dev make pkg-config
 
       RUN cargo install \
           bat \
           exa \
           fd-find \
-          jless \
           procs \
           ripgrep \
           sd \
@@ -55,9 +57,9 @@ from:
       RUN apt-get update && apt-get install -y git
 
       RUN git init \
-       && git remote add origin https://github.com/dodo-cli/dodo \
+       && git remote add origin https://github.com/wabenet/dodo \
        && git fetch origin main \
-       && git reset --hard 8c47d24
+       && git reset --hard 3e2980d
       
       ADD generate.yaml .
       RUN go generate . && go build . && mv dodo /bin/dodo
