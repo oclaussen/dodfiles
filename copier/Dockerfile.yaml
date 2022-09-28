@@ -1,0 +1,20 @@
+# syntax = oclaussen/dodfile-syntax
+base_image: dodo/base
+
+user:
+  name: dodo
+  dotfiles: home
+
+env:
+  PATH: /opt/python/bin
+
+packages:
+  name:
+    - git
+
+from:
+  - dockerfile: |
+      FROM dodo/languages/python
+      ENV PATH /opt/python/bin:$PATH
+      RUN pip3 install copier
+    path: /opt/python

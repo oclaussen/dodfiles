@@ -1,0 +1,13 @@
+backdrops:
+  copier:
+    image:
+      name: dodo/copier
+      requires: [dodo/base, dodo/languages/python]
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
+    volumes:
+      - '{{ projectRoot }}:/build'
+      - '/Users/ole.claussen/github/wabenet/copier-dodo-plugin:/copier-dodo-plugin'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec copier "$@"
+
