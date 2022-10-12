@@ -6,7 +6,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
-      - 'aws-data:/home/dodo/.aws'
+      - 'aws-cache:/home/dodo/.aws/cli/cache'
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -29,7 +29,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
-      - 'aws-data:/home/dodo/.aws'
+      - 'aws-cache:/home/dodo/.aws/cli/cache'
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -45,7 +45,7 @@ backdrops:
       context: '{{ currentDir }}'
       dockerfile: '{{ currentDir }}/Dockerfile.yaml'
     volumes:
-      - 'aws-data:/home/dodo/.aws'
+      - 'aws-cache:/home/dodo/.aws/cli/cache'
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
@@ -65,7 +65,7 @@ backdrops:
     ports:
       - '8080:8080'
     volumes:
-      - 'aws-data:/home/dodo/.aws'
+      - 'aws-cache:/home/dodo/.aws/cli/cache'
       - 'kubeconfig:/home/dodo/.kube'
       - 'gpg-agent:/data/gpg-agent'
       - 'passwords:/data/passwords'
