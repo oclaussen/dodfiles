@@ -6,6 +6,7 @@ include:
   - file: '{{ currentDir }}/copier/dodo.yaml'
   - file: '{{ currentDir }}/croc/dodo.yaml'
   - file: '{{ currentDir }}/cue/dodo.yaml'
+  - file: '{{ currentDir }}/databases/dodo.yaml'
   - file: '{{ currentDir }}/docker/dodo.yaml'
   - file: '{{ currentDir }}/git/dodo.yaml'
   - file: '{{ currentDir }}/google/dodo.yaml'
@@ -52,5 +53,7 @@ backdrops:
          && chmod +x /bin/docker-compose
     volumes:
       - '{{ currentDir }}:/compose'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    user: '1000:113'
     working_dir: '/compose'
     script: exec docker-compose up -d --build
