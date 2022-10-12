@@ -12,3 +12,15 @@ backdrops:
     environment:
       - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
     script: exec gopass "$@"
+
+  pwgen:
+    image:
+      name: dodo/pwgen
+      steps: |
+        # syntax = oclaussen/dodfile-syntax
+        base_image: dodo/base
+        user:
+          name: dodo
+        packages:
+          name: [pwgen]
+    script: exec pwgen "$@"
