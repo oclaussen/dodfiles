@@ -1,0 +1,11 @@
+backdrops:
+  shellcheck:
+    image:
+      name: dodo/shellcheck
+      requires: dodo/base
+      context: '{{ currentDir }}'
+      dockerfile: '{{ currentDir }}/Dockerfile.yaml'
+    volumes:
+      - '{{ projectRoot }}:/build'
+    working_dir: '/build/{{ projectPath }}'
+    script: exec shellcheck "$@"

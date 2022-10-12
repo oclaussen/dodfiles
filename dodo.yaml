@@ -21,6 +21,7 @@ include:
   - file: '{{ currentDir }}/pass/dodo.yaml'
   - file: '{{ currentDir }}/pulseaudio/dodo.yaml'
   - file: '{{ currentDir }}/render/dodo.yaml'
+  - file: '{{ currentDir }}/shellcheck/dodo.yaml'
   - file: '{{ currentDir }}/sops/dodo.yaml'
   - file: '{{ currentDir }}/terraform/dodo.yaml'
   - file: '{{ currentDir }}/timg/dodo.yaml'
