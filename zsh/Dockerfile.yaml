@@ -35,7 +35,7 @@ from:
       COPY --from=dodo/languages/python /opt/python /opt/python
       ENV PATH /opt/python/bin:$PATH
 
-      RUN apt-get update && apt-get install -y clang libssl-dev make pkg-config
+      RUN apt-get update && apt-get install -y clang cmake libssl-dev make pkg-config
 
       RUN cargo install \
           bat \
@@ -59,7 +59,7 @@ from:
       RUN git init \
        && git remote add origin https://github.com/wabenet/dodo \
        && git fetch origin main \
-       && git reset --hard 3e2980d
+       && git reset --hard 83b6cba
       
       ADD generate.yaml .
       RUN go generate . && go build . && mv dodo /bin/dodo
