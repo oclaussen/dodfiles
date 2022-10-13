@@ -11,4 +11,5 @@ backdrops:
       - 'aws-cache:/home/dodo/.aws/cli/cache'
       - '{{ projectRoot }}:/build'
     working_dir: '/build/{{ projectPath }}'
-    script: exec dormouse /dormouse.yaml "$@"
+    interpreter: ['/bin/dormouse']
+    script: '{{ readFile `dormouse.yaml` }}'

@@ -12,4 +12,5 @@ backdrops:
     environment:
       - 'SSH_AUTH_SOCK=/data/gpg-agent/S.gpg-agent.ssh'
     working_dir: '/project/{{ projectPath }}'
-    script: exec dormouse /dormouse.yaml "$@"
+    interpreter: ['/bin/dormouse']
+    script: '{{ readFile `dormouse.yaml` }}'

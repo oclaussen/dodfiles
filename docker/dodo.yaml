@@ -12,7 +12,8 @@ backdrops:
       - '{{ projectRoot }}:/build'
     user: '1000:113'
     working_dir: '/build/{{ projectPath }}'
-    script: exec dormouse /dormouse.yaml "$@"
+    interpreter: ['/bin/dormouse']
+    script: '{{ readFile `dormouse.yaml` }}'
 
   ctop:
     forward_stage: true

@@ -41,9 +41,8 @@ backdrops:
       - '{{ projectRoot }}:/build'
     user: '1000:113'
     working_dir: '/build/{{ projectPath }}'
-    environment:
-      - TF_VAR_username=ole.claussen
-    script: exec dormouse /dormouse.yaml "$@"
+    interpreter: ['/bin/dormouse']
+    script: '{{ readFile `dormouse.yaml` }}'
 
   terragrunt:
     image:
@@ -62,9 +61,8 @@ backdrops:
       - '{{ projectRoot }}:/build'
     user: '1000:113'
     working_dir: '/build/{{ projectPath }}'
-    environment:
-      - TF_VAR_username=ole.claussen
-    script: exec dormouse /dormouse.yaml tg "$@"
+    interpreter: ['/bin/dormouse']
+    script: '{{ readFile `dormouse.yaml` }}'
 
   tfsec:
     image:
