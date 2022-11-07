@@ -1,5 +1,0 @@
----
-address: tcp://192.168.99.1:24709
-tls-ca-file: /data/chirp/ca.pem
-tls-cert-file: /data/chirp/client.pem
-tls-key-file: /data/chirp/client-key.pem
