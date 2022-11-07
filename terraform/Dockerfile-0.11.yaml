@@ -13,6 +13,7 @@ packages:
   name:
     - git
     - gnupg
+    - openssh-client
     - jq
 
 download:
