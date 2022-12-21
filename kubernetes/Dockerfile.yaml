@@ -61,6 +61,9 @@ download:
   - source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
     destination: /bin/aws-vault
 
+  - source: https://github.com/linkerd/linkerd2/releases/download/edge-22.10.3/linkerd2-cli-edge-22.10.3-linux-amd64
+    destination: /bin/linkerd
+
 
 from:
   - image: docker:19.03.1
