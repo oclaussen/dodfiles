@@ -13,6 +13,11 @@ packages:
     - git
     - gnupg
     - jq
+    - azure-cli
+  repo:
+    - "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
+  gpg:
+    - "https://packages.microsoft.com/keys/microsoft.asc"
 
 download:
   - source: https://releases.hashicorp.com/terraform/1.1.4/terraform_1.1.4_linux_amd64.zip
