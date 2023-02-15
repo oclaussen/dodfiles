@@ -49,6 +49,7 @@ backdrops: {
 			volumes: {
 				terraform: {source: "terraform", target: "/data/terraform"}
 				gcloud: {source: "gcloud-data", target: "/home/dodo/.config/gcloud"}
+				azure: {source: "azure-data", target: "/home/dodo/.azure"}
 			}
 		}
 
@@ -68,6 +69,7 @@ backdrops: {
 			volumes: {
 				terraform: {source: "terraform", target: "/data/terraform"}
 				gcloud: {source: "gcloud-data", target: "/home/dodo/.config/gcloud"}
+				azure: {source: "azure-data", target: "/home/dodo/.azure"}
 			}
 		}
 

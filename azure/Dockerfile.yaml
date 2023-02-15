@@ -1,0 +1,14 @@
+# syntax = oclaussen/dodfile-syntax
+base_image: dodo/base
+
+user:
+  name: dodo
+
+packages:
+  name:
+    - azure-cli
+  repo:
+    - "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
+  gpg:
+    - "https://packages.microsoft.com/keys/microsoft.asc"
+

@@ -16,6 +16,7 @@ services:
       - 'pulseaudio:/data/pulseaudio'
       - 'scd:/data/pcscd'
       - 'aws-cache:/data/aws-cache'
+      - 'azure-data:/data/azure-data'
       - 'gcloud-data:/data/gcloud-data'
       - 'kubeconfig:/data/kubeconfig'
       - 'passwords:/data/passwords'
@@ -50,6 +51,9 @@ volumes:
 
   aws-cache:
     name: aws-cache
+
+  azure-data:
+    name: azure-data
 
   gcloud-data:
     name: gcloud-data
