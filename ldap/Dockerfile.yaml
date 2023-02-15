@@ -1,0 +1,9 @@
+# syntax = oclaussen/dodfile-syntax
+base_image: dodo/base
+
+user:
+  name: dodo
+
+packages:
+  name:
+    - ldap-utils
