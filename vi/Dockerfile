@@ -48,8 +48,7 @@ RUN curl -L -o /tmp/chirp.tgz \
 USER dodo
 
 ENV PATH /home/dodo/go/bin:$PATH
-ENV GO111MODULE on
-RUN go get golang.org/x/tools/gopls@latest
+RUN go install golang.org/x/tools/gopls@latest
 
 RUN curl -L -o /home/dodo/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
