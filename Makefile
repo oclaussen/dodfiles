@@ -1,12 +1,19 @@
 .PHONY: all
-all: fmt cue
+all: fmt dodfiles
 
 .PHONY: fmt
 fmt: 
 	cue fmt --strict --simplify --all-errors ./...
 
-.PHONY: cue
-cue: $(patsubst %.cue, %.yaml, $(wildcard **/dodo.cue))
+.PHONY: dodfiles
+dodfiles: $(patsubst %.cue, %.yaml, $(shell find -type f -name dodo.cue))
 
-%.yaml: %*.cue
-	cue export --strict --simplify --force --outfile $@ $^
+%dodo.yaml: %dodo*.cue
+	cue export --strict --simplify --force $^ > $@
+
+.PHONY: dockerfiles
+dockerfiles: $(patsubst %.cue, %.yaml, $(shell find -type f -name dockerfile.cue))
+
+%dockerfile.yaml: %dockerfile*.cue
+	echo '# syntax = wabenet/dodfile-syntax' > $@
+	cue export --strict --simplify --force $^ >> $@
