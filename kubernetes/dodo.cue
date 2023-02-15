@@ -83,6 +83,16 @@ backdrops: {
 			script: "exec /bin/flux \"$@\""
 		}
 
+	linkerd:
+		base.#WithDockerfile &
+		kube.#WithKubeconfig & {
+			image: {
+				name: "dodo/kube"
+				requires: ["dodo/base", "dodo/gpg", "dodo/aws"]
+			}
+			script: "exec /bin/linkerd \"$@\""
+		}
+
 	popeye:
 		base.#WithDockerfile &
 		kube.#WithKubeconfig & {
