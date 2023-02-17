@@ -1,19 +1,29 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-packages:
-  name:
-    - gnupg
-    - isync
+  packages:
+    type: install
+    name: gnupg isync
 
-from:
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
-  - image: dodo/pass
+    image: dodo/gpg
+
+  pass:
+    type: copy
     path: /bin/gopass
-  - image: dodo/pass
+    image: dodo/pass
+
+  passconfig:
+    type: copy
     path: /home/dodo/.config/gopass
+    image: dodo/pass

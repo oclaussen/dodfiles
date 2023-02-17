@@ -1,21 +1,28 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-env:
-  EDITOR: vim
+  packages:
+    type: install
+    name: gnupg vim
 
-packages:
-  name:
-    - gnupg
-    - vim
+  env:
+    type: environment
+    variables:
+      EDITOR: vim
 
-download:
-  - source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
+  sops:
+    type: fetch
+    source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
     destination: /bin/sops
 
-from:
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
+    image: dodo/gpg

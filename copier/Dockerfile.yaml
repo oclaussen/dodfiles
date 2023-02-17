@@ -1,20 +1,27 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-env:
-  PATH: /opt/python/bin
+  env:
+    type: environment
+    variables:
+      PATH: /opt/python/bin
 
-packages:
-  name:
-    - git
+  packages:
+    type: install
+    name: git
 
-from:
-  - dockerfile: |
+  copier:
+    type: copy
+    path: /opt/python
+    dockerfile: |
       FROM dodo/languages/python
       ENV PATH /opt/python/bin:$PATH
       RUN pip3 install copier
-    path: /opt/python

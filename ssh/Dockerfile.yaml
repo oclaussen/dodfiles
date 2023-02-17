@@ -1,14 +1,19 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-packages:
-  name:
-    - openssh-client
+  packages:
+    type: install
+    name: openssh-client
 
-from:
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
+    image: dodo/gpg

@@ -1,26 +1,27 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-env:
-  PATH: /opt/pcsc/bin:/opt/pcsc/sbin:/opt/python/bin:/home/dodo/bin
+  packages:
+    type: install
+    name: libccid scdaemon gnupg libncurses6 libpcsclite1 pinentry-tty procps usbutils
 
-packages:
-  name:
-    - libccid
-    - scdaemon
-    - gnupg
-    - libncurses6
-    - libpcsclite1
-    - pinentry-tty
-    - procps
-    - usbutils
+  env:
+    type: environment
+    variables:
+      PATH: /opt/pcsc/bin:/opt/pcsc/sbin:/opt/python/bin:/home/dodo/bin
 
-from:
-  - dockerfile: |
+  pcsc:
+    type: copy
+    path: /opt/pcsc
+    dockerfile: |
       FROM dodo/languages/buildbase AS build
       
       RUN apt-get update \
@@ -51,23 +52,26 @@ from:
               --enable-usbdropdir=/opt/pcsc/lib/pcsc/drivers \
        && make \
        && make install
-    path: /opt/pcsc
 
-  - dockerfile: |
+  ykman:
+    type: copy
+    path: /opt/python
+    dockerfile: |
       FROM dodo/languages/python
 
       RUN apt-get update \
        && apt-get -y install \
           build-essential \
           libpcsclite-dev \
+          libffi-dev \
           swig
 
       ENV PATH /opt/python/bin:$PATH
       RUN pip install pyscard yubikey-manager
-    path: /opt/python
 
-run:
-  - user: dodo
+  install:
+    type: script
+    user: dodo
     cwd: /home/dodo/.gnupg
     script: |
       set -eux

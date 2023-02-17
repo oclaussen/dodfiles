@@ -1,37 +1,42 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-env:
-  GEM_HOME: /opt/ruby/bundle
-  PATH: /opt/python/bin:/opt/ruby/bundle/bin:/opt/ruby/bin
+  packages:
+    type: install
+    name: gettext git gnupg libyaml-0-2 openssh-client sshpass zip
 
-packages:
-  name:
-    - gettext
-    - git
-    - gnupg
-    - libyaml-0-2
-    - openssh-client
-    - sshpass
-    - zip
+  env:
+    type: environment
+    variables:
+      GEM_HOME: /opt/ruby/bundle
+      PATH: /opt/python/bin:/opt/ruby/bundle/bin:/opt/ruby/bin
 
-download:
-  - source: https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_amd64.zip
+  packer:
+    type: fetch
+    source: https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_amd64.zip
     unpack: packer
     destination: /bin/packer
 
-from:
-  - dockerfile: |
+  ansible:
+    type: copy
+    path: /opt/python
+    dockerfile: |
       FROM dodo/languages/python
       ENV PATH /opt/python/bin:$PATH
       RUN apt-get update && apt-get install -y libyaml-dev
       RUN pip3 install ansible pywinrm
-    path: /opt/python
 
-  - dockerfile: |
+  kitchen:
+    type: copy
+    path: /opt/ruby
+    dockerfile: |
       FROM dodo/languages/ruby
       ENV GEM_HOME /opt/ruby/bundle
       ENV PATH $GEM_HOME/bin:/opt/ruby/bin:$PATH
@@ -40,13 +45,23 @@ from:
               kitchen kitchen-ec2 \
               awspec kitchen-verifier-awspec \
               inspec kitchen-inspec
-    path: /opt/ruby
 
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
-  - image: dodo/pass
+    image: dodo/gpg
+
+  pass:
+    type: copy
     path: /bin/gopass
-  - image: dodo/pass
+    image: dodo/pass
+
+  passconfig:
+    type: copy
     path: /home/dodo/.config/gopass
-  - image: dodo/aws
+    image: dodo/pass
+
+  awsconfig:
+    type: copy
     path: /home/dodo/.aws
+    image: dodo/aws

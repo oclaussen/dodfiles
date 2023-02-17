@@ -1,13 +1,18 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-packages:
-  name:
-    - jq
+  packages:
+    type: install
+    name: jq
 
-download:
-  - source: https://github.com/mikefarah/yq/releases/download/v4.22.1/yq_linux_amd64
+  yq:
+    type: fetch
+    source: https://github.com/mikefarah/yq/releases/download/v4.22.1/yq_linux_amd64
     destination: /bin/yq

@@ -1,39 +1,56 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-env:
-  PATH: /opt/python/bin
-  KUBECONFIG: /home/dodo/.kubeconfig
+  packages:
+    type: install
+    name: git gnupg openssh-client jq
 
-packages:
-  name:
-    - git
-    - gnupg
-    - openssh-client
-    - jq
+  env:
+    type: environment
+    variables:
+      PATH: /opt/python/bin
+      KUBECONFIG: /home/dodo/.kubeconfig
 
-download:
-  - source: https://releases.hashicorp.com/terraform/0.11.15/terraform_0.11.15_linux_amd64.zip
+  terraform:
+    type: fetch
+    source: https://releases.hashicorp.com/terraform/0.11.15/terraform_0.11.15_linux_amd64.zip
     unpack: terraform
     destination: /bin/terraform
 
-  - source: https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
+  kubectl:
+    type: fetch
+    source: https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
     destination: /bin/kubectl
 
-from:
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
-  - image: dodo/pass
+    image: dodo/gpg
+
+  pass:
+    type: copy
     path: /bin/gopass
-  - image: dodo/pass
+    image: dodo/pass
+
+  passconfig:
+    type: copy
     path: /home/dodo/.config/gopass
-  - image: dodo/aws
+    image: dodo/pass
+
+  awsconfig:
+    type: copy
     path: /home/dodo/.aws
-  - image: dodo/kube
+    image: dodo/aws
+
+  kubeconfig:
+    type: copy
     path: /home/dodo/.kubeconfig
-  - image: dodo/aws
-    path: /opt/python
+    image: dodo/kube

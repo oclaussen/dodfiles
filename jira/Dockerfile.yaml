@@ -1,26 +1,42 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-packages:
-  name:
-    - gnupg
+  packages:
+    type: install
+    name: gnupg
 
-download:
-  - source: https://github.com/go-jira/jira/releases/download/v1.0.26/jira-linux-amd64
+  jira:
+    type: fetch
+    source: https://github.com/go-jira/jira/releases/download/v1.0.26/jira-linux-amd64
     destination: /bin/jira
 
-from:
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
-  - image: dodo/pass
+    image: dodo/gpg
+
+  pass:
+    type: copy
     path: /bin/gopass
-  - image: dodo/pass
+    image: dodo/pass
+
+  passconfig:
+    type: copy
     path: /home/dodo/.config/gopass
-  - dockerfile: |
+    image: dodo/pass
+
+  jiraui:
+    type: copy
+    path: /bin/jira-ui
+    dockerfile: |
       FROM dodo/languages/golang
       ENV PATH /opt/go/bin:$PATH
       RUN apt-get update && apt-get -y install git
@@ -28,4 +44,3 @@ from:
       WORKDIR /jira-ui
       RUN go build -o bin/jira-ui ./jira-ui \
        && cp ./bin/* /bin/
-    path: /bin/jira-ui

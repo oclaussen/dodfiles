@@ -1,65 +1,90 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-env:
-  PATH: /opt/python/bin:/opt/google-cloud-sdk/bin
+  packages:
+    type: install
+    name: git gnupg jq azure-cli
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
+    gpg: "https://packages.microsoft.com/keys/microsoft.asc"
 
-packages:
-  name:
-    - git
-    - gnupg
-    - jq
-    - azure-cli
-  repo:
-    - "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
-  gpg:
-    - "https://packages.microsoft.com/keys/microsoft.asc"
+  env:
+    type: environment
+    variables:
+      PATH: /opt/python/bin:/opt/google-cloud-sdk/bin
 
-download:
-  - source: https://releases.hashicorp.com/terraform/1.1.4/terraform_1.1.4_linux_amd64.zip
+  terraform:
+    type: fetch
+    source: https://releases.hashicorp.com/terraform/1.1.4/terraform_1.1.4_linux_amd64.zip
     unpack: terraform
     destination: /bin/terraform
 
-  - source: https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.10/terragrunt_linux_amd64
+  terragrunt:
+    type: fetch
+    source: https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.10/terragrunt_linux_amd64
     destination: /bin/terragrunt
 
-  - source: https://github.com/liamg/tfsec/releases/download/v0.10.0/tfsec-linux-amd64
+  tfsec:
+    type: fetch
+    source: https://github.com/liamg/tfsec/releases/download/v0.10.0/tfsec-linux-amd64
     destination: /bin/tfsec
 
-  - source: https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
+  kubectl:
+    type: fetch
+    source: https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
     destination: /bin/kubectl
 
-  - source: https://download.docker.com/linux/static/stable/x86_64/docker-19.03.13.tgz
+  docker:
+    type: fetch
+    source: https://download.docker.com/linux/static/stable/x86_64/docker-19.03.13.tgz
     unpack: docker/docker
     destination: /bin/docker
 
-  - source: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
+  buildx:
+    type: fetch
+    source: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
     destination: /usr/lib/docker/cli-plugins/docker-buildx
 
-  - source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
+  sops:
+    type: fetch
+    source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
     destination: /bin/sops
 
-  - source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
+  pass:
+    type: fetch
+    source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
     unpack: gopass
     destination: /bin/gopass
 
-  - source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
+  awsvault:
+    type: fetch
+    source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
     destination: /bin/aws-vault
 
-  - source: https://github.com/oclaussen/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_x86_64.tar.gz
+  dormouse:
+    type: fetch
+    source: https://github.com/oclaussen/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_x86_64.tar.gz
     unpack: dormouse
     destination: /bin/dormouse
 
-from:
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
-  - image: dodo/aws
-    path: /opt/python
-  - image: dodo/aws
+    image: dodo/gpg
+
+  awsconfig:
+    type: copy
     path: /home/dodo/.aws
-  - image: dodo/google
+    image: dodo/aws
+
+  googlesdk:
+    type: copy
     path: /opt/google-cloud-sdk
+    image: dodo/google

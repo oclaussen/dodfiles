@@ -1,18 +1,19 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-packages:
-  name:
-    - curl
-    - dnsutils
-    - iperf3
-    - traceroute
-    - wget
+  packages:
+    type: install
+    name: curl dnsutils iperf3 traceroute wget
 
-download:
-  - source: https://github.com/jreisinger/checkip/releases/download/v0.24.5/checkip_0.24.5_linux_amd64.tar.gz
+  checkip:
+    type: fetch
+    source: https://github.com/jreisinger/checkip/releases/download/v0.24.5/checkip_0.24.5_linux_amd64.tar.gz
     unpack: checkip
     destination: /bin/checkip

@@ -1,46 +1,61 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-packages:
-  name:
-    - curl
-    - gnupg
-    - groff
-    - jq
-    - less
-    - git
-    - unzip
+  packages:
+    type: install
+    name: curl gnupg groff jq less git unzip
 
-download:
-  - source: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb
+  sessionmanager:
+    type: fetch
+    source: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb
     destination: /tmp/session-manager-plugin.deb
 
-  - source: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+  awscli:
+    type: fetch
+    source: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     destination: /tmp/awscliv2.zip
 
-  - source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
+  pass:
+    type: fetch
+    source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
     unpack: gopass
     destination: /bin/gopass
 
-  - source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
+  awsvault:
+    type: fetch
+    source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
     destination: /bin/aws-vault
 
-  - source: https://github.com/wabenet/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_x86_64.tar.gz
+  dormouse:
+    type: fetch
+    source: https://github.com/wabenet/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_x86_64.tar.gz
     unpack: dormouse
     destination: /bin/dormouse
 
-from:
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
-  - directory: root
-    path: /
+    image: dodo/gpg
 
-run:
-  - script: |
+  file:
+    type: copy
+    path: /
+    directory: root
+
+  installcli:
+    type: script
+    script: |
       unzip /tmp/awscliv2.zip -d /tmp
       /tmp/aws/install
-  - script: dpkg -i /tmp/session-manager-plugin.deb
+
+  installsessionmanager:
+    type: script
+    script: dpkg -i /tmp/session-manager-plugin.deb

@@ -1,33 +1,41 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-env:
-  RUSTUP_HOME: /opt/rust/rustup
-  CARGO_HOME: /opt/rust/cargo
-  PATH: /opt/rust/cargo/bin:$PATH
+  packages:
+    type: install
+    name: less man procps zsh
 
-packages:
-  name:
-    - less
-    - man
-    - procps
-    - zsh
+  env:
+    type: environment
+    variables:
+      RUSTUP_HOME: /opt/rust/rustup
+      CARGO_HOME: /opt/rust/cargo
+      PATH: /opt/rust/cargo/bin:$PATH
 
-download:
-  - source: https://github.com/oclaussen/chirp/releases/download/v2.0.0/chirp_2.0.0_Linux_x86_64.tar.gz
+  chirp:
+    type: fetch
+    source: https://github.com/oclaussen/chirp/releases/download/v2.0.0/chirp_2.0.0_Linux_x86_64.tar.gz
     unpack: chirp
     destination: /bin/chirp
 
-  - source: https://github.com/junegunn/fzf-bin/releases/download/0.19.0/fzf-0.19.0-linux_amd64.tgz
+  fzf:
+    type: fetch
+    source: https://github.com/junegunn/fzf-bin/releases/download/0.19.0/fzf-0.19.0-linux_amd64.tgz
     unpack: fzf
     destination: /bin/fzf
 
-from:
-  - dockerfile: |
+  tools:
+    type: copy
+    path: /opt/rust
+    dockerfile: |
       FROM dodo/languages/rust
       ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
       ENV PATH ${CARGO_HOME}/bin:$PATH
@@ -47,9 +55,11 @@ from:
           starship \
           tokei \
           xsv
-    path: /opt/rust
 
-  - dockerfile: |
+  dodo:
+    type: copy
+    path: /bin/dodo
+    dockerfile: |
       FROM dodo/languages/golang
       ENV PATH /opt/go/bin:$PATH
       WORKDIR /dodo
@@ -63,4 +73,3 @@ from:
       
       ADD generate.yaml .
       RUN go generate . && go build . && mv dodo /bin/dodo
-    path: /bin/dodo

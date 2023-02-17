@@ -1,30 +1,39 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-env:
-  PATH: /opt/python/bin
+  packages:
+    type: install
+    name: gettext gnupg openssh-client sshpass zip
 
-packages:
-  name:
-    - gettext
-    - gnupg
-    - openssh-client
-    - sshpass
-    - zip
+  env:
+    type: environment
+    variables:
+      PATH: /opt/python/bin
 
-download:
-  - source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
+  sops:
+    type: fetch
+    source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
     destination: /bin/sops
 
-from:
-  - dockerfile: |
-      FROM dodo/languages/python
-      ENV PATH /opt/python/bin:$PATH
-      RUN pip3 install ansible pywinrm
+  ansible:
+    type: copy
     path: /opt/python
+    dockerfile: |
+      FROM dodo/languages/buildbase
+      COPY --from=dodo/languages/python /opt/python /opt/python
+      COPY --from=dodo/languages/rust /opt/rust /opt/rust
+      ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
+      ENV PATH /opt/python/bin:${CARGO_HOME}/bin:$PATH
+      RUN pip3 install ansible pywinrm
 
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
+    image: dodo/gpg

@@ -1,14 +1,15 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-packages:
-  name:
-    - azure-cli
-  repo:
-    - "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
-  gpg:
-    - "https://packages.microsoft.com/keys/microsoft.asc"
-
+  packages:
+    type: install
+    name: azure-cli
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
+    gpg: "https://packages.microsoft.com/keys/microsoft.asc"

@@ -1,9 +1,14 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-download:
-  - source: https://github.com/VirtusLab/render/releases/download/v0.1.3/render-linux-amd64
+  render:
+    type: fetch
+    source: https://github.com/VirtusLab/render/releases/download/v0.1.3/render-linux-amd64
     destination: /bin/render

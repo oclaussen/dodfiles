@@ -1,22 +1,21 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
+  dodo:
+    type: user
+    name: dodo
 
-packages:
-  name:
-    - libswscale5
-    - libgraphicsmagick++-q16-12
-    - libturbojpeg0
-    - libexif12
-    - libavcodec58
-    - libavformat58
-    - libavdevice58
-    - libopenslide0
+  packages:
+    type: install
+    name: libswscale5 libgraphicsmagick++-q16-12 libturbojpeg0 libexif12 libavcodec58 libavformat58 libavdevice58 libopenslide0
 
-from:
-  - dockerfile: |
+  timg:
+    type: copy
+    path: /bin/timg
+    dockerfile: |
       FROM dodo/base
 
       RUN apt-get update \
@@ -36,4 +35,3 @@ from:
        && cmake ../ -DWITH_VIDEO_DECODING=On -DWITH_OPENSLIDE_SUPPORT=On \
        && make \
        && mv src/timg /bin/timg
-    path: /bin/timg

@@ -1,31 +1,39 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-env:
-  PATH: /opt/python/bin
+  packages:
+    type: install
+    name: cron libsqlite3-0 vim
 
-packages:
-  name:
-    - cron
-    - libsqlite3-0
-    - vim
+  env:
+    type: environment
+    variables:
+      PATH: /opt/python/bin
 
-from:
-  - directory: root
+  files:
+    type: copy
     path: /
+    directory: root
 
-  - dockerfile: |
+  khal:
+    type: copy
+    path: /opt/python
+    dockerfile: |
       FROM dodo/languages/python
       ENV PATH /opt/python/bin:$PATH
       RUN pip3 install khal vdirsyncer requests-oauthlib
-    path: /opt/python
 
-run:
-  - script: chmod u+s /usr/sbin/cron
-  - script: |
+  setup:
+    type: script
+    script: |
+      chmod u+s /usr/sbin/cron
       cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
       echo Europe/Berlin > /etc/timezone

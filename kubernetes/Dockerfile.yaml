@@ -1,81 +1,112 @@
-# syntax = oclaussen/dodfile-syntax
-base_image: dodo/base
+# syntax = wabenet/dodfile-syntax
+actions:
+  base:
+    type: base
+    name: dodo/base
 
-user:
-  name: dodo
-  dotfiles: home
+  dodo:
+    type: user
+    name: dodo
+    dotfiles: home
 
-env:
-  PATH: /home/dodo/.krew/bin:/opt/python/bin:/usr/local/bin
-  KUBECONFIG: /home/dodo/.kube/context.yaml:/home/dodo/.kubeconfig:/home/dodo/.kube/config
+  packages:
+    type: install
+    name: git gnupg ncurses-bin vim
 
-  AWS_VAULT_BACKEND: pass
-  AWS_VAULT_PASS_CMD: /bin/gopass
-  AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
+  env:
+    type: environment
+    variables:
+      PATH: /home/dodo/.krew/bin:/opt/python/bin:/usr/local/bin
+      KUBECONFIG: /home/dodo/.kube/context.yaml:/home/dodo/.kubeconfig:/home/dodo/.kube/config
 
-packages:
-  name:
-    - git
-    - gnupg
-    - ncurses-bin
-    - vim
+      AWS_VAULT_BACKEND: pass
+      AWS_VAULT_PASS_CMD: /bin/gopass
+      AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
 
-download:
-  - source: https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl
+  kubectl:
+    type: fetch
+    source: https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl
     destination: /bin/kubectl
 
-  - source: https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz
+  k9s:
+    type: fetch
+    source: https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz
     unpack: k9s
     destination: /bin/k9s
 
-  - source: https://github.com/derailed/popeye/releases/download/v0.9.7/popeye_Linux_x86_64.tar.gz
+  popeye:
+    type: fetch
+    source: https://github.com/derailed/popeye/releases/download/v0.9.7/popeye_Linux_x86_64.tar.gz
     unpack: popeye
     destination: /bin/popeye
 
-  - source: https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64
+  kind:
+    type: fetch
+    source: https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64
     destination: /bin/kind
 
-  - source: https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
+  helm:
+    type: fetch
+    source: https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
     unpack: linux-amd64/helm
     destination: /bin/helm
 
-  - source: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.10.0/kustomize_v3.10.0_linux_amd64.tar.gz
+  kustomize:
+    type: fetch
+    source: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.10.0/kustomize_v3.10.0_linux_amd64.tar.gz
     unpack: kustomize
     destination: /bin/kustomize
 
-  - source: https://github.com/fluxcd/flux2/releases/download/v0.5.7/flux_0.5.7_linux_amd64.tar.gz
+  flux:
+    type: fetch
+    source: https://github.com/fluxcd/flux2/releases/download/v0.5.7/flux_0.5.7_linux_amd64.tar.gz
     unpack: flux
     destination: /bin/flux
 
-  - source: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.19.0/crictl-v1.19.0-linux-amd64.tar.gz
+  crictl:
+    type: fetch
+    source: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.19.0/crictl-v1.19.0-linux-amd64.tar.gz
     unpack: crictl
     destination: /bin/crictl
 
-  - source: https://github.com/armosec/kubescape/releases/download/v1.0.133/kubescape-ubuntu-latest
+  kubescape:
+    type: fetch
+    source: https://github.com/armosec/kubescape/releases/download/v1.0.133/kubescape-ubuntu-latest
     destination: /bin/kubescape
 
-  - source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
+  gopass:
+    type: fetch
+    source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
     unpack: gopass
     destination: /bin/gopass
 
-  - source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
+  awsvault:
+    type: fetch
+    source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
     destination: /bin/aws-vault
 
-  - source: https://github.com/linkerd/linkerd2/releases/download/edge-22.10.3/linkerd2-cli-edge-22.10.3-linux-amd64
+  linkerd:
+    type: fetch
+    source: https://github.com/linkerd/linkerd2/releases/download/edge-22.10.3/linkerd2-cli-edge-22.10.3-linux-amd64
     destination: /bin/linkerd
 
-
-from:
-  - image: docker:19.03.1
+  docker:
+    type: copy
     path: /usr/local/bin/docker
+    image: docker:19.03.1
 
-  - dockerfile: |
+  awscli:
+    type: copy
+    path: /opt/python
+    dockerfile: |
       FROM dodo/languages/python
       ENV PATH /opt/python/bin:$PATH
       RUN pip3 install awscli
-    path: /opt/python
 
-  - dockerfile: |
+  krew:
+    type: copy
+    path: /home/dodo/.krew
+    dockerfile: |
       FROM dodo/languages/buildbase
 
       RUN apt-get update && apt-get -y install git
@@ -114,9 +145,13 @@ from:
        && kubectl krew install neat \
        && kubectl krew install view-secret \
        && kubectl krew install cert-manager
-    path: /home/dodo/.krew
 
-  - image: dodo/gpg
+  gpghome:
+    type: copy
     path: /home/dodo/.gnupg
-  - image: dodo/aws
+    image: dodo/gpg
+
+  awsconfig:
+    type: copy
     path: /home/dodo/.aws
+    image: dodo/aws
