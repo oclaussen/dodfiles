@@ -3,6 +3,7 @@ package dodfiles
 import (
 	"github.com/oclaussen/dodfiles/base/pkg:base"
 	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
+	"github.com/oclaussen/dodfiles/aws/pkg:aws"
 	"github.com/oclaussen/dodfiles/docker/pkg:docker"
 )
 
@@ -12,6 +13,7 @@ backdrops: {
 		base.#WithRepository &
 		base.#WithDormouse &
 		gpg.#WithPasswordStore &
+	        aws.#WithAWSCache &
 		docker.#WithDockerDaemon & {
 			image: {
 				name: "dodo/docker"

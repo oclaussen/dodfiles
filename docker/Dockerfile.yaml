@@ -52,6 +52,17 @@ actions:
     source: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
     destination: /usr/lib/docker/cli-plugins/docker-buildx
 
+  pass:
+    type: fetch
+    source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
+    unpack: gopass
+    destination: /bin/gopass
+
+  awsvault:
+    type: fetch
+    source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
+    destination: /bin/aws-vault
+
   ecrhelper:
     type: fetch
     source: https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.5.0/linux-amd64/docker-credential-ecr-login
@@ -63,28 +74,10 @@ actions:
     unpack: dormouse
     destination: /bin/dormouse
 
-  awscli:
-    type: copy
-    path: /opt/python
-  - dockerfile: |
-      FROM dodo/languages/python
-      ENV PATH /opt/python/bin:$PATH
-      RUN pip3 install awscli
-
   gpghome:
     type: copy
     path: /home/dodo/.gnupg
     image: dodo/gpg
-
-  pass:
-    type: copy
-    path: /bin/gopass
-    image: dodo/pass
-
-  passconfig:
-    type: copy
-    path: /home/dodo/.config/gopass
-    image: dodo/pass
 
   awsconfig:
     type: copy
