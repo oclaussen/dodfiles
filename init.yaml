@@ -29,6 +29,7 @@ include:
   - file: '{{ currentDir }}/terraform/dodo.yaml'
   - file: '{{ currentDir }}/timg/dodo.yaml'
   - file: '{{ currentDir }}/ssh/dodo.yaml'
+  - file: '{{ currentDir }}/syft/dodo.yaml'
   - file: '{{ currentDir }}/vi/dodo.yaml'
   - file: '{{ currentDir }}/zip/dodo.yaml'
   - file: '{{ currentDir }}/zsh/dodo.yaml'
