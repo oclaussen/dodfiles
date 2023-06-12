@@ -56,7 +56,7 @@ actions:
           tokei \
           xsv
 
-  dodo:
+  installdodo:
     type: copy
     path: /bin/dodo
     dockerfile: |
