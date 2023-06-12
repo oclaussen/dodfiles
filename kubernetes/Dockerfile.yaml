@@ -90,6 +90,12 @@ actions:
     source: https://github.com/linkerd/linkerd2/releases/download/edge-22.10.3/linkerd2-cli-edge-22.10.3-linux-amd64
     destination: /bin/linkerd
 
+  kubeseal:
+    type: fetch
+    source: https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.21.0/kubeseal-0.21.0-linux-amd64.tar.gz
+    unpack: kubeseal
+    destination: /bin/kubeseal
+
   docker:
     type: copy
     path: /usr/local/bin/docker

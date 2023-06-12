@@ -93,6 +93,16 @@ backdrops: {
 			script: "exec /bin/linkerd \"$@\""
 		}
 
+	kubeseal:
+		base.#WithDockerfile &
+		kube.#WithKubeconfig & {
+			image: {
+				name: "dodo/kube"
+				requires: ["dodo/base", "dodo/gpg", "dodo/aws"]
+			}
+			script: "exec /bin/kubeseal \"$@\""
+		}
+
 	popeye:
 		base.#WithDockerfile &
 		kube.#WithKubeconfig & {
