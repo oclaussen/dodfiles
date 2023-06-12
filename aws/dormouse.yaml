@@ -12,8 +12,16 @@ exec: ['/bin/aws-vault', 'exec', '{{ profile }}', '--', 'aws']
 
 subcommands:
   sh:
+    env:
+      AWS_VAULT_BACKEND: pass
+      AWS_VAULT_PASS_CMD: /bin/gopass
+      AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
     exec: ['/bin/bash']
   vault:
+    env:
+      AWS_VAULT_BACKEND: pass
+      AWS_VAULT_PASS_CMD: /bin/gopass
+      AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
     exec: ['/bin/aws-vault']
   accountid:
     exec: ['/bin/print_account_id.py']
