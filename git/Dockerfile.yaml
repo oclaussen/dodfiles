@@ -13,6 +13,12 @@ actions:
     type: install
     name: git git-lfs gnupg openssh-client less vim
 
+  cloudflared:
+    type: install
+    name: cloudflared
+    repo: "deb https://pkg.cloudflare.com/cloudflared buster main"
+    gpg: "https://pkg.cloudflare.com/cloudflare-main.gpg"
+
   hub:
     type: fetch
     source: https://github.com/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz

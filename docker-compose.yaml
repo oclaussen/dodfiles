@@ -25,6 +25,7 @@ services:
       - 'helm:/data/helm'
       - 'chirp:/data/chirp'
       - 'terraform:/data/terraform'
+      - 'cloudflare-cache:/data/cloudflare-cache'
       - '/Users/ole.claussen:/Users/ole.claussen'
     entrypoint:
       - /bin/sh
@@ -90,3 +91,6 @@ volumes:
 
   sbt-cache:
     name: sbt-cache
+
+  cloudflare-cache:
+    name: cloudflare-cache
