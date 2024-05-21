@@ -11,7 +11,7 @@ actions:
 
   packages:
     type: install
-    name: git gnupg jq azure-cli
+    name: git gnupg jq azure-cli unzip
     repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
     gpg: "https://packages.microsoft.com/keys/microsoft.asc"
 
@@ -79,12 +79,18 @@ actions:
     path: /home/dodo/.gnupg
     image: dodo/gpg
 
-  awsconfig:
-    type: copy
-    path: /home/dodo/.aws
-    image: dodo/aws
-
   googlesdk:
     type: copy
     path: /opt/google-cloud-sdk
     image: dodo/google
+
+  awscli:
+    type: fetch
+    source: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    destination: /tmp/awscliv2.zip
+
+  installcli:
+    type: script
+    script: |
+      unzip /tmp/awscliv2.zip -d /tmp
+      /tmp/aws/install
