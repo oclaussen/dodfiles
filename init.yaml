@@ -24,6 +24,7 @@ include:
   - file: '{{ currentDir }}/nix/dodo.yaml'
   - file: '{{ currentDir }}/packer/dodo.yaml'
   - file: '{{ currentDir }}/pass/dodo.yaml'
+  - file: '{{ currentDir }}/prowler/dodo.yaml'
   - file: '{{ currentDir }}/pulseaudio/dodo.yaml'
   - file: '{{ currentDir }}/render/dodo.yaml'
   - file: '{{ currentDir }}/shellcheck/dodo.yaml'
