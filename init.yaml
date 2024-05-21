@@ -4,6 +4,7 @@ include:
   - file: '{{ currentDir }}/aws/dodo.yaml'
   - file: '{{ currentDir }}/azure/dodo.yaml'
   - file: '{{ currentDir }}/base/dodo.yaml'
+  - file: '{{ currentDir }}/cloudflare/dodo.yaml'
   - file: '{{ currentDir }}/colmena/dodo.yaml'
   - file: '{{ currentDir }}/copier/dodo.yaml'
   - file: '{{ currentDir }}/croc/dodo.yaml'
