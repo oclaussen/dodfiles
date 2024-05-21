@@ -16,7 +16,7 @@ actions:
 
   packages:
     type: install
-    name: btrfs-progs e2fsprogs iptables iproute2 openssl xfsprogs gnupg
+    name: btrfs-progs e2fsprogs iptables iproute2 openssl xfsprogs gnupg git
 
   docker:
     type: fetch
