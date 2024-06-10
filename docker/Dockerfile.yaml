@@ -20,36 +20,19 @@ actions:
 
   docker:
     type: fetch
-    source: https://download.docker.com/linux/static/stable/x86_64/docker-19.03.13.tgz
+    source: https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz
     unpack: docker/docker
     destination: /bin/docker
     # TODO: same for ctr, runc, containerd-shim, docker-init, docker-proxy, dockerd, containerd
 
-  dind:
-    type: fetch
-    source: https://raw.githubusercontent.com/docker/docker/ed89041433a031cafc0a0f19cfe573c31688d377/hack/dind
-    destination: /bin/dind
-
-  compose:
-    type: fetch
-    source: https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64
-    destination: /bin/docker-compose
-
-  rootlesskit:
-    type: fetch
-    source: https://download.docker.com/linux/static/stable/x86_64/docker-rootless-extras-19.03.13.tgz
-    unpack: docker-rootless-extras/rootlesskit
-    destination: /bin/rootlesskit
-    # TODO: some for vpnkit, rootlesskit-docker-proxy, dockerd-rootless.sh
-
   ctop:
     type: fetch
-    source: https://github.com/bcicen/ctop/releases/download/v0.7.5/ctop-0.7.5-linux-amd64
+    source: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
     destination: /bin/ctop
 
   buildx:
     type: fetch
-    source: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
+    source: https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-amd64
     destination: /usr/lib/docker/cli-plugins/docker-buildx
 
   pass:
@@ -65,7 +48,7 @@ actions:
 
   ecrhelper:
     type: fetch
-    source: https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.5.0/linux-amd64/docker-credential-ecr-login
+    source: https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.8.0/linux-amd64/docker-credential-ecr-login
     destination: /bin/docker-credential-ecr-login
 
   dormouse:

@@ -11,7 +11,7 @@ actions:
 
   packages:
     type: install
-    name: git gnupg ncurses-bin vim
+    name: git gnupg ncurses-bin vim unzip
 
   env:
     type: environment
@@ -25,53 +25,53 @@ actions:
 
   kubectl:
     type: fetch
-    source: https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl
+    source: https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/amd64/kubectl
     destination: /bin/kubectl
 
   k9s:
     type: fetch
-    source: https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz
+    source: https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Linux_amd64.tar.gz
     unpack: k9s
     destination: /bin/k9s
 
   popeye:
     type: fetch
-    source: https://github.com/derailed/popeye/releases/download/v0.9.7/popeye_Linux_x86_64.tar.gz
+    source: https://github.com/derailed/popeye/releases/download/v0.21.3/popeye_Linux_amd64.tar.gz
     unpack: popeye
     destination: /bin/popeye
 
   kind:
     type: fetch
-    source: https://github.com/kubernetes-sigs/kind/releases/download/v0.8.1/kind-linux-amd64
+    source: https://github.com/kubernetes-sigs/kind/releases/download/v0.23.0/kind-linux-amd64
     destination: /bin/kind
 
   helm:
     type: fetch
-    source: https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
+    source: https://get.helm.sh/helm-v3.15.1-linux-amd64.tar.gz
     unpack: linux-amd64/helm
     destination: /bin/helm
 
   kustomize:
     type: fetch
-    source: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.10.0/kustomize_v3.10.0_linux_amd64.tar.gz
+    source: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.2/kustomize_v5.4.2_linux_amd64.tar.gz
     unpack: kustomize
     destination: /bin/kustomize
 
   flux:
     type: fetch
-    source: https://github.com/fluxcd/flux2/releases/download/v0.5.7/flux_0.5.7_linux_amd64.tar.gz
+    source: https://github.com/fluxcd/flux2/releases/download/v2.3.0/flux_2.3.0_linux_amd64.tar.gz
     unpack: flux
     destination: /bin/flux
 
   crictl:
     type: fetch
-    source: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.19.0/crictl-v1.19.0-linux-amd64.tar.gz
+    source: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.30.0/crictl-v1.30.0-linux-amd64.tar.gz
     unpack: crictl
     destination: /bin/crictl
 
   kubescape:
     type: fetch
-    source: https://github.com/armosec/kubescape/releases/download/v1.0.133/kubescape-ubuntu-latest
+    source: https://github.com/armosec/kubescape/releases/download/v3.0.11/kubescape-ubuntu-latest
     destination: /bin/kubescape
 
   gopass:
@@ -87,27 +87,31 @@ actions:
 
   linkerd:
     type: fetch
-    source: https://github.com/linkerd/linkerd2/releases/download/edge-22.10.3/linkerd2-cli-edge-22.10.3-linux-amd64
+    source: https://github.com/linkerd/linkerd2/releases/download/stable-2.24.10/linkerd2-cli-stable-2.24.10-linux-amd64
     destination: /bin/linkerd
 
   kubeseal:
     type: fetch
-    source: https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.21.0/kubeseal-0.21.0-linux-amd64.tar.gz
+    source: https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.26.3/kubeseal-0.26.3-linux-amd64.tar.gz
     unpack: kubeseal
     destination: /bin/kubeseal
 
   docker:
-    type: copy
-    path: /usr/local/bin/docker
-    image: docker:19.03.1
+    type: fetch
+    source: https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz
+    unpack: docker/docker
+    destination: /bin/docker
 
   awscli:
-    type: copy
-    path: /opt/python
-    dockerfile: |
-      FROM dodo/languages/python
-      ENV PATH /opt/python/bin:$PATH
-      RUN pip3 install awscli
+    type: fetch
+    source: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    destination: /tmp/awscliv2.zip
+
+  installawscli:
+    type: script
+    script: |
+      unzip /tmp/awscliv2.zip -d /tmp
+      /tmp/aws/install
 
   krew:
     type: copy
@@ -122,10 +126,10 @@ actions:
        && chmod +x /bin/kubectl
 
       RUN curl -L -o /tmp/krew.tar.gz \
-          https://github.com/kubernetes-sigs/krew/releases/download/v0.3.3/krew.tar.gz \
+          https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew-linux_amd64.tar.gz \
        && tar -xzf /tmp/krew.tar.gz -C /tmp \
        && curl -L -o /tmp/krew.yaml \
-          https://github.com/kubernetes-sigs/krew/releases/download/v0.3.3/krew.yaml
+          https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew.yaml
 
       RUN addgroup \
             --gid 1000 \

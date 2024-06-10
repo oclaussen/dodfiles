@@ -1,6 +1,8 @@
 # Bootstrap in Debian using multistrap
-FROM debian:buster AS bootstrap
-ENV DEBIAN_FRONTEND=noninteractive
+FROM debian:bullseye AS bootstrap
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    DEBCONF_NONINTERACTIVE_SEEN=true
 
 # Build dependencies
 RUN apt-get update \
@@ -15,7 +17,10 @@ RUN multistrap -d /rootfs -f /multistrap.conf
 
 # Additional customization in separate image acting as chroot
 FROM scratch AS chroot
-ENV DEBIAN_FRONTEND=noninteractive
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    DEBCONF_NONINTERACTIVE_SEEN=true
+
 COPY --from=bootstrap /rootfs/ /
 
 # General configuration
