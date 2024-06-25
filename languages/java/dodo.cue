@@ -3,26 +3,37 @@ package dodfiles
 import "github.com/oclaussen/dodfiles/base/pkg:base"
 
 backdrops: {
-	java8:
+	java: {
 		base.#WithRepository & {
 			image: {
-				name: "dodo/languages/java8"
-				requires: ["dodo/base", "dodo/languages/buildbase"]
+				name:       "dodo/languages/java"
+				requires:   "dodo/base"
 				context:    "{{ currentDir }}"
-				dockerfile: "{{ currentDir }}/Dockerfile.8"
+				dockerfile: "{{ currentDir }}/Dockerfile"
 			}
 			script: "exec java \"$@\""
 		}
+	}
 
-	java11:
+	scala: {
+		image: {
+			name:       "dodo/languages/java"
+			requires:   "dodo/base"
+			context:    "{{ currentDir }}"
+			dockerfile: "{{ currentDir }}/Dockerfile"
+		}
+		interactive: true
+	}
+
+	sbt:
 		base.#WithRepository & {
-			aliases: ["java"]
 			image: {
-				name: "dodo/languages/java11"
-				requires: ["dodo/base", "dodo/languages/buildbase"]
+				name:       "dodo/languages/java"
+				requires:   "dodo/base"
 				context:    "{{ currentDir }}"
-				dockerfile: "{{ currentDir }}/Dockerfile.11"
+				dockerfile: "{{ currentDir }}/Dockerfile"
 			}
-			script: "exec java \"$@\""
+			volumes: sbt: {source: "sbt-cache", target: "/root"}
+			script: "exec sbt \"$@\""
 		}
 }

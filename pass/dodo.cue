@@ -12,7 +12,7 @@ backdrops: {
 		gpg.#WithSSHAgent & {
 			image: {
 				name: "dodo/pass"
-				requires: ["dodo/languages/buildbase", "dodo/base", "dodo/gpg"]
+				requires: ["dodo/base", "dodo/gpg"]
 			}
 			volumes: chirp: {source: "chirp", target: "/data/chirp"}
 			script: "exec gopass \"$@\""

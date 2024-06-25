@@ -16,7 +16,7 @@ actions:
   cloudflared:
     type: install
     name: cloudflared
-    repo: "deb https://pkg.cloudflare.com/cloudflared buster main"
+    repo: "deb https://pkg.cloudflare.com/cloudflared bullseye main"
     gpg: "https://pkg.cloudflare.com/cloudflare-main.gpg"
 
   hub:

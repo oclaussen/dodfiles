@@ -1,17 +1,24 @@
-FROM dodo/languages/buildbase AS build
+FROM dodo/base AS build
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+        build-essential \
+        gnupg2 \
+        libssl-dev \
+        libyaml-dev \
+        libreadline6-dev \
+        libncurses5-dev \
+        libffi-dev \
         libsqlite3-dev \
 	tk-dev \
         uuid-dev \
  && apt-get clean
 
-ENV PYTHON_VERSION 3.9.6
-ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
-ENV PYTHON_PIP_VERSION 19.2.3
-ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/309a56c5fd94bd1134053a541cb4657a4e47e09d/get-pip.py
-ENV PYTHON_GET_PIP_SHA256 57e3643ff19f018f8a00dfaa6b7e4620e3c1a7a2171fd218425366ec006b3bfe
+ENV PYTHON_VERSION 3.12.3
+ENV GPG_KEY 7169605F62C751356D054A26A821E680E5FA6305
+ENV PYTHON_PIP_VERSION 24.0
+ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/dbf0c85f76fb6e1ab42aa672ffca6f0a675d9ee4/public/get-pip.py
+ENV PYTHON_GET_PIP_SHA256 dfe9fd5c28dc98b5ac17979a953ea550cec37ae1b47a5116007395bfacff2ab9
 
 RUN wget -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
  && wget -O python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" \

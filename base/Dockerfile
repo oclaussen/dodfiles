@@ -1,5 +1,5 @@
 # Bootstrap in Debian using multistrap
-FROM debian:bullseye AS bootstrap
+FROM debian:bookworm AS bootstrap
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true

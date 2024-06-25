@@ -7,7 +7,7 @@ backdrops: linuxkit:
 	base.#WithRepository & {
 		image: {
 			name: "dodo/linuxkit"
-			requires: ["dodo/languages/buildbase", "dodo/languages/golang"]
+			requires: ["dodo/languages/golang"]
 		}
 		script: "exec linuxkit \"$@\""
 	}

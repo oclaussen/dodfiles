@@ -10,7 +10,7 @@ backdrops: zsh:
 	docker.#WithDockerDaemon & {
 		image: {
 			name: "dodo/zsh"
-			requires: ["dodo/base", "dodo/languages/buildbase", "dodo/languages/rust"]
+			requires: ["dodo/base", "dodo/languages/rust"]
 		}
 		volumes: {
 			chirp: {source: "chirp", target: "/data/chirp"}

@@ -12,7 +12,7 @@ backdrops: {
 		gpg.#WithGPGAgent & {
 			image: {
 				name: "dodo/gpg"
-				requires: ["dodo/languages/buildbase", "dodo/languages/python", "dodo/base"]
+				requires: ["dodo/languages/python", "dodo/base"]
 			}
 			script: """
 				  if [ \"$1\" = \"status\" ]; then
@@ -33,7 +33,7 @@ backdrops: {
 			container_name: "gpg-agent"
 			image: {
 				name: "dodo/gpg"
-				requires: ["dodo/languages/buildbase", "dodo/languages/python", "dodo/base"]
+				requires: ["dodo/languages/python", "dodo/base"]
 			}
 			script: """
 				  export GPG_TTY=$(tty)
@@ -49,7 +49,7 @@ backdrops: {
 		gpg.#WithSCD & {
 			image: {
 				name: "dodo/gpg"
-				requires: ["dodo/languages/buildbase", "dodo/languages/python", "dodo/base"]
+				requires: ["dodo/languages/python", "dodo/base"]
 			}
 			script: """
 				  set -eux

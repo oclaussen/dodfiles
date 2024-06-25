@@ -1,15 +1,17 @@
-FROM dodo/languages/buildbase AS build
+FROM dodo/base AS build
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+        autoconf \
+        build-essential \
         bison \
  && apt-get clean
 
-ENV RUBY_MAJOR 2.7
-ENV RUBY_VERSION 2.7.4
-ENV RUBY_DOWNLOAD_SHA256 2a80824e0ad6100826b69b9890bf55cfc4cf2b61a1e1330fccbcb30c46cef8d7
+ENV RUBY_VERSION 3.3.3
+ENV RUBY_DOWNLOAD_URL https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.3.tar.xz
+ENV RUBY_DOWNLOAD_SHA256 83c0995388399c9555bad87e70af069755b5a9d84bbaa74aa22d1e37ff70fc1e
 
-RUN wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
+RUN wget -O ruby.tar.xz "$RUBY_DOWNLOAD_URL" \
  && echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum --check --strict \
  && mkdir -p /src/ruby \
  && tar -xJf ruby.tar.xz -C /src/ruby --strip-components=1
