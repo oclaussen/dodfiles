@@ -11,6 +11,13 @@ dodfiles: $(patsubst %.cue, %.yaml, $(shell find -type f -name dodo.cue))
 %dodo.yaml: %dodo*.cue
 	cue export --strict --simplify --force $^ > $@
 
+.PHONY: dodfiles-diff
+dodfiles-diff: $(patsubst %.cue, %.diff, $(shell find -type f -name dodo.cue))
+
+.PHONY: %dodo.diff
+%dodo.diff: %dodo*.cue
+	-cue export --strict --simplify $^ | diff $(patsubst %.diff, %.yaml, $@) -
+
 .PHONY: dockerfiles
 dockerfiles: $(patsubst %.cue, %.yaml, $(shell find -type f -name dockerfile.cue))
 
