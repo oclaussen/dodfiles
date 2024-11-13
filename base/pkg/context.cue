@@ -8,3 +8,12 @@ package base
 	}
 	...
 }
+
+#WithLegacyDockerfile: {
+	image: {
+		context:    "{{ currentDir }}"
+		dockerfile: "{{ currentDir }}/Dockerfile"
+		...
+	}
+	...
+}
