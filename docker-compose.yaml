@@ -1,6 +1,6 @@
 version: '3.7'
 
-# TODO: handle bind mounts from the user's home directory properls
+# TODO: handle bind mounts from the user's home directory properly
 # - do not hard code the user names
 # - encrypt secrets
 

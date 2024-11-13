@@ -117,9 +117,9 @@ actions:
     type: copy
     path: /home/dodo/.krew
     dockerfile: |
-      FROM dodo/languages/buildbase
+      FROM dodo/base
 
-      RUN apt-get update && apt-get -y install git
+      RUN apt-get update && apt-get -y install curl git
 
       RUN curl -L -o /bin/kubectl \
           https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl \

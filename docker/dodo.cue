@@ -13,7 +13,7 @@ backdrops: {
 		base.#WithRepository &
 		base.#WithDormouse &
 		gpg.#WithPasswordStore &
-	        aws.#WithAWSCache &
+		aws.#WithAWSCache &
 		docker.#WithDockerDaemon & {
 			image: {
 				name: "dodo/docker"

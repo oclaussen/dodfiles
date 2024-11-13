@@ -15,9 +15,7 @@ backdrops: zsh:
 		volumes: {
 			chirp: {source: "chirp", target: "/data/chirp"}
 			zsh: {source: "zsh-data", target: "/data/zsh"}
-			user: {source: "/Users", target: "/Users"}
 		}
-		working_dir: "/Users/ole.claussen"
 		interpreter: ["/usr/bin/zsh"]
 		interactive: true
 	}

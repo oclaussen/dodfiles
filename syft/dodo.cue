@@ -5,15 +5,13 @@ import (
 	"github.com/oclaussen/dodfiles/docker/pkg:docker"
 )
 
-backdrops: {
-	"syft":
-		base.#WithDockerfile &
-		base.#WithRepository &
-		docker.#WithDockerDaemon & {
-			image: {
-				name: "dodo/syft"
-				requires: ["dodo/base"]
-			}
-			script: "exec syft \"$@\""
+backdrops: syft:
+	base.#WithDockerfile &
+	base.#WithRepository &
+	docker.#WithDockerDaemon & {
+		image: {
+			name: "dodo/syft"
+			requires: ["dodo/base"]
 		}
-}
+		script: "exec syft \"$@\""
+	}
