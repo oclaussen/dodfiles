@@ -1,5 +1,6 @@
 ---
 exec: ['/usr/bin/git']
+
 subcommands:
   sh:
     exec: ['/bin/bash']
@@ -7,3 +8,5 @@ subcommands:
     exec: ['/bin/hub']
   lab:
     exec: ['/bin/lab']
+  precommit:
+    exec: ['/opt/python/bin/pre-commit']

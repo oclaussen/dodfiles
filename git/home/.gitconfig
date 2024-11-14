@@ -1,7 +1,16 @@
 [user]
 
 [core]
-    whitespace = trailing-space
+  whitespace = trailing-space
+
+[init]
+    defaultBranch = main
+
+[commits]
+    gpgsign = true
+
+[tags]
+    gpgsign = true
 
 [push]
     default = simple
@@ -15,6 +24,7 @@
     fa = fetch --all
     precommit = diff --cached --diff-algorithm=minimal -w
     unmerged = diff --name-only --diff-filter=U
+    log = log --show-signature
     graph = log --graph -n 20 --branches --remotes --tags --date-order --abbrev-commit --pretty=oneline --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d'
     standup = log --since yesterday --oneline --author 'ole.claussen'
     gud = "!git fetch --all --prune && git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs git branch -D && git gc"
@@ -43,3 +53,6 @@
 
 [url "git@github.com"]
     insteadOf = github
+
+[safe]
+    directory = "/build"

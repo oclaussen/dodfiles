@@ -24,6 +24,7 @@ services:
       - 'mail:/data/mail'
       - 'helm:/data/helm'
       - 'chirp:/data/chirp'
+      - 'precommit-cache:/data/precommit-cache'
       - 'terraform:/data/terraform'
       - 'cloudflare-cache:/data/cloudflare-cache'
       - '/Users/ole.claussen:/Users/ole.claussen'
@@ -94,3 +95,6 @@ volumes:
 
   cloudflare-cache:
     name: cloudflare-cache
+
+  precommit-cache:
+    name: precommit-cache

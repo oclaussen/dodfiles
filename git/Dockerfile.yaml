@@ -9,9 +9,22 @@ actions:
     name: dodo
     dotfiles: home
 
+  env:
+    type: environment
+    variables:
+      PATH: /opt/python/bin
+
   packages:
     type: install
-    name: git git-lfs gnupg openssh-client less vim
+    name: git git-lfs gnupg openssh-client less vim shellcheck
+
+  precommit:
+    type: copy
+    path: /opt/python
+    dockerfile: |
+      FROM dodo/languages/python
+      ENV PATH /opt/python/bin:$PATH
+      RUN pip3 install pre-commit checkov
 
   cloudflared:
     type: install
@@ -30,6 +43,12 @@ actions:
     source: https://github.com/zaquestion/lab/releases/download/v0.20.0/lab_0.20.0_linux_amd64.tar.gz
     unpack: lab
     destination: /bin/lab
+
+  terraform:
+    type: fetch
+    source: https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
+    unpack: terraform
+    destination: /bin/terraform
 
   dormouse:
     type: fetch
