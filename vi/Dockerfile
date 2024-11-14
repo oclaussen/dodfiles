@@ -1,4 +1,8 @@
-FROM dodo/languages/buildbase AS build
+FROM dodo/base AS build
+
+RUN apt-get update \
+ && apt-get install -y \
+    curl
 
 RUN curl -L -o /tmp/nvim.appimage \
     https://github.com/neovim/neovim/releases/download/stable/nvim.appimage \

@@ -22,17 +22,20 @@ actions:
     type: copy
     path: /opt/pcsc
     dockerfile: |
-      FROM dodo/languages/buildbase AS build
+      FROM dodo/base AS build
       
       RUN apt-get update \
        && apt-get -y install \
+          build-essential \
           autoconf-archive \
           automake \
           flex \
+          git \
           libtool \
           pkg-config \
           libpcsclite-dev \
-          libusb-1.0.0-dev
+          libusb-1.0.0-dev \
+          zlib1g-dev
       
       RUN git clone https://salsa.debian.org/rousseau/pcsc.git /pcsc
       WORKDIR /pcsc
@@ -42,6 +45,7 @@ actions:
               --enable-libusb \
               --disable-libsystemd \
               --disable-libudev \
+              --disable-polkit \
        && make \
        && make install
       

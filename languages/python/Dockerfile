@@ -4,6 +4,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
         build-essential \
         gnupg2 \
+        libbz2-dev \
         libssl-dev \
         libyaml-dev \
         libreadline6-dev \
