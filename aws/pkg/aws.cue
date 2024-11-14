@@ -4,7 +4,7 @@ package aws
 	volumes: {
 		aws: {
 			source: "aws-cache"
-			target: "/home/dodo/.aws/cli/cache"
+			target: "/home/dodo/.aws/sso"
 		}
 		...
 	}

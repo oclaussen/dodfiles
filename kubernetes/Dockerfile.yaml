@@ -19,10 +19,6 @@ actions:
       PATH: /home/dodo/.krew/bin:/opt/python/bin:/usr/local/bin
       KUBECONFIG: /home/dodo/.kube/context.yaml:/home/dodo/.kubeconfig:/home/dodo/.kube/config
 
-      AWS_VAULT_BACKEND: pass
-      AWS_VAULT_PASS_CMD: /bin/gopass
-      AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
-
   kubectl:
     type: fetch
     source: https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/amd64/kubectl
@@ -79,11 +75,6 @@ actions:
     source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
     unpack: gopass
     destination: /bin/gopass
-
-  awsvault:
-    type: fetch
-    source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
-    destination: /bin/aws-vault
 
   linkerd:
     type: fetch

@@ -4,29 +4,19 @@ options:
     default: default
 
 env:
-  AWS_VAULT_BACKEND: pass
-  AWS_VAULT_PASS_CMD: /bin/gopass
-  AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
+  AWS_PROFILE: '{{ profile }}'
 
-  TF_VAR_username: ole.claussen
-
-exec: ['/bin/aws-vault', 'exec', '{{ profile }}', '--no-session', '--', 'terraform']
+exec: ['/bin/terraform']
 
 subcommands:
   sh:
-    env:
-      AWS_VAULT_BACKEND: pass
-      AWS_VAULT_PASS_CMD: /bin/gopass
-      AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
     exec: ['/bin/bash']
+
   tg:
     options:
       - name: profile
         default: default
     env:
-      AWS_VAULT_BACKEND: pass
-      AWS_VAULT_PASS_CMD: /bin/gopass
-      AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
-      TF_VAR_username: ole.claussen
+      AWS_PROFILE: '{{ profile }}'
 
-    exec: ['/bin/aws-vault', 'exec', '{{ profile }}', '--no-session', '--', 'terragrunt']
+    exec: ['/bin/terragrunt']

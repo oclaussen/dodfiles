@@ -9,30 +9,6 @@ import (
 )
 
 backdrops: {
-	terraform11:
-		base.#WithRepository &
-		gpg.#WithPasswordStore &
-		gpg.#WithSSHAgent &
-		aws.#WithAWSCache &
-		kube.#WithKubeconfig & {
-			image: {
-				name: "dodo/terraform11"
-				requires: ["dodo/base", "dodo/languages/golang", "dodo/gpg", "dodo/pass", "dodo/aws", "dodo/kube"]
-				context:    "{{ currentDir }}"
-				dockerfile: "{{ currentDir }}/Dockerfile-0.11.yaml"
-			}
-			volumes: terraform: {source: "terraform", target: "/data/terraform"}
-			environment: user: {name: "TF_VAR_username", value: "ole.claussen"}
-			script: """
-				  test -f terraform.log && rm -f terraform.log
-				  if [ \"$1\" = \"fa\" ]; then
-				    exec terraform init -get=true -upgrade=true
-				  else
-				    exec terraform \"$@\"
-				  fi
-				"""
-		}
-
 	terraform:
 		base.#WithDockerfile &
 		base.#WithRepository &
@@ -66,6 +42,7 @@ backdrops: {
 				name: "dodo/terraform"
 				requires: ["dodo/base", "dodo/languages/golang", "dodo/gpg", "dodo/pass", "dodo/aws", "dodo/kube", "dodo/google"]
 			}
+			environment: cache: {name: "TERRAGRUNT_DOWNLOAD", value: "/data/terraform/terragrunt-cache"}
 			volumes: {
 				terraform: {source: "terraform", target: "/data/terraform"}
 				gcloud: {source: "gcloud-data", target: "/home/dodo/.config/gcloud"}

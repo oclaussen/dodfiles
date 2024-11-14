@@ -11,7 +11,7 @@ actions:
 
   packages:
     type: install
-    name: git gnupg jq unzip
+    name: git gnupg jq unzip less
     repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bullseye main"
     gpg: "https://packages.microsoft.com/keys/microsoft.asc"
 
@@ -22,7 +22,7 @@ actions:
 
   terraform:
     type: fetch
-    source: https://releases.hashicorp.com/terraform/1.8.5/terraform_1.8.5_linux_amd64.zip
+    source: https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
     unpack: terraform
     destination: /bin/terraform
 
@@ -36,11 +36,6 @@ actions:
     source: https://github.com/aquasecurity/tfsec/releases/download/v1.28.6/tfsec-linux-amd64
     destination: /bin/tfsec
 
-  kubectl:
-    type: fetch
-    source: https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/amd64/kubectl
-    destination: /bin/kubectl
-
   docker:
     type: fetch
     source: https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz
@@ -52,21 +47,11 @@ actions:
     source: https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-amd64
     destination: /usr/lib/docker/cli-plugins/docker-buildx
 
-  sops:
-    type: fetch
-    source: https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux
-    destination: /bin/sops
-
   pass:
     type: fetch
     source: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz
     unpack: gopass
     destination: /bin/gopass
-
-  awsvault:
-    type: fetch
-    source: https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64
-    destination: /bin/aws-vault
 
   dormouse:
     type: fetch
