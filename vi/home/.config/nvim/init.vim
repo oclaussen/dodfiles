@@ -88,9 +88,6 @@ nnoremap Q <nop>
 
 autocmd FileType * set formatoptions-=t
 
-autocmd BufNewFile,BufRead *.frb set syntax=ruby
-autocmd BufNewFile,BufRead *.frb set filetype=ruby
-
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd vimenter * NERDTree | wincmd w
 noremap  <C-n> :NERDTreeToggle<CR>
@@ -103,4 +100,4 @@ lua << EOF
 require'lspconfig'.gopls.setup{}
 EOF
 
-autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.go lua vim.lsp.buf.format()

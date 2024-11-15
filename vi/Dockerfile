@@ -5,7 +5,7 @@ RUN apt-get update \
     curl
 
 RUN curl -L -o /tmp/nvim.appimage \
-    https://github.com/neovim/neovim/releases/download/stable/nvim.appimage \
+    https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage \
  && chmod +x /tmp/nvim.appimage \
  && /tmp/nvim.appimage --appimage-extract \
  && find squashfs-root -type d -exec chmod 755 {} \; \
