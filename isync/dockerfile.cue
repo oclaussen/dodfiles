@@ -1,0 +1,36 @@
+actions: {
+	base: {
+		type: "base"
+		name: "dodo/base"
+	}
+
+	dodo: {
+		type:     "user"
+		name:     "dodo"
+		uid:      501
+		dotfiles: "home"
+	}
+
+	packages: {
+		type: "install"
+		name: "gnupg isync"
+	}
+
+	gpghome: {
+		type:  "copy"
+		path:  "/home/dodo/.gnupg"
+		image: "dodo/gpg"
+	}
+
+	pass: {
+		type:  "copy"
+		path:  "/bin/gopass"
+		image: "dodo/pass"
+	}
+
+	passconfig: {
+		type:  "copy"
+		path:  "/home/dodo/.config/gopass"
+		image: "dodo/pass"
+	}
+}

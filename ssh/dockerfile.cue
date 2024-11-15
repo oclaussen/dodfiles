@@ -1,0 +1,24 @@
+actions: {
+	base: {
+		type: "base"
+		name: "dodo/base"
+	}
+
+	dodo: {
+		type:     "user"
+		name:     "dodo"
+		uid:      501
+		dotfiles: "home"
+	}
+
+	packages: {
+		type: "install"
+		name: "openssh-client"
+	}
+
+	gpghome: {
+		type:  "copy"
+		path:  "/home/dodo/.gnupg"
+		image: "dodo/gpg"
+	}
+}

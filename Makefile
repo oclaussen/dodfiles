@@ -24,3 +24,11 @@ dockerfiles: $(patsubst %.cue, %.yaml, $(shell find -type f -name dockerfile.cue
 %dockerfile.yaml: %dockerfile*.cue
 	echo '# syntax = wabenet/dodfile-syntax' > $@
 	cue export --strict --simplify --force $^ >> $@
+
+.PHONY: dockerfiles-diff
+dockerfiles-diff: $(patsubst %.cue, %.diff, $(shell find -type f -name dockerfile.cue))
+
+.PHONY: %dockerfile.diff
+%dockerfile.diff: %dockerfile*.cue
+	-cue export --strict --simplify $^ | diff $(patsubst %.diff, %.yaml, $@) -
+

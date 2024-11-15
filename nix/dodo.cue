@@ -6,7 +6,7 @@ import (
 )
 
 backdrops: nix:
-	base.#WithDockerfile &
+	base.#WithLegacyDockerfile &
 	base.#WithRepository &
 	gpg.#WithSSHAgent & {
 		image: {

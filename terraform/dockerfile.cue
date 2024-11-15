@@ -1,0 +1,98 @@
+actions: {
+	base: {
+		type: "base"
+		name: "dodo/base"
+	}
+
+	dodo: {
+		type:     "user"
+		name:     "dodo"
+		uid:      501
+		dotfiles: "home"
+	}
+
+	packages: {
+		type: "install"
+		name: "git gnupg jq unzip less"
+		repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bullseye main"
+		gpg:  "https://packages.microsoft.com/keys/microsoft.asc"
+	}
+
+	env: {
+		type: "environment"
+		variables: PATH: "/opt/python/bin:/opt/google-cloud-sdk/bin"
+	}
+
+	terraform: {
+		type:        "fetch"
+		source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip"
+		unpack:      "terraform"
+		destination: "/bin/terraform"
+	}
+
+	terragrunt: {
+		type:        "fetch"
+		source:      "https://github.com/gruntwork-io/terragrunt/releases/download/v0.58.15/terragrunt_linux_amd64"
+		destination: "/bin/terragrunt"
+	}
+
+	tfsec: {
+		type:        "fetch"
+		source:      "https://github.com/aquasecurity/tfsec/releases/download/v1.28.6/tfsec-linux-amd64"
+		destination: "/bin/tfsec"
+	}
+
+	docker: {
+		type:        "fetch"
+		source:      "https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz"
+		unpack:      "docker/docker"
+		destination: "/bin/docker"
+	}
+
+	buildx: {
+		type:        "fetch"
+		source:      "https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-amd64"
+		destination: "/usr/lib/docker/cli-plugins/docker-buildx"
+	}
+
+	pass: {
+		type:        "fetch"
+		source:      "https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz"
+		unpack:      "gopass"
+		destination: "/bin/gopass"
+	}
+
+	dormouse: {
+		type:        "fetch"
+		source:      "https://github.com/oclaussen/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_x86_64.tar.gz"
+		unpack:      "dormouse"
+		destination: "/bin/dormouse"
+	}
+
+	gpghome: {
+		type:  "copy"
+		path:  "/home/dodo/.gnupg"
+		image: "dodo/gpg"
+	}
+
+	googlesdk: {
+		type:  "copy"
+		path:  "/opt/google-cloud-sdk"
+		image: "dodo/google"
+	}
+
+	awscli: {
+		type:        "fetch"
+		source:      "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+		destination: "/tmp/awscliv2.zip"
+	}
+
+	installcli: {
+		type: "script"
+		script: """
+			unzip /tmp/awscliv2.zip -d /tmp
+			/tmp/aws/install
+
+			"""
+	}
+}
