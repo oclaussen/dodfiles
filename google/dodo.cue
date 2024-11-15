@@ -29,6 +29,12 @@ backdrops: {
 				name: "dodo/google"
 				requires: ["dodo/base", "dodo/languages/python"]
 			}
-			script: "exec /home/dodo/gam/gam \"$@\""
+			volumes: gcloud: {source: "gcloud-data", target: "/data/google"}
+			script: """
+					cp /data/google/gam/client_secrets.json /home/dodo/gam/client_secrets.json
+					cp /data/google/gam/oauth2service.json /home/dodo/gam/oauth2service.json
+					cp /data/google/gam/oauth2.txt /home/dodo/gam/oauth2.txt
+					/home/dodo/gam/gam \"$@\"
+				"""
 		}
 }
