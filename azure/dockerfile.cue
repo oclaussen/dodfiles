@@ -1,19 +1,15 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type: "user"
-		uid:  501
-		name: "dodo"
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+)
 
-	packages: {
-		type: "install"
-		name: "azure-cli"
-		repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
-		gpg:  "https://packages.microsoft.com/keys/microsoft.asc"
+actions:
+	base.#BaseImage & {
+		packages: {
+			type: "install"
+			name: "azure-cli"
+			repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main"
+			gpg:  "https://packages.microsoft.com/keys/microsoft.asc"
+		}
 	}
-}

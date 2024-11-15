@@ -1,24 +1,20 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type:     "user"
-		name:     "dodo"
-		uid:      501
-		dotfiles: "home"
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+)
 
-	packages: {
-		type: "install"
-		name: "openssh-client"
-	}
+actions:
+	base.#BaseImage &
+	base.#WithDotfiles & {
+		packages: {
+			type: "install"
+			name: "openssh-client"
+		}
 
-	gpghome: {
-		type:  "copy"
-		path:  "/home/dodo/.gnupg"
-		image: "dodo/gpg"
+		gpghome: {
+			type:  "copy"
+			path:  "/home/dodo/.gnupg"
+			image: "dodo/gpg"
+		}
 	}
-}

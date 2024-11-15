@@ -1,48 +1,30 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type:     "user"
-		name:     "dodo"
-		uid:      501
-		dotfiles: "home"
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
+	"github.com/oclaussen/dodfiles/chirp/pkg:chirp"
+)
 
-	packages: {
-		type: "install"
-		name: "git git-lfs gnupg less openssh-client vim"
-	}
+actions:
+	base.#BaseImage &
+	base.#WithDotfiles &
+	base.#WithLocalFiles &
+	gpg.#InstallPass &
+	chirp.#InstallChirp & {
+		packages: {
+			type: "install"
+			name: "git git-lfs gnupg less openssh-client vim"
+		}
 
-	env: {
-		type: "environment"
-		variables: PATH: "/home/dodo/bin"
-	}
+		env: {
+			type: "environment"
+			variables: PATH: "/home/dodo/bin"
+		}
 
-	pass: {
-		type:        "fetch"
-		source:      "https://github.com/gopasspw/gopass/releases/download/v1.8.6/gopass-1.8.6-linux-amd64.tar.gz"
-		unpack:      "gopass-1.8.6-linux-amd64/gopass"
-		destination: "/bin/gopass"
+		gpghome: {
+			type:  "copy"
+			path:  "/home/dodo/.gnupg"
+			image: "dodo/gpg"
+		}
 	}
-
-	chirp: {
-		type:        "fetch"
-		source:      "https://github.com/oclaussen/chirp/releases/download/v2.0.1/chirp_linux_amd64"
-		destination: "/bin/chirp"
-	}
-
-	gpghome: {
-		type:  "copy"
-		path:  "/home/dodo/.gnupg"
-		image: "dodo/gpg"
-	}
-
-	files: {
-		type:      "copy"
-		path:      "/"
-		directory: "root"
-	}
-}

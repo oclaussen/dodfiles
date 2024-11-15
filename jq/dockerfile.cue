@@ -1,23 +1,19 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type: "user"
-		name: "dodo"
-		uid:  501
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+)
 
-	packages: {
-		type: "install"
-		name: "jq"
-	}
+actions:
+	base.#BaseImage & {
+		packages: {
+			type: "install"
+			name: "jq"
+		}
 
-	yq: {
-		type:        "fetch"
-		source:      "https://github.com/mikefarah/yq/releases/download/v4.22.1/yq_linux_amd64"
-		destination: "/bin/yq"
+		yq: {
+			type:        "fetch"
+			source:      "https://github.com/mikefarah/yq/releases/download/v4.22.1/yq_linux_amd64"
+			destination: "/bin/yq"
+		}
 	}
-}

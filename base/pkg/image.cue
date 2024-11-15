@@ -8,6 +8,7 @@ package base
 	user: {
 		type: "user"
 		name: "dodo"
+		uid:  501 // TODO: 501 is the main user on MacOS - this shouldn't be hardcoded here
 		...
 	}
 	...

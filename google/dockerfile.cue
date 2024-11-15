@@ -1,75 +1,58 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type:     "user"
-		name:     "dodo"
-		uid:      501
-		dotfiles: "home"
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
+	"github.com/oclaussen/dodfiles/google/pkg:google"
+)
 
-	packages: {
-		type: "install"
-		name: "git gnupg libsqlite3-0 xz-utils"
-	}
+actions:
+	base.#BaseImage &
+	base.#WithDotfiles &
+	gpg.#InstallPass &
+	google.#InstallGoogleSDK & {
+		packages: {
+			type: "install"
+			name: "git gnupg libsqlite3-0 xz-utils"
+		}
 
-	env: {
-		type: "environment"
-		variables: PATH: "/opt/google-cloud-sdk/bin:/opt/python/bin"
-	}
+		env: {
+			type: "environment"
+			variables: PATH: "/opt/google-cloud-sdk/bin:/opt/python/bin"
+		}
 
-	gcpsdk: {
-		type:        "fetch"
-		source:      "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-471.0.0-linux-x86_64.tar.gz"
-		destination: "/tmp/google-cloud-sdk.tar.gz"
-	}
+		gam: {
+			type:        "fetch"
+			source:      "https://github.com/GAM-team/GAM/releases/download/v6.58/gam-6.58-linux-x86_64-legacy.tar.xz"
+			destination: "/tmp/gam.tar.xz"
+		}
 
-	gam: {
-		type:        "fetch"
-		source:      "https://github.com/GAM-team/GAM/releases/download/v6.58/gam-6.58-linux-x86_64-legacy.tar.xz"
-		destination: "/tmp/gam.tar.xz"
-	}
+		gpghome: {
+			type:  "copy"
+			path:  "/home/dodo/.gnupg"
+			image: "dodo/gpg"
+		}
 
-	gpghome: {
-		type:  "copy"
-		path:  "/home/dodo/.gnupg"
-		image: "dodo/gpg"
-	}
+		passconfig: {
+			type:  "copy"
+			path:  "/home/dodo/.config/gopass"
+			image: "dodo/pass"
+		}
 
-	pass: {
-		type:  "copy"
-		path:  "/bin/gopass"
-		image: "dodo/pass"
-	}
+		python: {
+			type:  "copy"
+			path:  "/opt/python"
+			image: "dodo/languages/python"
+		}
 
-	passconfig: {
-		type:  "copy"
-		path:  "/home/dodo/.config/gopass"
-		image: "dodo/pass"
-	}
+		installgam: {
+			type: "script"
+			user: "dodo"
+			cwd:  "/home/dodo"
+			script: """
+				tar -xvf /tmp/gam.tar.xz -C .
+				touch gam/noshorturls.txt
 
-	python: {
-		type:  "copy"
-		path:  "/opt/python"
-		image: "dodo/languages/python"
+				"""
+		}
 	}
-
-	installsdk: {
-		type:   "script"
-		script: "tar -xvzf /tmp/google-cloud-sdk.tar.gz -C /opt"
-	}
-
-	installgam: {
-		type: "script"
-		user: "dodo"
-		cwd:  "/home/dodo"
-		script: """
-			tar -xvf /tmp/gam.tar.xz -C .
-			touch gam/noshorturls.txt
-
-			"""
-	}
-}

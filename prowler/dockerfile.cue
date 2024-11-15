@@ -1,70 +1,55 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type:     "user"
-		name:     "dodo"
-		uid:      501
-		dotfiles: "home"
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
+)
 
-	packages: {
-		type: "install"
-		name: "git gnupg"
-	}
+actions:
+	base.#BaseImage &
+	base.#WithDotfiles &
+	base.#InstallDormouse &
+	gpg.#InstallPass & {
+		packages: {
+			type: "install"
+			name: "git gnupg"
+		}
 
-	env: {
-		type: "environment"
-		variables: PATH: "/opt/python/bin"
-	}
+		env: {
+			type: "environment"
+			variables: PATH: "/opt/python/bin"
+		}
 
-	prowler: {
-		type: "copy"
-		path: "/opt/python"
-		dockerfile: """
-			FROM dodo/languages/buildbase
-			COPY --from=dodo/languages/python /opt/python /opt/python
-			COPY --from=dodo/languages/rust /opt/rust /opt/rust
-			ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
-			ENV PATH /opt/python/bin:${CARGO_HOME}/bin:$PATH
-			RUN apt-get update && apt-get install -y clang cmake libssl-dev make pkg-config
-			RUN pip3 install prowler
+		prowler: {
+			type: "copy"
+			path: "/opt/python"
+			dockerfile: """
+				FROM dodo/languages/buildbase
+				COPY --from=dodo/languages/python /opt/python /opt/python
+				COPY --from=dodo/languages/rust /opt/rust /opt/rust
+				ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
+				ENV PATH /opt/python/bin:${CARGO_HOME}/bin:$PATH
+				RUN apt-get update && apt-get install -y clang cmake libssl-dev make pkg-config
+				RUN pip3 install prowler
 
-			"""
-	}
+				"""
+		}
 
-	pass: {
-		type:        "fetch"
-		source:      "https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz"
-		unpack:      "gopass"
-		destination: "/bin/gopass"
-	}
+		awsvault: {
+			type:        "fetch"
+			source:      "https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64"
+			destination: "/bin/aws-vault"
+		}
 
-	awsvault: {
-		type:        "fetch"
-		source:      "https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64"
-		destination: "/bin/aws-vault"
-	}
+		gpghome: {
+			type:  "copy"
+			path:  "/home/dodo/.gnupg"
+			image: "dodo/gpg"
+		}
 
-	dormouse: {
-		type:        "fetch"
-		source:      "https://github.com/oclaussen/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_x86_64.tar.gz"
-		unpack:      "dormouse"
-		destination: "/bin/dormouse"
+		awsconfig: {
+			type:  "copy"
+			path:  "/home/dodo/.aws"
+			image: "dodo/aws"
+		}
 	}
-
-	gpghome: {
-		type:  "copy"
-		path:  "/home/dodo/.gnupg"
-		image: "dodo/gpg"
-	}
-
-	awsconfig: {
-		type:  "copy"
-		path:  "/home/dodo/.aws"
-		image: "dodo/aws"
-	}
-}

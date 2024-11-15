@@ -1,17 +1,13 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type: "user"
-		name: "dodo"
-		uid:  501
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+)
 
-	packages: {
-		type: "install"
-		name: "default-mysql-client postgresql-client"
+actions:
+	base.#BaseImage & {
+		packages: {
+			type: "install"
+			name: "default-mysql-client postgresql-client"
+		}
 	}
-}

@@ -1,34 +1,30 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type: "user"
-		name: "dodo"
-		uid:  501
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+)
 
-	packages: {
-		type: "install"
-		name: "gnupg vim"
-	}
+actions:
+	base.#BaseImage & {
+		packages: {
+			type: "install"
+			name: "gnupg vim"
+		}
 
-	env: {
-		type: "environment"
-		variables: EDITOR: "vim"
-	}
+		env: {
+			type: "environment"
+			variables: EDITOR: "vim"
+		}
 
-	sops: {
-		type:        "fetch"
-		source:      "https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux"
-		destination: "/bin/sops"
-	}
+		sops: {
+			type:        "fetch"
+			source:      "https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux"
+			destination: "/bin/sops"
+		}
 
-	gpghome: {
-		type:  "copy"
-		path:  "/home/dodo/.gnupg"
-		image: "dodo/gpg"
+		gpghome: {
+			type:  "copy"
+			path:  "/home/dodo/.gnupg"
+			image: "dodo/gpg"
+		}
 	}
-}
