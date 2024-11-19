@@ -18,6 +18,13 @@ actions:
 			name: "curl groff jq less unzip"
 		}
 
+		env: {
+			type: "environment"
+			variables: {
+				PATH: "/opt/python/bin"
+			}
+		}
+
 		sessionmanager: {
 			type:        "fetch"
 			source:      "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb"
@@ -28,4 +35,16 @@ actions:
 			type:   "script"
 			script: "dpkg -i /tmp/session-manager-plugin.deb"
 		}
+
+		boto: {
+			type: "copy"
+			path: "/opt/python"
+			dockerfile: """
+				FROM dodo/languages/python
+				ENV PATH /opt/python/bin:$PATH
+				RUN pip3 install boto3
+
+				"""
+		}
+
 	}
