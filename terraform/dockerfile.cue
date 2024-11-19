@@ -7,6 +7,9 @@ import (
 	"github.com/oclaussen/dodfiles/google/pkg:google"
 )
 
+#arch: "amd64"
+#arch_alt: "x86_64"
+
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -17,7 +20,7 @@ actions:
 		packages: {
 			type: "install"
 			name: "git gnupg jq unzip less"
-			repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bullseye main"
+			repo: "deb [arch=\(#arch)] https://packages.microsoft.com/repos/azure-cli/ bullseye main"
 			gpg:  "https://packages.microsoft.com/keys/microsoft.asc"
 		}
 
@@ -28,33 +31,33 @@ actions:
 
 		terraform: {
 			type:        "fetch"
-			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip"
+			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_\(#arch).zip"
 			unpack:      "terraform"
 			destination: "/bin/terraform"
 		}
 
 		terragrunt: {
 			type:        "fetch"
-			source:      "https://github.com/gruntwork-io/terragrunt/releases/download/v0.58.15/terragrunt_linux_amd64"
+			source:      "https://github.com/gruntwork-io/terragrunt/releases/download/v0.58.15/terragrunt_linux_\(#arch)"
 			destination: "/bin/terragrunt"
 		}
 
 		tfsec: {
 			type:        "fetch"
-			source:      "https://github.com/aquasecurity/tfsec/releases/download/v1.28.6/tfsec-linux-amd64"
+			source:      "https://github.com/aquasecurity/tfsec/releases/download/v1.28.6/tfsec-linux-\(#arch)"
 			destination: "/bin/tfsec"
 		}
 
 		docker: {
 			type:        "fetch"
-			source:      "https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz"
+			source:      "https://download.docker.com/linux/static/stable/\(#arch_alt)/docker-26.1.4.tgz"
 			unpack:      "docker/docker"
 			destination: "/bin/docker"
 		}
 
 		buildx: {
 			type:        "fetch"
-			source:      "https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-amd64"
+			source:      "https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-\(#arch)"
 			destination: "/usr/lib/docker/cli-plugins/docker-buildx"
 		}
 

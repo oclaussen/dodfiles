@@ -1,9 +1,11 @@
 package base
 
+#arch: "x86_64"
+
 #InstallDormouse: {
 	dormouse: {
 		type:        "fetch"
-		source:      "https://github.com/wabenet/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_x86_64.tar.gz"
+		source:      "https://github.com/wabenet/dormouse/releases/download/v0.1.4/dormouse_0.1.4_Linux_\(#arch).tar.gz"
 		unpack:      "dormouse"
 		destination: "/bin/dormouse"
 	}

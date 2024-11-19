@@ -1,5 +1,7 @@
 FROM dodo/base AS build
 
+ARCH=amd64
+
 RUN apt-get update \
  && apt-get install -y \
     curl
@@ -13,7 +15,7 @@ RUN curl -L -o /tmp/nvim.appimage \
  && find squashfs-root/usr/bin -type f -exec chmod 755 {} \;
 
 RUN curl -L -o /tmp/terraform-lsp.tar.gz \
-    https://github.com/juliosueiras/terraform-lsp/releases/download/v0.0.10/terraform-lsp_0.0.10_linux_amd64.tar.gz \
+    https://github.com/juliosueiras/terraform-lsp/releases/download/v0.0.10/terraform-lsp_0.0.10_linux_${ARCH}.tar.gz \
  && tar -xvzf /tmp/terraform-lsp.tar.gz -C /tmp
 
 FROM dodo/base
@@ -46,7 +48,7 @@ ENV PATH /opt/nvim/usr/bin:$PATH
 COPY --from=build /tmp/terraform-lsp /bin/terraform-lsp
 
 RUN curl -L -o /bin/chirp \
-    https://github.com/oclaussen/chirp/releases/download/v2.0.1/chirp_linux_amd64 \
+    https://github.com/oclaussen/chirp/releases/download/v2.0.1/chirp_linux_${ARCH} \
  && chmod +x /bin/chirp
 
 USER dodo

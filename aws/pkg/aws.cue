@@ -1,9 +1,11 @@
 package aws
 
+#arch: "x86_64"
+
 #InstallAWSCLI: {
 	awscli: {
 		type:        "fetch"
-		source:      "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+		source:      "https://awscli.amazonaws.com/awscli-exe-linux-\(#arch).zip"
 		destination: "/tmp/awscliv2.zip"
 	}
 

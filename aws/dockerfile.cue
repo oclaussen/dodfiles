@@ -5,6 +5,8 @@ import (
 	"github.com/oclaussen/dodfiles/aws/pkg:aws"
 )
 
+#arch: "amd64"
+
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &

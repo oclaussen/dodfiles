@@ -4,6 +4,8 @@ import (
 	"github.com/oclaussen/dodfiles/base/pkg:base"
 )
 
+#arch: "amd64"
+
 actions:
 	base.#BaseImage & {
 		packages: {

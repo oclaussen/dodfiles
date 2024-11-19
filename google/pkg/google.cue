@@ -1,9 +1,11 @@
 package google
 
+#arch_alt: "x86_64"
+
 #InstallGoogleSDK: {
 	googlesdk: {
 		type:        "fetch"
-		source:      "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-471.0.0-linux-x86_64.tar.gz"
+		source:      "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-471.0.0-linux-\(#arch_alt).tar.gz"
 		destination: "/tmp/google-cloud-sdk.tar.gz"
 	}
 

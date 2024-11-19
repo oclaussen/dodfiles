@@ -5,6 +5,8 @@ import (
 	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
 )
 
+#arch: "amd64"
+
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -37,7 +39,7 @@ actions:
 
 		awsvault: {
 			type:        "fetch"
-			source:      "https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64"
+			source:      "https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-\(#arch)"
 			destination: "/bin/aws-vault"
 		}
 

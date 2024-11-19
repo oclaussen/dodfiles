@@ -5,6 +5,8 @@ import (
 	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
 )
 
+#arch: "amd64"
+
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -40,21 +42,21 @@ actions:
 
 		hub: {
 			type:        "fetch"
-			source:      "https://github.com/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz"
-			unpack:      "hub-linux-amd64-2.14.2/bin/hub"
+			source:      "https://github.com/github/hub/releases/download/v2.14.2/hub-linux-\(#arch)-2.14.2.tgz"
+			unpack:      "hub-linux-\(#arch)-2.14.2/bin/hub"
 			destination: "/bin/hub"
 		}
 
 		lab: {
 			type:        "fetch"
-			source:      "https://github.com/zaquestion/lab/releases/download/v0.20.0/lab_0.20.0_linux_amd64.tar.gz"
+			source:      "https://github.com/zaquestion/lab/releases/download/v0.20.0/lab_0.20.0_linux_\(#arch).tar.gz"
 			unpack:      "lab"
 			destination: "/bin/lab"
 		}
 
 		terraform: {
 			type:        "fetch"
-			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip"
+			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_\(#arch).zip"
 			unpack:      "terraform"
 			destination: "/bin/terraform"
 		}

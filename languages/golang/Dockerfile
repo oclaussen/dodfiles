@@ -1,6 +1,8 @@
 FROM dodo/base
 
-RUN wget -O /tmp/go.tgz https://golang.org/dl/go1.22.4.linux-amd64.tar.gz \
+ARG ARCH=amd64
+
+RUN wget -O /tmp/go.tgz https://golang.org/dl/go1.22.4.linux-${ARCH}.tar.gz \
  && tar -C /opt -xzf /tmp/go.tgz \
  && rm /tmp/go.tgz
 

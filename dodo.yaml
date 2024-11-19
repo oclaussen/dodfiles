@@ -4,7 +4,7 @@ backdrops:
       steps: |
         FROM debian:buster-slim
         RUN apt-get update && apt-get install -y git curl make
-        RUN curl -Lo /tmp/cue.tgz https://github.com/cuelang/cue/releases/download/v0.4.0-rc.1/cue_v0.4.0-rc.1_linux_amd64.tar.gz \
+        RUN curl -Lo /tmp/cue.tgz https://github.com/cue-lang/cue/releases/download/v0.10.1/cue_v0.10.1_linux_amd64.tar.gz \
          && tar -xzf /tmp/cue.tgz -C /bin/
     volumes:
       - "{{ projectRoot }}:/build"

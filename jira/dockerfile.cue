@@ -5,6 +5,8 @@ import (
 	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
 )
 
+#arch: "amd64"
+
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -16,7 +18,7 @@ actions:
 
 		jira: {
 			type:        "fetch"
-			source:      "https://github.com/go-jira/jira/releases/download/v1.0.26/jira-linux-amd64"
+			source:      "https://github.com/go-jira/jira/releases/download/v1.0.26/jira-linux-\(#arch)"
 			destination: "/bin/jira"
 		}
 

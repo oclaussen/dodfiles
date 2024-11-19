@@ -6,6 +6,9 @@ import (
 	"github.com/oclaussen/dodfiles/aws/pkg:aws"
 )
 
+#arch: "amd64"
+#arch_alt: "x86_64"
+
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -26,54 +29,54 @@ actions:
 
 		kubectl: {
 			type:        "fetch"
-			source:      "https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/amd64/kubectl"
+			source:      "https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/\(#arch)/kubectl"
 			destination: "/bin/kubectl"
 		}
 
 		k9s: {
 			type:        "fetch"
-			source:      "https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Linux_amd64.tar.gz"
+			source:      "https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Linux_\(#arch).tar.gz"
 			unpack:      "k9s"
 			destination: "/bin/k9s"
 		}
 
 		popeye: {
 			type:        "fetch"
-			source:      "https://github.com/derailed/popeye/releases/download/v0.21.3/popeye_Linux_amd64.tar.gz"
+			source:      "https://github.com/derailed/popeye/releases/download/v0.21.3/popeye_Linux_\(#arch).tar.gz"
 			unpack:      "popeye"
 			destination: "/bin/popeye"
 		}
 
 		kind: {
 			type:        "fetch"
-			source:      "https://github.com/kubernetes-sigs/kind/releases/download/v0.23.0/kind-linux-amd64"
+			source:      "https://github.com/kubernetes-sigs/kind/releases/download/v0.23.0/kind-linux-\(#arch)"
 			destination: "/bin/kind"
 		}
 
 		helm: {
 			type:        "fetch"
-			source:      "https://get.helm.sh/helm-v3.15.1-linux-amd64.tar.gz"
-			unpack:      "linux-amd64/helm"
+			source:      "https://get.helm.sh/helm-v3.15.1-linux-\(#arch).tar.gz"
+			unpack:      "linux-\(#arch)/helm"
 			destination: "/bin/helm"
 		}
 
 		kustomize: {
 			type:        "fetch"
-			source:      "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.2/kustomize_v5.4.2_linux_amd64.tar.gz"
+			source:      "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.2/kustomize_v5.4.2_linux_\(#arch).tar.gz"
 			unpack:      "kustomize"
 			destination: "/bin/kustomize"
 		}
 
 		flux: {
 			type:        "fetch"
-			source:      "https://github.com/fluxcd/flux2/releases/download/v2.3.0/flux_2.3.0_linux_amd64.tar.gz"
+			source:      "https://github.com/fluxcd/flux2/releases/download/v2.3.0/flux_2.3.0_linux_\(#arch).tar.gz"
 			unpack:      "flux"
 			destination: "/bin/flux"
 		}
 
 		crictl: {
 			type:        "fetch"
-			source:      "https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.30.0/crictl-v1.30.0-linux-amd64.tar.gz"
+			source:      "https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.30.0/crictl-v1.30.0-linux-\(#arch).tar.gz"
 			unpack:      "crictl"
 			destination: "/bin/crictl"
 		}
@@ -86,20 +89,20 @@ actions:
 
 		linkerd: {
 			type:        "fetch"
-			source:      "https://github.com/linkerd/linkerd2/releases/download/stable-2.24.10/linkerd2-cli-stable-2.24.10-linux-amd64"
+			source:      "https://github.com/linkerd/linkerd2/releases/download/stable-2.24.10/linkerd2-cli-stable-2.24.10-linux-\(#arch)"
 			destination: "/bin/linkerd"
 		}
 
 		kubeseal: {
 			type:        "fetch"
-			source:      "https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.26.3/kubeseal-0.26.3-linux-amd64.tar.gz"
+			source:      "https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.26.3/kubeseal-0.26.3-linux-\(#arch).tar.gz"
 			unpack:      "kubeseal"
 			destination: "/bin/kubeseal"
 		}
 
 		docker: {
 			type:        "fetch"
-			source:      "https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz"
+			source:      "https://download.docker.com/linux/static/stable/\(#arch_alt)/docker-26.1.4.tgz"
 			unpack:      "docker/docker"
 			destination: "/bin/docker"
 		}
@@ -113,11 +116,11 @@ actions:
 				RUN apt-get update && apt-get -y install curl git
 
 				RUN curl -L -o /bin/kubectl \\
-				    https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl \\
+				    https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/\(#arch)/kubectl \\
 				 && chmod +x /bin/kubectl
 
 				RUN curl -L -o /tmp/krew.tar.gz \\
-				    https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew-linux_amd64.tar.gz \\
+				    https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew-linux_\(#arch).tar.gz \\
 				 && tar -xzf /tmp/krew.tar.gz -C /tmp \\
 				 && curl -L -o /tmp/krew.yaml \\
 				    https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew.yaml
@@ -136,7 +139,7 @@ actions:
 				 && adduser dodo users
 
 				USER dodo
-				RUN /tmp/krew-linux_amd64 install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
+				RUN /tmp/krew-linux_\(#arch) install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
 				ENV PATH /home/dodo/.krew/bin:${PATH}
 
 				RUN kubectl krew update \\

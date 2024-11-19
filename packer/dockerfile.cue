@@ -5,6 +5,8 @@ import (
 	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
 )
 
+#arch: "amd64"
+
 actions:
 	base.#BaseImage &
 	gpg.#InstallPass & {
@@ -23,7 +25,7 @@ actions:
 
 		packer: {
 			type:        "fetch"
-			source:      "https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_amd64.zip"
+			source:      "https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_\(#arch).zip"
 			unpack:      "packer"
 			destination: "/bin/packer"
 		}

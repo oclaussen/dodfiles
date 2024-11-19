@@ -4,6 +4,9 @@ import (
 	"github.com/oclaussen/dodfiles/base/pkg:base"
 )
 
+#arch: "amd64"
+#arch_alt: "x86_64"
+
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -20,7 +23,7 @@ actions:
 
 		docker: {
 			type:        "fetch"
-			source:      "https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz"
+			source:      "https://download.docker.com/linux/static/stable/\(#arch_alt)/docker-26.1.4.tgz"
 			unpack:      "docker/docker"
 			destination: "/bin/docker"
 		}
@@ -28,32 +31,32 @@ actions:
 
 		ctop: {
 			type:        "fetch"
-			source:      "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64"
+			source:      "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-\(#arch)"
 			destination: "/bin/ctop"
 		}
 
 		buildx: {
 			type:        "fetch"
-			source:      "https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-amd64"
+			source:      "https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-\(#arch)"
 			destination: "/usr/lib/docker/cli-plugins/docker-buildx"
 		}
 
 		pass: {
 			type:        "fetch"
-			source:      "https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-amd64.tar.gz"
+			source:      "https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-\(#arch).tar.gz"
 			unpack:      "gopass"
 			destination: "/bin/gopass"
 		}
 
 		awsvault: {
 			type:        "fetch"
-			source:      "https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-amd64"
+			source:      "https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-\(#arch)"
 			destination: "/bin/aws-vault"
 		}
 
 		ecrhelper: {
 			type:        "fetch"
-			source:      "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.8.0/linux-amd64/docker-credential-ecr-login"
+			source:      "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.8.0/linux-\(#arch)/docker-credential-ecr-login"
 			destination: "/bin/docker-credential-ecr-login"
 		}
 

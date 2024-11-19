@@ -1,9 +1,11 @@
 package chirp
 
+#arch: "amd64"
+
 #InstallChirp: {
 	chirp: {
 		type:        "fetch"
-		source:      "https://github.com/oclaussen/chirp/releases/download/v2.0.1/chirp_linux_amd64"
+		source:      "https://github.com/oclaussen/chirp/releases/download/v2.0.1/chirp_linux_\(#arch)"
 		destination: "/bin/chirp"
 	}
 	...
