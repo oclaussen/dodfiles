@@ -34,23 +34,20 @@ actions:
 		}
 
 		k9s: {
-			type:        "fetch"
-			source:      "https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Linux_\(#arch).tar.gz"
-			unpack:      "k9s"
-			destination: "/bin/k9s"
+			type: "eget"
+			repo: "derailed/k9s"
+			asset: [".tar.gz", "^.sbom.json"]
 		}
 
 		popeye: {
-			type:        "fetch"
-			source:      "https://github.com/derailed/popeye/releases/download/v0.21.3/popeye_Linux_\(#arch).tar.gz"
-			unpack:      "popeye"
-			destination: "/bin/popeye"
+			type: "eget"
+			repo: "derailed/popeye"
+			asset: [".tar.gz", "^.sbom.json"]
 		}
 
 		kind: {
-			type:        "fetch"
-			source:      "https://github.com/kubernetes-sigs/kind/releases/download/v0.23.0/kind-linux-\(#arch)"
-			destination: "/bin/kind"
+			type: "eget"
+			repo: "kubernetes-sigs/kind"
 		}
 
 		helm: {
@@ -61,43 +58,37 @@ actions:
 		}
 
 		kustomize: {
-			type:        "fetch"
-			source:      "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.2/kustomize_v5.4.2_linux_\(#arch).tar.gz"
-			unpack:      "kustomize"
-			destination: "/bin/kustomize"
+			type: "eget"
+			repo: "kubernetes-sigs/kustomize"
 		}
 
 		flux: {
-			type:        "fetch"
-			source:      "https://github.com/fluxcd/flux2/releases/download/v2.3.0/flux_2.3.0_linux_\(#arch).tar.gz"
-			unpack:      "flux"
-			destination: "/bin/flux"
+			type: "eget"
+			repo: "fluxcd/flux2"
 		}
 
 		crictl: {
-			type:        "fetch"
-			source:      "https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.30.0/crictl-v1.30.0-linux-\(#arch).tar.gz"
-			unpack:      "crictl"
-			destination: "/bin/crictl"
+			type: "eget"
+			repo: "kubernetes-sigs/cri-tools"
+			asset: ["crictl", "^sha512"]
 		}
 
 		kubescape: {
-			type:        "fetch"
-			source:      "https://github.com/armosec/kubescape/releases/download/v3.0.11/kubescape-ubuntu-latest"
-			destination: "/bin/kubescape"
+			type: "eget"
+			repo: "armosec/kubescape"
+			asset: ["^sbom", "^tar.gz"]
 		}
 
 		linkerd: {
-			type:        "fetch"
-			source:      "https://github.com/linkerd/linkerd2/releases/download/stable-2.24.10/linkerd2-cli-stable-2.24.10-linux-\(#arch)"
-			destination: "/bin/linkerd"
+			type: "eget"
+			repo: "linkerd/linkerd2"
 		}
 
 		kubeseal: {
-			type:        "fetch"
-			source:      "https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.26.3/kubeseal-0.26.3-linux-\(#arch).tar.gz"
-			unpack:      "kubeseal"
-			destination: "/bin/kubeseal"
+			type: "eget"
+			repo: "bitnami-labs/sealed-secrets"
+			asset: ["^.sig"]
+			file: "kubeseal"
 		}
 
 		docker: {

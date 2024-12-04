@@ -41,17 +41,13 @@ actions:
 		}
 
 		hub: {
-			type:        "fetch"
-			source:      "https://github.com/github/hub/releases/download/v2.14.2/hub-linux-\(#arch)-2.14.2.tgz"
-			unpack:      "hub-linux-\(#arch)-2.14.2/bin/hub"
-			destination: "/bin/hub"
+			type: "eget"
+			repo: "github/hub"
 		}
 
 		lab: {
-			type:        "fetch"
-			source:      "https://github.com/zaquestion/lab/releases/download/v0.20.0/lab_0.20.0_linux_\(#arch).tar.gz"
-			unpack:      "lab"
-			destination: "/bin/lab"
+			type: "eget"
+			repo: "zaquestion/lab"
 		}
 
 		terraform: {

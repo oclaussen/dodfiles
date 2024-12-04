@@ -5,8 +5,6 @@ import (
 	"github.com/oclaussen/dodfiles/chirp/pkg:chirp"
 )
 
-#arch: "amd64"
-
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -26,10 +24,8 @@ actions:
 		}
 
 		fzf: {
-			type:        "fetch"
-			source:      "https://github.com/junegunn/fzf-bin/releases/download/0.19.0/fzf-0.19.0-linux_#(arch).tgz"
-			unpack:      "fzf"
-			destination: "/bin/fzf"
+			type: "eget"
+			repo: "junegunn/fzf"
 		}
 
 		tools: {

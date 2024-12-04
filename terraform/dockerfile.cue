@@ -37,15 +37,14 @@ actions:
 		}
 
 		terragrunt: {
-			type:        "fetch"
-			source:      "https://github.com/gruntwork-io/terragrunt/releases/download/v0.58.15/terragrunt_linux_\(#arch)"
-			destination: "/bin/terragrunt"
+			type: "eget"
+			repo: "gruntwork-io/terragrunt"
 		}
 
 		tfsec: {
-			type:        "fetch"
-			source:      "https://github.com/aquasecurity/tfsec/releases/download/v1.28.6/tfsec-linux-\(#arch)"
-			destination: "/bin/tfsec"
+			type: "eget"
+			repo: "aquasecurity/tfsec"
+			asset: ["^.sig", "^.tar.gz", "^checkgen"]
 		}
 
 		docker: {
@@ -56,9 +55,9 @@ actions:
 		}
 
 		buildx: {
-			type:        "fetch"
-			source:      "https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-\(#arch)"
-			destination: "/usr/lib/docker/cli-plugins/docker-buildx"
+			type: "eget"
+			repo: "docker/buildx"
+			asset: ["^.sbom.json", "^.provenance.json"]
 		}
 
 		gpghome: {

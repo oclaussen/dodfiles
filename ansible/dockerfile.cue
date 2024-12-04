@@ -4,8 +4,6 @@ import (
 	"github.com/oclaussen/dodfiles/base/pkg:base"
 )
 
-#arch: "amd64"
-
 actions:
 	base.#BaseImage & {
 		packages: {
@@ -19,16 +17,16 @@ actions:
 		}
 
 		sops: {
-			type:        "fetch"
-			source:      "https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux"
-			destination: "/bin/sops"
+			type: "eget"
+			repo: "mozilla/sops"
+			asset: ["^.sbom.json"]
 		}
 
 		ansible: {
 			type: "copy"
 			path: "/opt/python"
 			dockerfile: """
-				FROM dodo/languages/buildbase
+				FROM dodo/base
 				COPY --from=dodo/languages/python /opt/python /opt/python
 				COPY --from=dodo/languages/rust /opt/rust /opt/rust
 				ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo

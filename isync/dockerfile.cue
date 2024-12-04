@@ -1,36 +1,28 @@
-actions: {
-	base: {
-		type: "base"
-		name: "dodo/base"
-	}
+package dodfiles
 
-	dodo: {
-		type:     "user"
-		name:     "dodo"
-		uid:      501
-		dotfiles: "home"
-	}
+import (
+	"github.com/oclaussen/dodfiles/base/pkg:base"
+	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
+)
 
-	packages: {
-		type: "install"
-		name: "gnupg isync"
-	}
+actions:
+	base.#BaseImage &
+	base.#WithDotfiles &
+	gpg.#InstallPass & {
+		packages: {
+			type: "install"
+			name: "gnupg isync"
+		}
 
-	gpghome: {
-		type:  "copy"
-		path:  "/home/dodo/.gnupg"
-		image: "dodo/gpg"
-	}
+		gpghome: {
+			type:  "copy"
+			path:  "/root/.gnupg"
+			image: "dodo/gpg"
+		}
 
-	pass: {
-		type:  "copy"
-		path:  "/bin/gopass"
-		image: "dodo/pass"
+		passconfig: {
+			type:  "copy"
+			path:  "/root/.config/gopass"
+			image: "dodo/pass"
+		}
 	}
-
-	passconfig: {
-		type:  "copy"
-		path:  "/home/dodo/.config/gopass"
-		image: "dodo/pass"
-	}
-}

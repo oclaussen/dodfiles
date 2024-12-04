@@ -1,13 +1,10 @@
 package gpg
 
-#arch: "amd64"
-
 #InstallPass: {
 	pass: {
-		type:        "fetch"
-		source:      "https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-\(#arch).tar.gz"
-		unpack:      "gopass"
-		destination: "/bin/gopass"
+		type: "eget"
+		repo: "gopasspw/gopass"
+		asset: [".tar.gz", "^.sbom.json"]
 	}
 	...
 }

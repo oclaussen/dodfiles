@@ -17,9 +17,9 @@ actions:
 		}
 
 		sops: {
-			type:        "fetch"
-			source:      "https://github.com/mozilla/sops/releases/download/v3.6.1/sops-v3.6.1.linux"
-			destination: "/bin/sops"
+			type: "eget"
+			repo: "mozilla/sops"
+			asset: ["^.sbom.json"]
 		}
 
 		gpghome: {

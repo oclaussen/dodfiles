@@ -2,6 +2,7 @@ package dodfiles
 
 import (
 	"github.com/oclaussen/dodfiles/base/pkg:base"
+	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
 )
 
 #arch: "amd64"
@@ -10,7 +11,8 @@ import (
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
-	base.#InstallDormouse & {
+	base.#InstallDormouse &
+	gpg.#InstallPass & {
 		env: {
 			type: "environment"
 			variables: DOCKER_TLS_CERTDIR: "/certs"
@@ -30,28 +32,14 @@ actions:
 		// TODO: same for ctr, runc, containerd-shim, docker-init, docker-proxy, dockerd, containerd
 
 		ctop: {
-			type:        "fetch"
-			source:      "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-\(#arch)"
-			destination: "/bin/ctop"
+			type: "eget"
+			repo: "bcicen/ctop"
 		}
 
 		buildx: {
-			type:        "fetch"
-			source:      "https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-\(#arch)"
-			destination: "/usr/lib/docker/cli-plugins/docker-buildx"
-		}
-
-		pass: {
-			type:        "fetch"
-			source:      "https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass-1.14.3-linux-\(#arch).tar.gz"
-			unpack:      "gopass"
-			destination: "/bin/gopass"
-		}
-
-		awsvault: {
-			type:        "fetch"
-			source:      "https://github.com/99designs/aws-vault/releases/download/v6.6.0/aws-vault-linux-\(#arch)"
-			destination: "/bin/aws-vault"
+			type: "eget"
+			repo: "docker/buildx"
+			asset: ["^.sbom.json", "^.provenance.json"]
 		}
 
 		ecrhelper: {
