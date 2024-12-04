@@ -5,7 +5,7 @@ subcommands:
   sh:
     exec: ['/bin/bash']
   login:
-    exec: ['/usr/local/bin/aws', 'sso', 'login', '--sso-session', 'sso-base']
+    exec: ['/usr/local/bin/aws', 'sso', 'login', '--sso-session', 'sso-base', '--use-device-code', '--no-browser']
   accountid:
     exec: ['/bin/print_account_id.py']
   accountids:
