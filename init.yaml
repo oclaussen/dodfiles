@@ -1,5 +1,6 @@
 ---
 include:
+  - file: '{{ currentDir }}/adr/dodo.yaml'
   - file: '{{ currentDir }}/ansible/dodo.yaml'
   - file: '{{ currentDir }}/aws/dodo.yaml'
   - file: '{{ currentDir }}/azure/dodo.yaml'
