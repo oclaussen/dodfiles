@@ -23,7 +23,7 @@ actions:
 			dockerfile: """
 				FROM dodo/languages/python
 				ENV PATH /opt/python/bin:$PATH
-				RUN pip3 install copier
+				RUN pip3 install copier copier-templates-extensions jinja2-time
 
 				"""
 		}
