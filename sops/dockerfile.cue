@@ -5,7 +5,8 @@ import (
 )
 
 actions:
-	base.#BaseImage & {
+	base.#BaseImage &
+	base.#WithDotfiles & {
 		packages: {
 			type: "install"
 			name: "gnupg vim"
