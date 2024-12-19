@@ -4,19 +4,13 @@ ARCH=amd64
 
 RUN apt-get update \
  && apt-get install -y \
-    curl
+    ninja-build gettext cmake unzip curl git file build-essential
 
-RUN curl -L -o /tmp/nvim.appimage \
-    https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage \
- && chmod +x /tmp/nvim.appimage \
- && /tmp/nvim.appimage --appimage-extract \
- && find squashfs-root -type d -exec chmod 755 {} \; \
- && find squashfs-root -type f -exec chmod 644 {} \; \
- && find squashfs-root/usr/bin -type f -exec chmod 755 {} \;
-
-RUN curl -L -o /tmp/terraform-lsp.tar.gz \
-    https://github.com/juliosueiras/terraform-lsp/releases/download/v0.0.10/terraform-lsp_0.0.10_linux_${ARCH}.tar.gz \
- && tar -xvzf /tmp/terraform-lsp.tar.gz -C /tmp
+RUN git clone https://github.com/neovim/neovim /build \
+ && cd /build \
+ && git checkout stable \
+ && make CMAKE_BUILD_TYPE=RelWithDebInfo \
+ && cd build && cpack -G DEB
 
 FROM dodo/base
 RUN apt-get update && apt-get install -y curl git
@@ -28,10 +22,8 @@ RUN yarn global add neovim
 COPY --from=dodo/languages/golang /opt/go /opt/go
 ENV PATH /opt/go/bin:$PATH
 
-COPY --from=build /squashfs-root /opt/nvim
-ENV PATH /opt/nvim/usr/bin:$PATH
-
-COPY --from=build /tmp/terraform-lsp /bin/terraform-lsp
+COPY --from=build /build/build/nvim-linux64.deb /tmp
+RUN dpkg -i /tmp/nvim-linux64.deb && rm /tmp/nvim-linux64.deb
 
 RUN curl -L -o /bin/chirp \
     https://github.com/oclaussen/chirp/releases/download/v2.0.1/chirp_linux_${ARCH} \
