@@ -15,7 +15,7 @@ backdrops: {
 				requires: ["dodo/base", "dodo/gpg", "dodo/aws"]
 			}
 			script: """
-				  test -f /home/dodo/.kube/context.yaml || cp /home/dodo/context.yaml /home/dodo/.kube/context.yaml
+				  test -f /root/.kube/context.yaml || cp /root/context.yaml /root/.kube/context.yaml
 				  if [ \"$1\" = \"debug\" ]; then
 				    shift
 				    exec kubectl run -i --rm --tty debug --image=alpine:latest --restart=Never \"$@\" -- sh
@@ -46,7 +46,7 @@ backdrops: {
 				requires: ["dodo/base", "dodo/gpg", "dodo/aws"]
 			}
 			script: """
-				  test -f /home/dodo/.kube/context.yaml || cp /home/dodo/context.yaml /home/dodo/.kube/context.yaml
+				  test -f /root/.kube/context.yaml || cp /root/context.yaml /root/.kube/context.yaml
 				  exec kustomize \"$@\"
 				"""
 		}

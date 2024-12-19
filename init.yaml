@@ -56,7 +56,6 @@ backdrops:
          && chmod +x /bin/docker-compose
     volumes:
       - '{{ currentDir }}:/compose'
-      - '/var/run/docker.sock:/var/run/docker.sock'
-    user: '1000:113'
+      - '/run/user/501/docker.sock:/var/run/docker.sock'
     working_dir: '/compose'
-    script: exec docker-compose up -d --build
+    script: exec /bin/docker-compose up -d --build

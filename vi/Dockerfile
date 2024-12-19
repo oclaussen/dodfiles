@@ -19,20 +19,6 @@ RUN curl -L -o /tmp/terraform-lsp.tar.gz \
  && tar -xvzf /tmp/terraform-lsp.tar.gz -C /tmp
 
 FROM dodo/base
-
-RUN addgroup \
-      --gid 1000 \
-      dodo \
- && adduser \
-      --uid 1000 \
-      --gid 1000 \
-      --gecos '' \
-      --home /home/dodo \
-      --shell /bin/bash \
-      --disabled-password \
-      dodo \
- && adduser dodo users
-
 RUN apt-get update && apt-get install -y curl git
 
 COPY --from=dodo/languages/nodejs /opt/nodejs /opt/nodejs
@@ -51,15 +37,13 @@ RUN curl -L -o /bin/chirp \
     https://github.com/oclaussen/chirp/releases/download/v2.0.1/chirp_linux_${ARCH} \
  && chmod +x /bin/chirp
 
-USER dodo
-
-ENV PATH /home/dodo/go/bin:$PATH
+ENV PATH /root/go/bin:$PATH
 RUN go install golang.org/x/tools/gopls@latest
 
-RUN curl -L -o /home/dodo/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+RUN curl -L -o /root/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-COPY --chown=dodo:dodo home/ /home/dodo/
+COPY home/ /root
 
 RUN nvim --headless -n -i NONE \
     -c PlugUpgrade \

@@ -9,7 +9,7 @@ import (
 	volumes: {
 		kube: {
 			source: "kubeconfig"
-			target: "/home/dodo/.kube"
+			target: "/root/.kube"
 		}
 		...
 	}
@@ -20,7 +20,7 @@ import (
 	volumes: {
 		helm: {
 			source: "helm"
-			target: "/home/dodo/.cache/helm"
+			target: "/root/.cache/helm"
 		}
 		...
 	}

@@ -50,13 +50,13 @@ actions:
 
 		gpghome: {
 			type:  "copy"
-			path:  "/home/dodo/.gnupg"
+			path:  "/root/.gnupg"
 			image: "dodo/gpg"
 		}
 
 		awsconfig: {
 			type:  "copy"
-			path:  "/home/dodo/.aws"
+			path:  "/root/.aws"
 			image: "dodo/aws"
 		}
 
@@ -67,8 +67,7 @@ actions:
 				chmod 1777 /certs /certs/client
 				mkdir /run/user
 				chmod 1777 /run/user
-				mkdir -p /home/dodo/.local/share/docker
-				chown -R dodo:dodo /home/dodo/.local/share/docker
+				mkdir -p /root/.local/share/docker
 
 				"""
 		}

@@ -21,13 +21,13 @@ actions:
 
 		gpghome: {
 			type:  "copy"
-			path:  "/home/dodo/.gnupg"
+			path:  "/root/.gnupg"
 			image: "dodo/gpg"
 		}
 
 		passconfig: {
 			type:  "copy"
-			path:  "/home/dodo/.config/gopass"
+			path:  "/root/.config/gopass"
 			image: "dodo/pass"
 		}
 

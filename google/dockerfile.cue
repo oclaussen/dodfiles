@@ -32,13 +32,13 @@ actions:
 
 		gpghome: {
 			type:  "copy"
-			path:  "/home/dodo/.gnupg"
+			path:  "/root/.gnupg"
 			image: "dodo/gpg"
 		}
 
 		passconfig: {
 			type:  "copy"
-			path:  "/home/dodo/.config/gopass"
+			path:  "/root/.config/gopass"
 			image: "dodo/pass"
 		}
 
@@ -50,8 +50,7 @@ actions:
 
 		installgam: {
 			type: "script"
-			user: "dodo"
-			cwd:  "/home/dodo"
+			cwd:  "/root"
 			script: """
 				tar -xvf /tmp/gam.tar.xz -C .
 				touch gam/noshorturls.txt

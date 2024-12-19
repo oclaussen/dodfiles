@@ -11,6 +11,6 @@ backdrops: az:
 			name: "dodo/azure"
 			requires: ["dodo/base"]
 		}
-		volumes: azure: {source: "azure-data", target: "/home/dodo/.azure"}
+		volumes: azure: {source: "azure-data", target: "/root/.azure"}
 		script: "exec az \"$@\""
 	}

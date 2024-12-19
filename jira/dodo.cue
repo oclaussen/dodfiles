@@ -13,9 +13,9 @@ backdrops: jira:
 			name: "dodo/jira"
 			requires: ["dodo/base", "dodo/languages/golang"]
 		}
-		volumes: jira: {source: "jira-data", target: "/home/dodo/.jira.d"}
+		volumes: jira: {source: "jira-data", target: "/root/.jira.d"}
 		script: """
-			  cp /home/dodo/.jira.yml /home/dodo/.jira.d/config.yml
+			  cp /root/.jira.yml /root/.jira.d/config.yml
 			  exec jira \"$@\"
 			"""
 	}

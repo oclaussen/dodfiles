@@ -23,6 +23,5 @@ backdrops: pulseaudio: {
 		  rm -f /var/run/dbus/pid
 		  dbus-uuidgen > /var/lib/dbus/machine-id
 		  dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address
-		  USER=dodo HOME=/home/dodo setpriv --reuid dodo --regid dodo --init-groups pulseaudio
 		"""
 }

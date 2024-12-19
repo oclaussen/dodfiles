@@ -14,7 +14,7 @@ actions:
 
 		gpghome: {
 			type:  "copy"
-			path:  "/home/dodo/.gnupg"
+			path:  "/root/.gnupg"
 			image: "dodo/gpg"
 		}
 	}

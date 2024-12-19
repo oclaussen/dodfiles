@@ -24,8 +24,8 @@ backdrops: {
 			}
 			volumes: {
 				terraform: {source: "terraform", target: "/data/terraform"}
-				gcloud: {source: "gcloud-data", target: "/home/dodo/.config/gcloud"}
-				azure: {source: "azure-data", target: "/home/dodo/.azure"}
+				gcloud: {source: "gcloud-data", target: "/root/.config/gcloud"}
+				azure: {source: "azure-data", target: "/root/.azure"}
 			}
 		}
 
@@ -45,8 +45,8 @@ backdrops: {
 			environment: cache: {name: "TERRAGRUNT_DOWNLOAD", value: "/data/terraform/terragrunt-cache"}
 			volumes: {
 				terraform: {source: "terraform", target: "/data/terraform"}
-				gcloud: {source: "gcloud-data", target: "/home/dodo/.config/gcloud"}
-				azure: {source: "azure-data", target: "/home/dodo/.azure"}
+				gcloud: {source: "gcloud-data", target: "/root/.config/gcloud"}
+				azure: {source: "azure-data", target: "/root/.azure"}
 			}
 		}
 

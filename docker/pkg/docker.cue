@@ -3,7 +3,7 @@ package docker
 #WithDockerDaemon: {
 	volumes: {
 		docker: {
-			source: "/var/run/docker.sock"
+			source: "/run/user/501/docker.sock"
 			target: "/var/run/docker.sock"
 		}
 		...

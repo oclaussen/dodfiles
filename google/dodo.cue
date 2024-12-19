@@ -13,10 +13,10 @@ backdrops: {
 				name: "dodo/google"
 				requires: ["dodo/base", "dodo/languages/python"]
 			}
-			volumes: gcloud: {source: "gcloud-data", target: "/home/dodo/.config/gcloud"}
+			volumes: gcloud: {source: "gcloud-data", target: "/root/.config/gcloud"}
 			script: """
-				  mkdir -p /home/dodo/.config/gcloud/configurations
-				  cp /home/dodo/.gcloud/* /home/dodo/.config/gcloud/configurations/
+				  mkdir -p /root/.config/gcloud/configurations
+				  cp /root/.gcloud/* /root/.config/gcloud/configurations/
 				  exec gcloud \"$@\"
 				"""
 		}
@@ -31,10 +31,10 @@ backdrops: {
 			}
 			volumes: gcloud: {source: "gcloud-data", target: "/data/google"}
 			script: """
-					cp /data/google/gam/client_secrets.json /home/dodo/gam/client_secrets.json
-					cp /data/google/gam/oauth2service.json /home/dodo/gam/oauth2service.json
-					cp /data/google/gam/oauth2.txt /home/dodo/gam/oauth2.txt
-					/home/dodo/gam/gam \"$@\"
+					cp /data/google/gam/client_secrets.json /root/gam/client_secrets.json
+					cp /data/google/gam/oauth2service.json /root/gam/oauth2service.json
+					cp /data/google/gam/oauth2.txt /root/gam/oauth2.txt
+					/root/gam/gam \"$@\"
 				"""
 		}
 }

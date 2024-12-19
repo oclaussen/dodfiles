@@ -16,7 +16,7 @@ backdrops: {
 			}
 			script: """
 				  if [ \"$1\" = \"status\" ]; then
-				    . /home/dodo/.lib/gpg_cards.sh
+				    . /root/.lib/gpg_cards.sh
 				    if ! is_agent_running; then echo \"locked\"; exit 0; fi
 				    card=\"$(current_card)\"
 				    if [ -n \"${card}\" ]; then basename \"${card}\" .txt; else echo \"locked\"; fi
@@ -37,7 +37,7 @@ backdrops: {
 			}
 			script: """
 				  export GPG_TTY=$(tty)
-				  . /home/dodo/.lib/gpg_cards.sh
+				  . /root/.lib/gpg_cards.sh
 				  init_agent
 				  unlock_any_card
 				  while check_usb; do sleep 1; done

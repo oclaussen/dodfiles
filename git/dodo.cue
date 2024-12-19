@@ -15,6 +15,6 @@ backdrops: git:
 			name: "dodo/git"
 			requires: ["dodo/base", "dodo/languages/python", "dodo/gpg"]
 		}
-		volumes: cloudflare: {source: "cloudflare-cache", target: "/home/dodo/.cloudflared"}
-		volumes: precommit: {source: "precommit-cache", target: "/home/dodo/.cache"}
+		volumes: cloudflare: {source: "cloudflare-cache", target: "/root/.cloudflared"}
+		volumes: precommit: {source: "precommit-cache", target: "/root/.cache"}
 	}

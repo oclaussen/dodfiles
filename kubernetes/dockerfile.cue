@@ -22,8 +22,8 @@ actions:
 		env: {
 			type: "environment"
 			variables: {
-				PATH:       "/home/dodo/.krew/bin:/opt/python/bin:/usr/local/bin"
-				KUBECONFIG: "/home/dodo/.kube/context.yaml:/home/dodo/.kubeconfig:/home/dodo/.kube/config"
+				PATH:       "/root/.krew/bin:/opt/python/bin:/usr/local/bin"
+				KUBECONFIG: "/root/.kube/context.yaml:/root/.kubeconfig:/root/.kube/config"
 			}
 		}
 
@@ -99,8 +99,8 @@ actions:
 		}
 
 		krew: {
-			type: "copy"
-			path: "/home/dodo/.krew"
+			type:       "copy"
+			path:       "/root/.krew"
 			dockerfile: """
 				FROM dodo/base
 
@@ -116,25 +116,10 @@ actions:
 				 && curl -L -o /tmp/krew.yaml \\
 				    https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew.yaml
 
-				RUN addgroup \\
-				      --gid 1000 \\
-				      dodo \\
-				 && adduser \\
-				      --uid 501 \\
-				      --gid 1000 \\
-				      --gecos '' \\
-				      --home /home/dodo \\
-				      --shell /bin/bash \\
-				      --disabled-password \\
-				      dodo \\
-				 && adduser dodo users
-
-				USER dodo
 				RUN /tmp/krew-linux_\(#arch) install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
-				ENV PATH /home/dodo/.krew/bin:${PATH}
+				ENV PATH /root/.krew/bin:${PATH}
 
 				RUN kubectl krew update \\
-				 && kubectl krew install tree \\
 				 && kubectl krew install ctx \\
 				 && kubectl krew install ns \\
 				 && kubectl krew install neat \\
@@ -146,13 +131,13 @@ actions:
 
 		gpghome: {
 			type:  "copy"
-			path:  "/home/dodo/.gnupg"
+			path:  "/root/.gnupg"
 			image: "dodo/gpg"
 		}
 
 		awsconfig: {
 			type:  "copy"
-			path:  "/home/dodo/.aws"
+			path:  "/root/.aws"
 			image: "dodo/aws"
 		}
 	}

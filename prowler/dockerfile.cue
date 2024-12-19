@@ -37,7 +37,7 @@ actions:
 
 		awsconfig: {
 			type:  "copy"
-			path:  "/home/dodo/.aws"
+			path:  "/root/.aws"
 			image: "dodo/aws"
 		}
 	}

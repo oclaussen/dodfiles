@@ -17,14 +17,9 @@ actions:
 			name: "git git-lfs gnupg less openssh-client vim"
 		}
 
-		env: {
-			type: "environment"
-			variables: PATH: "/home/dodo/bin"
-		}
-
 		gpghome: {
 			type:  "copy"
-			path:  "/home/dodo/.gnupg"
+			path:  "/root/.gnupg"
 			image: "dodo/gpg"
 		}
 	}
