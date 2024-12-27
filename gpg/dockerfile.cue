@@ -14,7 +14,7 @@ actions:
 
 		env: {
 			type: "environment"
-			variables: PATH: "/opt/pcsc/bin:/opt/pcsc/sbin:/opt/python/bin"
+			variables: PATH: "/opt/pcsc/bin:/opt/pcsc/sbin"
 		}
 
 		pcsc: {

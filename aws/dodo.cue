@@ -10,8 +10,5 @@ backdrops: "aws":
 	base.#WithRepository &
 	base.#WithDormouse &
 	aws.#WithAWSCache & {
-		image: {
-			name: "dodo/aws"
-			requires: ["dodo/base", "dodo/languages/python"]
-		}
+		image: name: "dodo/aws"
 	}

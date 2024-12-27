@@ -12,25 +12,15 @@ actions:
 	base.#WithDotfiles &
 	base.#InstallDormouse &
 	gpg.#InstallPass & {
-		env: {
-			type: "environment"
-			variables: PATH: "/opt/python/bin"
-		}
-
 		packages: {
 			type: "install"
 			name: "git git-lfs gnupg openssh-client less vim shellcheck"
 		}
 
 		precommit: {
-			type: "copy"
-			path: "/opt/python"
-			dockerfile: """
-				FROM dodo/languages/python
-				ENV PATH /opt/python/bin:$PATH
-				RUN pip3 install pre-commit checkov
-
-				"""
+			type: "python"
+			pip_packages: ["pre-commit", "checkov"]
+			build_dependencies: ["ca-certificates", "cargo"]
 		}
 
 		cloudflared: {

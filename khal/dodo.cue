@@ -5,10 +5,7 @@ import "github.com/oclaussen/dodfiles/base/pkg:base"
 backdrops: {
 	vdirsyncer:
 		base.#WithDockerfile & {
-			image: {
-				name: "dodo/khal"
-				requires: ["dodo/base", "dodo/languages/python"]
-			}
+			image: name: "dodo/khal"
 			volumes: vdir: {source: "vdir", target: "/data/vdir"}
 			script: """
 				  if [ $# != 0 ]; then
@@ -22,10 +19,7 @@ backdrops: {
 
 	khal:
 		base.#WithDockerfile & {
-			image: {
-				name: "dodo/khal"
-				requires: ["dodo/base", "dodo/languages/python"]
-			}
+			image: name: "dodo/khal"
 			volumes: vdir: {source: "vdir", target: "/data/vdir"}
 			script:  "exec khal \"$@\""
 			command: "interactive"

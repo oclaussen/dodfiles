@@ -12,7 +12,7 @@ backdrops: {
 		gpg.#WithPasswordStore & {
 			image: {
 				name: "dodo/packer"
-				requires: ["dodo/base", "dodo/languages/python", "dodo/languages/ruby", "dodo/gpg", "dodo/pass"]
+				requires: ["dodo/base", "dodo/languages/ruby", "dodo/gpg", "dodo/pass"]
 			}
 			script: "exec packer \"$@\""
 		}
@@ -23,7 +23,7 @@ backdrops: {
 		gpg.#WithPasswordStore & {
 			image: {
 				name: "dodo/packer"
-				requires: ["dodo/base", "dodo/languages/python", "dodo/languages/ruby", "dodo/gpg", "dodo/pass"]
+				requires: ["dodo/base", "dodo/languages/ruby", "dodo/gpg", "dodo/pass"]
 			}
 			script: "exec kitchen \"$@\""
 		}

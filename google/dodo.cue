@@ -9,10 +9,7 @@ backdrops: {
 	gcloud:
 		base.#WithDockerfile &
 		base.#WithRepository & {
-			image: {
-				name: "dodo/google"
-				requires: ["dodo/base", "dodo/languages/python"]
-			}
+			image: name: "dodo/google"
 			volumes: gcloud: {source: "gcloud-data", target: "/root/.config/gcloud"}
 			script: """
 				  mkdir -p /root/.config/gcloud/configurations
@@ -25,10 +22,7 @@ backdrops: {
 		base.#WithDockerfile &
 		base.#WithRepository &
 		gpg.#WithPasswordStore & {
-			image: {
-				name: "dodo/google"
-				requires: ["dodo/base", "dodo/languages/python"]
-			}
+			image: name: "dodo/google"
 			volumes: gcloud: {source: "gcloud-data", target: "/data/google"}
 			script: """
 					cp /data/google/gam/client_secrets.json /root/gam/client_secrets.json

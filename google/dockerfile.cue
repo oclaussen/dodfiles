@@ -16,12 +16,7 @@ actions:
 	google.#InstallGoogleSDK & {
 		packages: {
 			type: "install"
-			name: "git gnupg libsqlite3-0 xz-utils"
-		}
-
-		env: {
-			type: "environment"
-			variables: PATH: "/opt/google-cloud-sdk/bin:/opt/python/bin"
+			name: "git gnupg gzip libsqlite3-0 xz-utils"
 		}
 
 		gam: {
@@ -40,12 +35,6 @@ actions:
 			type:  "copy"
 			path:  "/root/.config/gopass"
 			image: "dodo/pass"
-		}
-
-		python: {
-			type:  "copy"
-			path:  "/opt/python"
-			image: "dodo/languages/python"
 		}
 
 		installgam: {

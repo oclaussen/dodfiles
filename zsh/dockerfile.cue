@@ -36,9 +36,6 @@ actions:
 				ENV RUSTUP_HOME=/opt/rust/rustup CARGO_HOME=/opt/rust/cargo
 				ENV PATH ${CARGO_HOME}/bin:$PATH
 
-				COPY --from=dodo/languages/python /opt/python /opt/python
-				ENV PATH /opt/python/bin:$PATH
-
 				RUN apt-get update && apt-get install -y clang cmake libssl-dev make pkg-config
 
 				RUN cargo install \\

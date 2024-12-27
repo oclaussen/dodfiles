@@ -14,6 +14,6 @@ backdrops: prowler:
 	aws.#WithAWSCache & {
 		image: {
 			name: "dodo/prowler"
-			requires: ["dodo/base", "dodo/languages/python", "dodo/gpg", "dodo/pass", "dodo/aws"]
+			requires: ["dodo/base", "dodo/gpg", "dodo/pass", "dodo/aws"]
 		}
 	}

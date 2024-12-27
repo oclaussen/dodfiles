@@ -10,10 +10,7 @@ backdrops: {
 		base.#WithDockerfile &
 		base.#WithRepository &
 		gpg.#WithGPGAgent & {
-			image: {
-				name: "dodo/gpg"
-				requires: ["dodo/languages/python", "dodo/base"]
-			}
+			image: name: "dodo/gpg"
 			script: """
 				  if [ \"$1\" = \"status\" ]; then
 				    . /root/.lib/gpg_cards.sh
@@ -31,10 +28,7 @@ backdrops: {
 		gpg.#WithGPGAgent &
 		gpg.#WithSCD & {
 			container_name: "gpg-agent"
-			image: {
-				name: "dodo/gpg"
-				requires: ["dodo/languages/python", "dodo/base"]
-			}
+			image: name: "dodo/gpg"
 			script: """
 				  export GPG_TTY=$(tty)
 				  . /root/.lib/gpg_cards.sh
@@ -47,10 +41,7 @@ backdrops: {
 	ykman:
 		base.#WithDockerfile &
 		gpg.#WithSCD & {
-			image: {
-				name: "dodo/gpg"
-				requires: ["dodo/languages/python", "dodo/base"]
-			}
+			image: name: "dodo/gpg"
 			script: """
 				  set -eux
 				  rm -f /var/run/pcscd/*

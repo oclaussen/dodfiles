@@ -13,7 +13,7 @@ backdrops: git:
 	gpg.#WithSSHAgent & {
 		image: {
 			name: "dodo/git"
-			requires: ["dodo/base", "dodo/languages/python", "dodo/gpg"]
+			requires: ["dodo/base", "dodo/gpg"]
 		}
 		volumes: cloudflare: {source: "cloudflare-cache", target: "/root/.cloudflared"}
 		volumes: precommit: {source: "precommit-cache", target: "/root/.cache"}

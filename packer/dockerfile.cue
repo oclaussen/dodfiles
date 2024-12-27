@@ -31,15 +31,9 @@ actions:
 		}
 
 		ansible: {
-			type: "copy"
-			path: "/opt/python"
-			dockerfile: """
-				FROM dodo/languages/python
-				ENV PATH /opt/python/bin:$PATH
-				RUN apt-get update && apt-get install -y libyaml-dev
-				RUN pip3 install ansible pywinrm
-
-				"""
+			type: "python"
+			build_dependencies: ["cargo", "clang", "cmake", "libssl-dev", "make", "pkg-config"]
+			pip_packages: ["ansible", "pywinrm"]
 		}
 
 		kitchen: {

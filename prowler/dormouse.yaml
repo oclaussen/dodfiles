@@ -4,16 +4,10 @@ options:
     default: default
 
 env:
-  AWS_VAULT_BACKEND: pass
-  AWS_VAULT_PASS_CMD: /bin/gopass
-  AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
+  AWS_PROFILE: '{{ profile }}'
 
-exec: ['/bin/aws-vault', 'exec', '{{ profile }}', '--no-session', '--', 'prowler']
+script: 'prowler $@'
 
 subcommands:
   sh:
-    env:
-      AWS_VAULT_BACKEND: pass
-      AWS_VAULT_PASS_CMD: /bin/gopass
-      AWS_VAULT_PASS_PASSWORD_STORE_DIR: /data/passwords/aws-vault
     exec: ['/bin/bash']
