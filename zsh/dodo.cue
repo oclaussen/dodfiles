@@ -8,10 +8,7 @@ import (
 backdrops: zsh:
 	base.#WithDockerfile &
 	docker.#WithDockerDaemon & {
-		image: {
-			name: "dodo/zsh"
-			requires: ["dodo/base", "dodo/languages/rust"]
-		}
+		image: name: "dodo/zsh"
 		volumes: {
 			chirp: {source: "chirp", target: "/data/chirp"}
 			zsh: {source: "zsh-data", target: "/data/zsh"}
