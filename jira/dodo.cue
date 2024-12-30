@@ -9,10 +9,7 @@ backdrops: jira:
 	base.#WithDockerfile &
 	base.#WithRepository &
 	gpg.#WithPasswordStore & {
-		image: {
-			name: "dodo/jira"
-			requires: ["dodo/base", "dodo/languages/golang"]
-		}
+		image: name: "dodo/jira"
 		volumes: jira: {source: "jira-data", target: "/root/.jira.d"}
 		script: """
 			  cp /root/.jira.yml /root/.jira.d/config.yml

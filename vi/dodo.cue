@@ -12,7 +12,7 @@ backdrops: vim:
 		aliases: ["vi"]
 		image: {
 			name: "dodo/vim"
-			requires: ["dodo/base", "dodo/languages/golang", "dodo/languages/nodejs"]
+			requires: ["dodo/base", "dodo/languages/nodejs"]
 		}
 		volumes: vim: {source: "vim-data", target: "/data/vim"}
 		script: "exec nvim \"$@\""

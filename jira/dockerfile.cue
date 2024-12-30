@@ -14,11 +14,6 @@ actions:
 			name: "gnupg"
 		}
 
-		jira: {
-			type: "eget"
-			repo: "go-jira/jira"
-		}
-
 		gpghome: {
 			type:  "copy"
 			path:  "/root/.gnupg"
@@ -32,17 +27,10 @@ actions:
 		}
 
 		jiraui: {
-			type: "copy"
-			path: "/bin/jira-ui"
-			dockerfile: """
-				FROM dodo/languages/golang
-				ENV PATH /opt/go/bin:$PATH
-				RUN apt-get update && apt-get -y install git
-				RUN git clone https://github.com/mikepea/go-jira-ui /jira-ui
-				WORKDIR /jira-ui
-				RUN go build -o bin/jira-ui ./jira-ui \\
-				 && cp ./bin/* /bin/
-
-				"""
+			type: "golang"
+			install: [
+				"github.com/go-jira/jira/cmd/jira@latest",
+				"github.com/mikepea/go-jira-ui/jira-ui@latest",
+			]
 		}
 	}

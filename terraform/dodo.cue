@@ -20,7 +20,7 @@ backdrops: {
 		docker.#WithDockerDaemon & {
 			image: {
 				name: "dodo/terraform"
-				requires: ["dodo/base", "dodo/languages/golang", "dodo/gpg", "dodo/pass", "dodo/aws", "dodo/kube", "dodo/google"]
+				requires: ["dodo/base", "dodo/gpg", "dodo/pass", "dodo/aws", "dodo/kube", "dodo/google"]
 			}
 			volumes: {
 				terraform: {source: "terraform", target: "/data/terraform"}
@@ -40,7 +40,7 @@ backdrops: {
 		docker.#WithDockerDaemon & {
 			image: {
 				name: "dodo/terraform"
-				requires: ["dodo/base", "dodo/languages/golang", "dodo/gpg", "dodo/pass", "dodo/aws", "dodo/kube", "dodo/google"]
+				requires: ["dodo/base", "dodo/gpg", "dodo/pass", "dodo/aws", "dodo/kube", "dodo/google"]
 			}
 			environment: cache: {name: "TERRAGRUNT_DOWNLOAD", value: "/data/terraform/terragrunt-cache"}
 			volumes: {
@@ -53,10 +53,7 @@ backdrops: {
 	tfsec:
 		base.#WithDockerfile &
 		base.#WithRepository & {
-			image: {
-				name: "dodo/terraform"
-				requires: ["dodo/base", "dodo/languages/golang"]
-			}
+			image: name: "dodo/terraform"
 			script: "exec tfsec \"$@\""
 		}
 }
