@@ -10,10 +10,7 @@ backdrops: vim:
 	chirp.#WithClipboard &
 	base.#WithCWD & {
 		aliases: ["vi"]
-		image: {
-			name: "dodo/vim"
-			requires: ["dodo/base", "dodo/languages/nodejs"]
-		}
+		image: name: "dodo/vim"
 		volumes: vim: {source: "vim-data", target: "/data/vim"}
 		script: "exec nvim \"$@\""
 	}
