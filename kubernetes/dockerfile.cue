@@ -6,9 +6,6 @@ import (
 	"github.com/oclaussen/dodfiles/aws/pkg:aws"
 )
 
-#arch: "amd64"
-#arch_alt: "x86_64"
-
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -29,7 +26,7 @@ actions:
 
 		kubectl: {
 			type:        "fetch"
-			source:      "https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/\(#arch)/kubectl"
+			source:      "https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/{{ arch }}/kubectl"
 			destination: "/bin/kubectl"
 		}
 
@@ -52,8 +49,8 @@ actions:
 
 		helm: {
 			type:        "fetch"
-			source:      "https://get.helm.sh/helm-v3.15.1-linux-\(#arch).tar.gz"
-			unpack:      "linux-\(#arch)/helm"
+			source:      "https://get.helm.sh/helm-v3.15.1-linux-{{ arch }}.tar.gz"
+			unpack:      "linux-{{ arch }}/helm"
 			destination: "/bin/helm"
 		}
 
@@ -93,7 +90,7 @@ actions:
 
 		docker: {
 			type:        "fetch"
-			source:      "https://download.docker.com/linux/static/stable/\(#arch_alt)/docker-26.1.4.tgz"
+			source:      "https://download.docker.com/linux/static/stable/{{ archLike `x86_64` `aarch64` }}/docker-26.1.4.tgz"
 			unpack:      "docker/docker"
 			destination: "/bin/docker"
 		}
@@ -102,21 +99,21 @@ actions:
 			type:       "copy"
 			path:       "/root/.krew"
 			dockerfile: """
-				FROM dodo/base
+				FROM debian:buster-slim
 
 				RUN apt-get update && apt-get -y install curl git
 
 				RUN curl -L -o /bin/kubectl \\
-				    https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/\(#arch)/kubectl \\
+				    https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/{{ arch }}/kubectl \\
 				 && chmod +x /bin/kubectl
 
 				RUN curl -L -o /tmp/krew.tar.gz \\
-				    https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew-linux_\(#arch).tar.gz \\
+				    https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew-linux_{{ arch }}.tar.gz \\
 				 && tar -xzf /tmp/krew.tar.gz -C /tmp \\
 				 && curl -L -o /tmp/krew.yaml \\
 				    https://github.com/kubernetes-sigs/krew/releases/download/v0.4.4/krew.yaml
 
-				RUN /tmp/krew-linux_\(#arch) install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
+				RUN /tmp/krew-linux_{{ arch }} install --archive /tmp/krew.tar.gz --manifest /tmp/krew.yaml
 				ENV PATH /root/.krew/bin:${PATH}
 
 				RUN kubectl krew update \\

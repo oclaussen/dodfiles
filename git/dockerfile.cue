@@ -5,8 +5,6 @@ import (
 	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
 )
 
-#arch: "amd64"
-
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -42,7 +40,7 @@ actions:
 
 		terraform: {
 			type:        "fetch"
-			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_\(#arch).zip"
+			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_{{ arch }}.zip"
 			unpack:      "terraform"
 			destination: "/bin/terraform"
 		}

@@ -7,9 +7,6 @@ import (
 	"github.com/oclaussen/dodfiles/google/pkg:google"
 )
 
-#arch: "amd64"
-#arch_alt: "x86_64"
-
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -19,19 +16,14 @@ actions:
 	google.#InstallGoogleSDK & {
 		packages: {
 			type: "install"
-			name: "git gnupg jq unzip less"
-			repo: "deb [arch=\(#arch)] https://packages.microsoft.com/repos/azure-cli/ bullseye main"
+			name: "git gnupg gzip jq unzip less"
+			repo: "deb [arch={{ arch }}] https://packages.microsoft.com/repos/azure-cli/ bullseye main"
 			gpg:  "https://packages.microsoft.com/keys/microsoft.asc"
-		}
-
-		env: {
-			type: "environment"
-			variables: PATH: "/opt/python/bin:/opt/google-cloud-sdk/bin"
 		}
 
 		terraform: {
 			type:        "fetch"
-			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_\(#arch).zip"
+			source:      "https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_{{ arch }}.zip"
 			unpack:      "terraform"
 			destination: "/bin/terraform"
 		}
@@ -49,7 +41,7 @@ actions:
 
 		docker: {
 			type:        "fetch"
-			source:      "https://download.docker.com/linux/static/stable/\(#arch_alt)/docker-26.1.4.tgz"
+			source:      "https://download.docker.com/linux/static/stable/{{ archLike `x86_64` `aarch64` }}/docker-26.1.4.tgz"
 			unpack:      "docker/docker"
 			destination: "/bin/docker"
 		}

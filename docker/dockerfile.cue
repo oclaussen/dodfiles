@@ -5,9 +5,6 @@ import (
 	"github.com/oclaussen/dodfiles/gpg/pkg:gpg"
 )
 
-#arch: "amd64"
-#arch_alt: "x86_64"
-
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -25,7 +22,7 @@ actions:
 
 		docker: {
 			type:        "fetch"
-			source:      "https://download.docker.com/linux/static/stable/\(#arch_alt)/docker-26.1.4.tgz"
+			source:      "https://download.docker.com/linux/static/stable/{{ archLike `x86_64` `aarch64` }}/docker-26.1.4.tgz"
 			unpack:      "docker/docker"
 			destination: "/bin/docker"
 		}
@@ -44,7 +41,7 @@ actions:
 
 		ecrhelper: {
 			type:        "fetch"
-			source:      "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.8.0/linux-\(#arch)/docker-credential-ecr-login"
+			source:      "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.8.0/linux-{{ arch }}/docker-credential-ecr-login"
 			destination: "/bin/docker-credential-ecr-login"
 		}
 

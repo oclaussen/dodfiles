@@ -5,8 +5,6 @@ import (
 	"github.com/oclaussen/dodfiles/aws/pkg:aws"
 )
 
-#arch: "amd64"
-
 actions:
 	base.#BaseImage &
 	base.#WithDotfiles &
@@ -20,7 +18,7 @@ actions:
 
 		sessionmanager: {
 			type:        "fetch"
-			source:      "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb"
+			source:      "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_{{ arch }}/session-manager-plugin.deb"
 			destination: "/tmp/session-manager-plugin.deb"
 		}
 

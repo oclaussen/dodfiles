@@ -1,7 +1,5 @@
 package google
 
-#arch_alt: "x86_64"
-
 #InstallGoogleSDK: {
 	googlesdk_env: {
 		type: "environment"
@@ -12,7 +10,7 @@ package google
 
 	googlesdk: {
 		type:        "fetch"
-		source:      "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-504.0.1-linux-\(#arch_alt).tar.gz"
+		source:      "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-504.0.1-{{ os }}-{{ archLike `x86_64` `arm` }}.tar.gz"
 		destination: "/tmp/google-cloud-sdk.tar.gz"
 	}
 
